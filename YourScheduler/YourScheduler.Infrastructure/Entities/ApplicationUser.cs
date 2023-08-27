@@ -10,7 +10,6 @@ public  class ApplicationUser : IdentityUser<int>
 
     public string Displayname { get; set; }
 
-
     public ICollection<ApplicationUserEvents> ApplicationUsersEvents { get; set; }
 
     public ICollection<ApplicationUserTeams> ApplicationUsersTeams { get; set; }   

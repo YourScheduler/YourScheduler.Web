@@ -17,8 +17,6 @@ public class TeamDto
 
     public int AdministratorId { get; set; }
 
-   // public int LoggedUserId { get; set; }
-
     public bool CanLoggedUserEdit { get; set; } = false;
 
     public bool CanLoggedUserDelete { get; set; } = false;

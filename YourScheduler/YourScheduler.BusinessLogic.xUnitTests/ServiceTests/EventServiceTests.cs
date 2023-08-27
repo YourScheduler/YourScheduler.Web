@@ -22,8 +22,6 @@ namespace YourScheduler.BusinessLogic.xUnitTests.ServiceTests
             _eventService = new EventService(_eventsRepositoryMock.Object, _mapperMock.Object);
         }
 
-         
-
         [Fact]
         public async Task AddTeamAsync_ValidTeamDto_CallsRepositoryAddTeamAsync()
         {
