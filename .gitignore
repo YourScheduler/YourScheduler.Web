@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /YourScheduler/YourScheduler.WebApplication/appsettings.json
+/YourScheduler/YourScheduler.WebApplication/appsettings.Development.json
