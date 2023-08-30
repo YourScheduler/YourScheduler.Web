@@ -72,6 +72,8 @@ app.UseAuthentication();;
 
 app.UseAuthorization();
 
+app.UseStatusCodePages();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
