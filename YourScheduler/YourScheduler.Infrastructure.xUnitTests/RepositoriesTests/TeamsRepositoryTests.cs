@@ -1,10 +1,6 @@
-﻿using Castle.Core.Logging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
-using MimeKit.Cryptography;
 using Moq;
 using Xunit;
 using YourScheduler.Infrastructure.Entities;

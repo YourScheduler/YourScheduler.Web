@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using YourScheduler.BusinessLogic.Models;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Services.Interfaces;
 
 namespace YourScheduler.WebApplication.Controllers
 {
-   
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -1,14 +1,4 @@
-﻿using MailKit.Net.Smtp;
-using Azure.Core;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Helpers;
+﻿using MimeKit;
 using YourScheduler.BusinessLogic.Services.Interfaces;
 using YourScheduler.BusinessLogic.Services.Settings;
 using YourScheduler.Infrastructure.Entities;

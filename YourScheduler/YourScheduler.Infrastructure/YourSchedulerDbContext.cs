@@ -1,16 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using YourScheduler.Infrastructure.Entities;
-using System.Buffers.Text;
-using YourScheduler.Infrastructure;
 
 
 namespace YourScheduler.Infrastructure
