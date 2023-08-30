@@ -32,17 +32,19 @@ namespace YourScheduler.WebApplication.Middlewares
 
             ProblemDetails error = new ProblemDetails();
 
-            if (exception is NullReferenceException)
-            {
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 error.Status = (int)HttpStatusCode.InternalServerError;
                 error.Type = "Server error";
                 error.Title = "Server error";
                 error.Detail = "An internal server error has occured";
-            }
             
             string json = JsonSerializer.Serialize(error);
+
+            //if (exception is customException)
+            //{
+            //logic
+            //}
 
             return context.Response.WriteAsync(json);
 
