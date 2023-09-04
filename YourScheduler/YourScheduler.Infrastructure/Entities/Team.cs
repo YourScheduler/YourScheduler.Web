@@ -5,10 +5,13 @@ namespace YourScheduler.Infrastructure.Entities;
 public  class Team
 {
     public int TeamId { get; set; }
-    public string Name { get; set; } 
-    public string Description { get; set; }
-    public int AdministratorId { get; set; }
-    ICollection<ApplicationUserTeams> ApplicationUsersTeams { get; set; }
-    public string PicturePath { get; set; }
+    public string Name { get; set; } = default!;
+    public string? Description { get; set; }
+    public string Creator { get; set; } = default!;
+    
+    public string? Message { get; set; }
+
+    ICollection<ApplicationUserTeams>? ApplicationUsersTeams { get; set; }
+    public string? PicturePath { get; set; }
 
 }
