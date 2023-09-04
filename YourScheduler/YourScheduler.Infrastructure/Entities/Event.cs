@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace YourScheduler.Infrastructure.Entities;
 
-public  class Event
+public class Event
 {
     public int  EventId { get; set; }
     public string Name { get; set; } = null!;

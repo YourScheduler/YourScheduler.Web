@@ -7,11 +7,9 @@ public  class Team
     public int TeamId { get; set; }
     public string Name { get; set; } = default!;
     public string? Description { get; set; }
-    public string Creator { get; set; } = default!;
-    
+    public string Creator { get; set; } = default!; 
     public string? Message { get; set; }
-
-    ICollection<ApplicationUserTeams>? ApplicationUsersTeams { get; set; }
+    public ICollection<ApplicationUserTeams>? TeamMember { get; set; }
     public string? PicturePath { get; set; }
 
 }
