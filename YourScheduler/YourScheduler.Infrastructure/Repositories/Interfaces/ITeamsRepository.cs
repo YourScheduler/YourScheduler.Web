@@ -9,6 +9,7 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 {
     public interface ITeamsRepository
     {
+        public IQueryable<Team> GetAllExistedTeamsQueryable();
         public Task<List<Team>> GetAllExistedTeamsAsync();
 
         public Task AddTeamAsync(Team team);
@@ -17,17 +18,15 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 
         public Task DeleteTeamByIdAsync(int id);
 
-        public Task DeleteTeamFromCalendarByIdAsync(int id, int userId);
-
         public Task UpdateTeamAsync(Team teamToBase);
 
-        public Task AddTeamForUserAsync(int applicationUserId, int teamId);
+        public Task AddTeamMemberAsync(int applicationUserId, int teamId);
 
         public Task<List<Team>> GetTeamsForUserAsync(int applicationUserId);
 
-        public Task<List<ApplicationUser>> GetApplicationUsersForTeamAsync(int teamId);
+        public Task<List<ApplicationUser>> GetTeamMembersForTeamAsync(int teamId);
 
-        public Task<bool> CheckIfLoggedUserIsParticipantAsync(int loggedUserId, int teamId);
+        public Task<bool> VerifyIsTeamMember(int loggedUserId, int teamId);
 
     }
 }

@@ -36,7 +36,7 @@ namespace YourScheduler.BusinessLogic.Services
                     team.CanLoggedUserDelete = true;
                     team.CanLoggedUserEdit = true;
                 }
-                team.IsLoggedUserParticipant = await _teamsRepository.CheckIfLoggedUserIsParticipantAsync(loggedUserId, team.Id);
+                team.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMember(loggedUserId, team.Id);
                 teamsDto.Add(team);
             }
             if (String.IsNullOrEmpty(searchString))
@@ -59,7 +59,7 @@ namespace YourScheduler.BusinessLogic.Services
                 teamDto.CanLoggedUserDelete = true;
                 teamDto.CanLoggedUserEdit = true;
             }
-            teamDto.IsLoggedUserParticipant = await _teamsRepository.CheckIfLoggedUserIsParticipantAsync(loggedUserId, teamDto.Id);
+            teamDto.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMember(loggedUserId, teamDto.Id);
             return teamDto;
         }
 
@@ -81,7 +81,7 @@ namespace YourScheduler.BusinessLogic.Services
 
         public async Task AddTeamForUserAsync(int applicationUserId, int teamId)
         {
-            await _teamsRepository.AddTeamForUserAsync(applicationUserId, teamId);
+            await _teamsRepository.AddTeamMemberAsync(applicationUserId, teamId);
         }
 
         public async Task<List<TeamDto>> GetMyTeamsAsync(int applicationUserId, string searchString)
@@ -97,7 +97,7 @@ namespace YourScheduler.BusinessLogic.Services
                     teamDto.CanLoggedUserEdit = true;
 
                 }
-                teamDto.IsLoggedUserParticipant = await _teamsRepository.CheckIfLoggedUserIsParticipantAsync(applicationUserId, teamDto.Id);
+                teamDto.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMember(applicationUserId, teamDto.Id);
                 myTeams.Add(teamDto);
             }
             if (String.IsNullOrEmpty(searchString))
@@ -113,7 +113,7 @@ namespace YourScheduler.BusinessLogic.Services
         public async Task<List<ApplicationUserDto>> GetUsersForTeamAsync(int teamtId)
         {
             List<ApplicationUserDto> usersDtos = new List<ApplicationUserDto>();
-            var usersForTeam = await _teamsRepository.GetApplicationUsersForTeamAsync(teamtId);
+            var usersForTeam = await _teamsRepository.GetTeamMembersForTeamAsync(teamtId);
 
             foreach (var user in usersForTeam)
             {

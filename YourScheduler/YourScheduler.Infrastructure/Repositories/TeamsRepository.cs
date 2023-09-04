@@ -16,17 +16,22 @@ namespace YourScheduler.Infrastructure.Repositories
             _logger = logger;
         }
 
-        public async Task AddTeamAsync(Team team)
+        public IQueryable<Team> GetAllExistedTeamsQueryable()
         {
-            _logger.LogInformation("User attempt to add new team at {DT}", DateTime.Now.ToLongTimeString());
-            await _dbContext.Teams.AddAsync(team);
-            await _dbContext.SaveChangesAsync();
+            return _dbContext.Teams;
         }
 
         public async Task<List<Team>> GetAllExistedTeamsAsync()
         {
             _logger.LogInformation("User attempt to get all teams at {DT}", DateTime.Now.ToLongTimeString());
             return await _dbContext.Teams.ToListAsync();
+        }
+
+        public async Task AddTeamAsync(Team team)
+        {
+            _logger.LogInformation("User attempt to add new team at {DT}", DateTime.Now.ToLongTimeString());
+            await _dbContext.Teams.AddAsync(team);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<Team?> GetTeamByIdAsync(int id)
@@ -46,12 +51,6 @@ namespace YourScheduler.Infrastructure.Repositories
                 _dbContext.ApplicationUsersTeams.RemoveRange(applicationUserTeamsToDelete);
                 await _dbContext.SaveChangesAsync();
             }
-        }
-
-        public async Task DeleteTeamFromCalendarByIdAsync(int id, int userId)
-        {
-            _logger.LogInformation("User attempt to delete team by ID from user at {DT}", DateTime.Now.ToLongTimeString());
-            await _dbContext.ApplicationUsersTeams.Where(x => x.TeamId == id && x.ApplicationUserId == userId).ExecuteDeleteAsync();
         }
 
         public async Task UpdateTeamAsync(Team teamToBase)
@@ -74,7 +73,7 @@ namespace YourScheduler.Infrastructure.Repositories
             }
         }
 
-        public async Task AddTeamForUserAsync(int applicationUserId, int teamId)
+        public async Task AddTeamMemberAsync(int applicationUserId, int teamId)
         {
             _logger.LogInformation("User attempt to add team to user at {DT}", DateTime.Now.ToLongTimeString());
             await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = applicationUserId, TeamId = teamId });
@@ -87,16 +86,18 @@ namespace YourScheduler.Infrastructure.Repositories
             return await _dbContext.ApplicationUsersTeams.Where(x => x.ApplicationUserId == applicationUserId).Select(x => x.Team).ToListAsync();
         }
 
-        public async Task<List<ApplicationUser>> GetApplicationUsersForTeamAsync(int teamId)
+        public async Task<List<ApplicationUser>> GetTeamMembersForTeamAsync(int teamId)
         {
             _logger.LogInformation("User attempt to get other users for team at {DT}", DateTime.Now.ToLongTimeString());
             return await _dbContext.ApplicationUsersTeams.Where(x => x.TeamId == teamId).Select(x => x.ApplicationUser).ToListAsync();
         }
 
-        public async Task<bool> CheckIfLoggedUserIsParticipantAsync(int loggedUserId, int teamId)
+        public async Task<bool> VerifyIsTeamMember(int loggedUserId, int teamId)
         {
             return await _dbContext.ApplicationUsersTeams.AnyAsync(e => e.ApplicationUserId == loggedUserId && e.TeamId == teamId);
         }
+
+        
     }
 
 
