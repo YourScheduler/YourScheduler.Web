@@ -9,7 +9,12 @@ namespace YourScheduler.Infrastructure.Entities;
 public  class ApplicationUserTeams
 {
     public int ApplicationUserId { get; set; }
-    public ApplicationUser ApplicationUser { get; set; }
+    public ApplicationUser ApplicationUser { get; set; } = default!;
+
+    public int TeamRoleId { get; set; }
+
+    public TeamRole TeamRole { get; set; } = default!;
+
     public int TeamId { get; set; }
-    public Team Team { get; set; }
+    public Team Team { get; set; } = default!;
 }
