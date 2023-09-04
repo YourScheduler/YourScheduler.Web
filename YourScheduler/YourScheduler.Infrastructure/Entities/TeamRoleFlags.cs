@@ -8,6 +8,7 @@ namespace YourScheduler.Infrastructure.Entities
 {
     public class TeamRoleFlags
     {
+        public int TeamRoleId { get; set; }
         public bool CanRemoveTeamMember { get; set; } = false;
         public bool CanAddTeamMember { get; set; } = false;
         public bool CanAddTeamRole { get; set; } = false;
@@ -21,7 +22,6 @@ namespace YourScheduler.Infrastructure.Entities
         public bool CanAddTeamEvent { get; set; } = false;
         public bool CanEditTeamEvent { get; set; } = false;
         public bool CanRemoveTeamEvent { get; set; } = false;
-
         public bool CanSendEmailToTeam { get;set; } = false;
     }
 }

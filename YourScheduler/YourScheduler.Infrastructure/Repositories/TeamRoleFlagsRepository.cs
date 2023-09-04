@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace YourScheduler.Infrastructure.Repositories
 {
-    public class TeamRoleRepository
+    public class TeamRoleFlagsRepository
     {
         private readonly YourSchedulerDbContext _dbContext;
         private readonly ILogger _logger;
 
-        public TeamRoleRepository(YourSchedulerDbContext dbContext, ILogger<TeamsRepository> logger)
+        public TeamRoleFlagsRepository(YourSchedulerDbContext dbContext, ILogger<TeamsRepository> logger)
         {
             _dbContext = dbContext;
             _logger = logger;

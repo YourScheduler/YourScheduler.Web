@@ -51,8 +51,5 @@ namespace YourScheduler.Infrastructure.Repositories
             return _dbContext.ApplicationUsers.FirstOrDefault(u => u.Id == id);
         }
 
-       
-
-
     }
 }

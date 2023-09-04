@@ -10,7 +10,7 @@ namespace YourScheduler.Infrastructure.Entities
     {
         public int TeamRoleId { get; set; }
 
-        public string RoleName { get; set; } = default!;
+        public string Name { get; set; } = default!;
 
         public TeamRoleFlags TeamRoleFlags { get; set; } = default!;
 
