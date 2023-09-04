@@ -73,20 +73,13 @@ namespace YourScheduler.Infrastructure.Repositories
             }
         }
 
-        public async Task AddTeamMemberAsync(int applicationUserId, int teamId)
-        {
-            _logger.LogInformation("User attempt to add team to user at {DT}", DateTime.Now.ToLongTimeString());
-            await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = applicationUserId, TeamId = teamId });
-            await _dbContext.SaveChangesAsync();
-        }
-
         public async Task<List<Team>> GetTeamsForUserAsync(int applicationUserId)
         {
             _logger.LogInformation("User attempt to get user's team at {DT}", DateTime.Now.ToLongTimeString());
             return await _dbContext.ApplicationUsersTeams.Where(x => x.ApplicationUserId == applicationUserId).Select(x => x.Team).ToListAsync();
         }
 
-        public async Task<List<ApplicationUser>> GetTeamMembersForTeamAsync(int teamId)
+        public async Task<List<ApplicationUser>> GetAllTeamMembersForTeamAsync(int teamId)
         {
             _logger.LogInformation("User attempt to get other users for team at {DT}", DateTime.Now.ToLongTimeString());
             return await _dbContext.ApplicationUsersTeams.Where(x => x.TeamId == teamId).Select(x => x.ApplicationUser).ToListAsync();

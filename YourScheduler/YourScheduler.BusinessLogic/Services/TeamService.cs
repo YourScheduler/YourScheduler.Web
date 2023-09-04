@@ -113,7 +113,7 @@ namespace YourScheduler.BusinessLogic.Services
         public async Task<List<ApplicationUserDto>> GetUsersForTeamAsync(int teamtId)
         {
             List<ApplicationUserDto> usersDtos = new List<ApplicationUserDto>();
-            var usersForTeam = await _teamsRepository.GetTeamMembersForTeamAsync(teamtId);
+            var usersForTeam = await _teamsRepository.GetAllTeamMembersForTeamAsync(teamtId);
 
             foreach (var user in usersForTeam)
             {

@@ -20,11 +20,9 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 
         public Task UpdateTeamAsync(Team teamToBase);
 
-        public Task AddTeamMemberAsync(int applicationUserId, int teamId);
-
         public Task<List<Team>> GetTeamsForUserAsync(int applicationUserId);
 
-        public Task<List<ApplicationUser>> GetTeamMembersForTeamAsync(int teamId);
+        public Task<List<ApplicationUser>> GetAllTeamMembersForTeamAsync(int teamId);
 
         public Task<bool> VerifyIsTeamMember(int loggedUserId, int teamId);
 
