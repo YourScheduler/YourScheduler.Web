@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YourScheduler.Infrastructure.Entities
 {
-    public class RoleFlags
+    public class TeamRoleFlags
     {
         public bool CanRemoveTeamMember { get; set; } = false;
         public bool CanAddTeamMember { get; set; } = false;

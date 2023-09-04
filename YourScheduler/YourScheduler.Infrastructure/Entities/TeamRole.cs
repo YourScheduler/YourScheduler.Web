@@ -12,7 +12,7 @@ namespace YourScheduler.Infrastructure.Entities
 
         public string RoleName { get; set; } = default!;
 
-        public string RoleFlags { get; set; } = default!;
+        public TeamRoleFlags TeamRoleFlags { get; set; } = default!;
 
         public ICollection<ApplicationUserTeams>? ApplicationUserTeams { get; set; }
 
