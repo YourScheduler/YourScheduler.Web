@@ -24,7 +24,7 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 
         public Task<List<ApplicationUser>> GetAllTeamMembersForTeamAsync(int teamId);
 
-        public Task<bool> VerifyIsTeamMember(int loggedUserId, int teamId);
+        public Task<bool> VerifyIsTeamMemberAsync(int loggedUserId, int teamId);
 
     }
 }

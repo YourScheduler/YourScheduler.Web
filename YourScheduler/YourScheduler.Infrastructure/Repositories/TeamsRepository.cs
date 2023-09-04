@@ -85,7 +85,7 @@ namespace YourScheduler.Infrastructure.Repositories
             return await _dbContext.ApplicationUsersTeams.Where(x => x.TeamId == teamId).Select(x => x.ApplicationUser).ToListAsync();
         }
 
-        public async Task<bool> VerifyIsTeamMember(int loggedUserId, int teamId)
+        public async Task<bool> VerifyIsTeamMemberAsync(int loggedUserId, int teamId)
         {
             return await _dbContext.ApplicationUsersTeams.AnyAsync(e => e.ApplicationUserId == loggedUserId && e.TeamId == teamId);
         }

@@ -36,7 +36,7 @@ namespace YourScheduler.BusinessLogic.Services
                     team.CanLoggedUserDelete = true;
                     team.CanLoggedUserEdit = true;
                 }
-                team.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMember(loggedUserId, team.Id);
+                team.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMemberAsync(loggedUserId, team.Id);
                 teamsDto.Add(team);
             }
             if (String.IsNullOrEmpty(searchString))
@@ -59,7 +59,7 @@ namespace YourScheduler.BusinessLogic.Services
                 teamDto.CanLoggedUserDelete = true;
                 teamDto.CanLoggedUserEdit = true;
             }
-            teamDto.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMember(loggedUserId, teamDto.Id);
+            teamDto.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMemberAsync(loggedUserId, teamDto.Id);
             return teamDto;
         }
 
@@ -97,7 +97,7 @@ namespace YourScheduler.BusinessLogic.Services
                     teamDto.CanLoggedUserEdit = true;
 
                 }
-                teamDto.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMember(applicationUserId, teamDto.Id);
+                teamDto.IsLoggedUserParticipant = await _teamsRepository.VerifyIsTeamMemberAsync(applicationUserId, teamDto.Id);
                 myTeams.Add(teamDto);
             }
             if (String.IsNullOrEmpty(searchString))
