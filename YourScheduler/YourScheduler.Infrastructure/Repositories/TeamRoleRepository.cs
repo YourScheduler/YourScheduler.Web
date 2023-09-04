@@ -1,9 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.Infrastructure.Repositories
 {
@@ -16,6 +13,29 @@ namespace YourScheduler.Infrastructure.Repositories
         {
             _dbContext = dbContext;
             _logger = logger;
+        }
+
+        public IQueryable<TeamRole> GetAllTeamRolesForTeamQueryable(int teamId)
+        {
+            return _dbContext.ApplicationUsersTeams
+                .Include(tr => tr.TeamRole)
+                .Where(tr => tr.TeamId == teamId)
+                .Select(tr => tr.TeamRole);
+        }
+
+        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<TeamRole> UpdateTeamRoleAsync(TeamRole teamRoleToUpdate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<TeamRole> RemoveTeamRoleByIdAsync(int teamRoleId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
