@@ -11,9 +11,7 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
     {
         public Task AddEventAsync(Event eventTobase);
 
-        public Task SaveDataAsync();
-
-        public Task<List<Event>> GetAvailableEventsAsync(int loggedUserId);
+        public Task<IQueryable<Event>> GetAvailableEventsAsync(int loggedUserId);
 
         public Task<Event> GetEventByIdAsync(int id);
 
@@ -27,8 +25,8 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 
         public Task AddEventForUserAsync(int applicationUserId, int eventId);
 
-        public Task<List<Event>> GetEventsForUserAsync(int applicationUserId);
+        public Task<IQueryable<Event>> GetEventsForUserAsync(int applicationUserId);
 
-        public Task<List<ApplicationUser>> GetApplicationUsersForEventAsync(int eventId);
+        public Task<IQueryable<ApplicationUser>> GetApplicationUsersForEventAsync(int eventId);
     }
 }

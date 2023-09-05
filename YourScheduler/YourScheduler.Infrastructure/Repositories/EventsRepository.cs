@@ -26,30 +26,29 @@ namespace YourScheduler.Infrastructure.Repositories
             _logger.LogInformation("User attempt to add new event at {DT}", DateTime.Now.ToLongTimeString());
             await _dbContext.Events.AddAsync(eventTobase);
         }
-        public async Task SaveDataAsync()
-        {
-            await _dbContext.SaveChangesAsync();
-        }
 
-        public async Task<List<Event>> GetAvailableEventsAsync(int loggedUserId)
+        public IQueryable<Event> GetAvailableEventsAsync(int loggedUserId)
         {
             _logger.LogInformation("User attempt to get available events at {DT}", DateTime.Now.ToLongTimeString());
-            List<Event> events = new List<Event>();
-            events = await _dbContext.Events.Where(i => i.IsOpen == true || i.AdministratorId == loggedUserId).ToListAsync();
+            IQueryable<Event> events = _dbContext.Events.Where(i => i.IsOpen == true || i.AdministratorId == loggedUserId);
             return events;
         }
 
         public async Task<Event> GetEventByIdAsync(int id)
         {
             _logger.LogInformation("User attempt to get event by ID at {DT}", DateTime.Now.ToLongTimeString());
-            return await _dbContext.Events.SingleOrDefaultAsync(x => x.EventId == id);
+            var returnedEvent = await _dbContext.Events.FirstOrDefaultAsync(x => x.EventId == id);
+            if (returnedEvent is null)
+            {
+                throw new Exception("Could not find event by provided id");
+            }
+            return returnedEvent;
         }
 
         public async Task DeleteEventByIdAsync(int id)
         {
             _logger.LogInformation("User attempt to delete event by ID at {DT}", DateTime.Now.ToLongTimeString());
             var eventToDelete = await GetEventByIdAsync(id);
-            if (eventToDelete != null)
             {
                 _dbContext.Events.Remove(eventToDelete);
                 var applicationUserEventsToDelete = _dbContext.ApplicationUsersEvents.Where(x => x.EventId == eventToDelete.EventId);
@@ -62,62 +61,59 @@ namespace YourScheduler.Infrastructure.Repositories
         {
             _logger.LogInformation("User attempt to delete event from calendar by ID at {DT}", DateTime.Now.ToLongTimeString());
             var eventToDelete = await GetEventByIdAsync(id);
-            if (eventToDelete != null)
+            var usersCallendarEventToDelete = await _dbContext.ApplicationUsersEvents.SingleOrDefaultAsync(x=>x.EventId == eventToDelete.EventId && x.ApplicationUserId == userId);
+            if (usersCallendarEventToDelete is null)
             {
-                var applicationUsersEventToDelete = await _dbContext.ApplicationUsersEvents.SingleOrDefaultAsync(x=>x.EventId == eventToDelete.EventId && x.ApplicationUserId == userId);
-                _dbContext.ApplicationUsersEvents.Remove(applicationUsersEventToDelete);
-                await _dbContext.SaveChangesAsync();
+                throw new Exception("Could not find event with specified id in user's callendar");
             }
+            _dbContext.ApplicationUsersEvents.Remove(usersCallendarEventToDelete);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateEventAsync(Event eventToBase)
         {
             _logger.LogInformation("User attempt to update event at {DT}", DateTime.Now.ToLongTimeString());
-            var eventToUpdate = await _dbContext.Events.SingleOrDefaultAsync(e => e.EventId == eventToBase.EventId);
-            if (eventToUpdate != null)
+
+            var eventToUpdate = await GetEventByIdAsync(eventToBase.EventId);
+            eventToUpdate.Name = eventToBase.Name;
+            eventToUpdate.Description = eventToBase.Description;
+            eventToUpdate.Date = eventToBase.Date;
+            eventToUpdate.IsOpen = eventToBase.IsOpen;
+            eventToUpdate.AdministratorId = eventToBase.AdministratorId;
+
+            if(eventToBase.PicturePath is null)
             {
-                eventToUpdate.Name = eventToBase.Name;
-                eventToUpdate.Description = eventToBase.Description;
-                eventToUpdate.Date = eventToBase.Date;
-                eventToUpdate.IsOpen = eventToBase.IsOpen;
-                eventToUpdate.AdministratorId = eventToBase.AdministratorId;
-                if(eventToBase.PicturePath is null)
-                {
-                    await _dbContext.SaveChangesAsync();
-                }
-                else
-                {
-                    eventToUpdate.PicturePath = eventToBase.PicturePath;
-                    await _dbContext.SaveChangesAsync();
-                }
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                eventToUpdate.PicturePath = eventToBase.PicturePath;
+                await _dbContext.SaveChangesAsync();
             }
         }
 
         public async Task<bool> CheckIfLoggedUserIsParticipantAsync(int loggedUserId, int eventId)
         {
-            var isLoggedUserParticipant = await _dbContext.ApplicationUsersEvents.AnyAsync(e => e.ApplicationUserId == loggedUserId && e.EventId == eventId);
-            return isLoggedUserParticipant;
+            return await _dbContext.ApplicationUsersEvents.AnyAsync(e => e.ApplicationUserId == loggedUserId && e.EventId == eventId);
         }
 
         public async Task AddEventForUserAsync(int applicationUserId, int eventId)
         {
             _logger.LogInformation("User attempt to add event to own calendar at {DT}", DateTime.Now.ToLongTimeString());
+
             await _dbContext.ApplicationUsersEvents.AddAsync(new ApplicationUserEvents { ApplicationUserId = applicationUserId, EventId = eventId });
         }
 
-        public async Task<List<Event>> GetEventsForUserAsync(int applicationUserId)
+        public IQueryable<Event> GetEventsForUserAsync(int applicationUserId)
         {
-            List<int> ids = new List<int>();
-            List<Event> events = new List<Event>();
-            events = await _dbContext.ApplicationUsersEvents.Where(x => x.ApplicationUserId == applicationUserId).Select(x => x.Event).ToListAsync();
+            IQueryable<Event> events = _dbContext.ApplicationUsersEvents.Where(x => x.ApplicationUserId == applicationUserId).Select(x => x.Event);
             return events;
         }
 
-        public async Task<List<ApplicationUser>> GetApplicationUsersForEventAsync(int eventId)
+        public IQueryable<ApplicationUser> GetApplicationUsersForEventAsync(int eventId)
         {
             _logger.LogInformation("User attempt to get list of users for event {DT}", DateTime.Now.ToLongTimeString());
-            List<ApplicationUser> applicationUsers = new List<ApplicationUser>();
-            applicationUsers = await _dbContext.ApplicationUsersEvents.Where(x => x.EventId == eventId).Select(x => x.ApplicationUser).ToListAsync();
+            IQueryable<ApplicationUser> applicationUsers = _dbContext.ApplicationUsersEvents.Where(x => x.EventId == eventId).Select(x => x.ApplicationUser);
             return applicationUsers;
         }
     }
