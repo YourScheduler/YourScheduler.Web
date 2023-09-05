@@ -1,12 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using YourScheduler.Infrastructure.Entities;
+﻿using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.Infrastructure.Repositories
@@ -26,29 +18,21 @@ namespace YourScheduler.Infrastructure.Repositories
             _dbContext.SaveChanges();
         }
 
-        public List<ApplicationUser> GetUsersFromDataBase()
+        public IQueryable<ApplicationUser> GetUsersFromDataBaseQueryable()
         {
-            var users = new List<ApplicationUser>();   
-            users = _dbContext.Users.ToList();
-
-            return users;
+            return _dbContext.Users;
         }
 
-        public void UpdateUser(ApplicationUser updatedUser)
+        public ApplicationUser GetUserByEmail(string email)
         {
-            throw new NotImplementedException();
-        }  
-        
-        public  ApplicationUser GetUserByEmail(string email)
-        {
-         
-              return  _dbContext.ApplicationUsers.FirstOrDefault(x => x.Email == email);
-
+            var retrievedUser = _dbContext.ApplicationUsers.FirstOrDefault(x => x.Email == email) ?? throw new Exception("Could not find a user with specified email");
+            return retrievedUser;
         }
 
         public ApplicationUser GetUserById(int id)
         {
-            return _dbContext.ApplicationUsers.FirstOrDefault(u => u.Id == id);
+            var retrievedUser = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Id == id) ?? throw new Exception("Could not find a user with specified id");
+            return retrievedUser;
         }
 
     }

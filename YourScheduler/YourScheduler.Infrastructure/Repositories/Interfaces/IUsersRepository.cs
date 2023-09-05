@@ -9,12 +9,9 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 {
     public interface IUsersRepository
     {
-        List<ApplicationUser> GetUsersFromDataBase();
+        IQueryable<ApplicationUser> GetUsersFromDataBaseQueryable();
         ApplicationUser GetUserById(int id);
-
         ApplicationUser GetUserByEmail(string email);
-
         public void AddUser(ApplicationUser user);
-        public void UpdateUser(ApplicationUser updatedUser);
     }
 }
