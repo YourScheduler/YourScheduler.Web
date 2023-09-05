@@ -1,11 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
@@ -27,7 +21,7 @@ namespace YourScheduler.Infrastructure.Repositories
             await _dbContext.Events.AddAsync(eventTobase);
         }
 
-        public IQueryable<Event> GetAvailableEventsAsync(int loggedUserId)
+        public IQueryable<Event> GetAvailableEventsQueryable(int loggedUserId)
         {
             _logger.LogInformation("User attempt to get available events at {DT}", DateTime.Now.ToLongTimeString());
             IQueryable<Event> events = _dbContext.Events.Where(i => i.IsOpen == true || i.AdministratorId == loggedUserId);
@@ -104,13 +98,13 @@ namespace YourScheduler.Infrastructure.Repositories
             await _dbContext.ApplicationUsersEvents.AddAsync(new ApplicationUserEvents { ApplicationUserId = applicationUserId, EventId = eventId });
         }
 
-        public IQueryable<Event> GetEventsForUserAsync(int applicationUserId)
+        public IQueryable<Event> GetEventsForUserQueryable(int applicationUserId)
         {
             IQueryable<Event> events = _dbContext.ApplicationUsersEvents.Where(x => x.ApplicationUserId == applicationUserId).Select(x => x.Event);
             return events;
         }
 
-        public IQueryable<ApplicationUser> GetApplicationUsersForEventAsync(int eventId)
+        public IQueryable<ApplicationUser> GetApplicationUsersForEventQueryable(int eventId)
         {
             _logger.LogInformation("User attempt to get list of users for event {DT}", DateTime.Now.ToLongTimeString());
             IQueryable<ApplicationUser> applicationUsers = _dbContext.ApplicationUsersEvents.Where(x => x.EventId == eventId).Select(x => x.ApplicationUser);
