@@ -1,4 +1,5 @@
-﻿using YourScheduler.Infrastructure.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.Infrastructure.Repositories
@@ -12,10 +13,10 @@ namespace YourScheduler.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public void AddUser(ApplicationUser user)
+        public async Task AddUserAsync(ApplicationUser user)
         {
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
         }
 
         public IQueryable<ApplicationUser> GetUsersFromDataBaseQueryable()
@@ -23,16 +24,14 @@ namespace YourScheduler.Infrastructure.Repositories
             return _dbContext.Users;
         }
 
-        public ApplicationUser GetUserByEmail(string email)
+        public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
-            var retrievedUser = _dbContext.ApplicationUsers.FirstOrDefault(x => x.Email == email) ?? throw new Exception("Could not find a user with specified email");
-            return retrievedUser;
+            return  await _dbContext.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception("Could not find a user with specified email");
         }
 
-        public ApplicationUser GetUserById(int id)
+        public async Task<ApplicationUser> GetUserByIdAsync(int id)
         {
-            var retrievedUser = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Id == id) ?? throw new Exception("Could not find a user with specified id");
-            return retrievedUser;
+            return await _dbContext.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == id) ?? throw new Exception("Could not find a user with specified id");
         }
 
     }

@@ -23,19 +23,29 @@ namespace YourScheduler.Infrastructure.Repositories
                 .Select(tr => tr.TeamRole);
         }
 
-        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole, int teamId)
+        public async Task AddTeamRoleAsync(TeamRole teamRole, int teamId)
         {
-            throw new NotImplementedException();
+            var teamForNewRole = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception ("Could not find team with given id");
+            teamForNewRole.TeamRoles.Add(teamRole);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<TeamRole> UpdateTeamRoleAsync(TeamRole teamRoleToUpdate)
+        public async Task UpdateTeamRoleAsync(TeamRole teamRoleToUpdate, int teamId)
         {
-            throw new NotImplementedException();
+            var teamForNewRole = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception("Could not find team with given id");
+            var roleInTeam = teamForNewRole.TeamRoles.FirstOrDefault(r => r.TeamRoleId == teamRoleToUpdate.TeamRoleId) ?? throw new Exception("Could not find team role with given id");
+
+            roleInTeam.Name = teamRoleToUpdate.Name;
+            roleInTeam.TeamRoleFlags = teamRoleToUpdate.TeamRoleFlags;
+            await _dbContext.SaveChangesAsync();
+
         }
 
-        public async Task<TeamRole> RemoveTeamRoleByIdAsync(int teamRoleId)
+        public async Task RemoveTeamRoleByIdAsync(int teamRoleId, int teamId)
         {
-            throw new NotImplementedException();
+            var teamForRoleDeletion = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception("Could not find team with given id");
+            var roleToBeDeleted = teamForRoleDeletion.TeamRoles.FirstOrDefault(r => r.TeamRoleId == teamRoleId) ?? throw new Exception("Could not find team role with given id");
+            teamForRoleDeletion.TeamRoles.Remove(roleToBeDeleted);
         }
     }
 }

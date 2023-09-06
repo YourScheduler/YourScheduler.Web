@@ -10,8 +10,8 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
     public interface IUsersRepository
     {
         IQueryable<ApplicationUser> GetUsersFromDataBaseQueryable();
-        ApplicationUser GetUserById(int id);
-        ApplicationUser GetUserByEmail(string email);
-        public void AddUser(ApplicationUser user);
+        Task<ApplicationUser> GetUserByIdAsync(int id);
+        Task<ApplicationUser> GetUserByEmailAsync(string email);
+        public Task AddUserAsync(ApplicationUser user);
     }
 }

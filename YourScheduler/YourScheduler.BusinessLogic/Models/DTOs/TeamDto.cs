@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.BusinessLogic.Models.DTOs;
 
@@ -9,12 +10,15 @@ public class TeamDto
 
     [Required(ErrorMessage = "Pole 'Nazwa zespołu' jest obowiązkowe")]
     public string Name { get; set; } = default!;
+
     [Required(ErrorMessage = "Pole 'Opis zespołu' jest obowiązkowe")]
     public string? Description { get; set; }
 
     public int Creator { get; set; } = default!;
 
     public string? Message { get; set; }
+
+    public ICollection<TeamRole> TeamRoles { get; set; } = default!;
 
     public string? PicturePath { get; set; }
 
