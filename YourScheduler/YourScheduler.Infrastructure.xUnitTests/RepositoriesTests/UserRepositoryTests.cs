@@ -15,7 +15,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 
             var userToBeAdded = new ApplicationUser { Id = 1, Email = "Karinka@gmail.com", Displayname = "kekanka", Name = "Bolinka", Surname = "Savarova" };
 
-            _repositoryMock.AddUser(userToBeAdded);
+            _repositoryMock.AddUserAsync(userToBeAdded);
 
             _dbContextMock.Users.FirstOrDefault(d => d.Email == userToBeAdded.Email).Should().BeSameAs(userToBeAdded);
         }
@@ -45,7 +45,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             _dbContextMock.SaveChanges();
 
 
-            var users = _repositoryMock.GetUsersFromDataBase();
+            var users = _repositoryMock.GetUsersFromDataBaseQueryable();
 
             users.Should().NotBeNull();
             users.Count().Should().Be(3);
@@ -78,7 +78,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             _dbContextMock.Users.AddRange(usersToBeAdded);
             _dbContextMock.SaveChanges();
 
-            var userRetrieved = _repositoryMock.GetUserById(id);
+            var userRetrieved = _repositoryMock.GetUserByIdAsync(id);
 
             userRetrieved.Should().NotBeNull();
             userRetrieved.Should().BeSameAs(usersToBeAdded.FirstOrDefault(u => u.Id == id));
@@ -111,7 +111,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             _dbContextMock.Users.AddRange(usersToBeAdded);
             _dbContextMock.SaveChanges();
 
-            var userRetrieved = _repositoryMock.GetUserById(id);
+            var userRetrieved = _repositoryMock.GetUserByIdAsync(id);
 
             userRetrieved.Should().BeNull();
         }
@@ -143,7 +143,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             _dbContextMock.Users.AddRange(usersToBeAdded);
             _dbContextMock.SaveChanges();
 
-            var userRetrieved = _repositoryMock.GetUserByEmail(mail);
+            var userRetrieved = _repositoryMock.GetUserByEmailAsync(mail);
 
             userRetrieved.Should().NotBeNull();
             userRetrieved.Should().BeSameAs(usersToBeAdded.FirstOrDefault(u => u.Email == mail));
@@ -176,7 +176,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             _dbContextMock.Users.AddRange(usersToBeAdded);
             _dbContextMock.SaveChanges();
 
-            var userRetrieved = _repositoryMock.GetUserByEmail(mail);
+            var userRetrieved = _repositoryMock.GetUserByEmailAsync(mail);
 
             userRetrieved.Should().BeNull();
         }
