@@ -1,31 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace YourScheduler.BusinessLogic.Models.DTOs;
 
 public class TeamDto
 {
-    public int Id { get; set; }
+    public int TeamId { get; set; }
 
     [Required(ErrorMessage = "Pole 'Nazwa zespołu' jest obowiązkowe")]
-    public string Name { get; set; } = null!;
-
+    public string Name { get; set; } = default!;
     [Required(ErrorMessage = "Pole 'Opis zespołu' jest obowiązkowe")]
-    public string Description { get; set; } = null!;
+    public string? Description { get; set; }
 
-    public int AdministratorId { get; set; }
+    public int Creator { get; set; } = default!;
 
-    public bool CanLoggedUserEdit { get; set; } = false;
+    public string? Message { get; set; }
 
-    public bool CanLoggedUserDelete { get; set; } = false;
+    public string? PicturePath { get; set; }
 
-    public bool IsLoggedUserParticipant { get; set; } = false;
-
-    public string PicturePath { get; set; }
-
-    public IFormFile ImageFile { get; set; }
+    public IFormFile? ImageFile { get; set; }
 
     
 }

@@ -10,6 +10,7 @@ public  class Team
     public string Creator { get; set; } = default!; 
     public string? Message { get; set; }
     public ICollection<ApplicationUserTeams>? TeamMember { get; set; }
+    public ICollection<TeamRole> TeamRoles { get; set; } = default!;
     public string? PicturePath { get; set; }
 
 }

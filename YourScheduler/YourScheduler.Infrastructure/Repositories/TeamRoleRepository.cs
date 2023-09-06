@@ -23,7 +23,7 @@ namespace YourScheduler.Infrastructure.Repositories
                 .Select(tr => tr.TeamRole);
         }
 
-        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole)
+        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole, int teamId)
         {
             throw new NotImplementedException();
         }
