@@ -33,7 +33,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 
             await _repositoryMock.AddUserAsync(userToBeAdded);
 
-            _dbContextMock.Users.FirstOrDefault(d => d.Email == userToBeAdded.Email).Should().BeSameAs(userToBeAdded);
+            _dbContextMock.Users.First(d => d.Email == userToBeAdded.Email).Should().BeSameAs(userToBeAdded);
         }
         [Fact]
         public void Test_GetUsersFromDataBase()
@@ -100,7 +100,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var userRetrieved = _repositoryMock.GetUserByEmailAsync(mail);
 
             userRetrieved.Should().NotBeNull();
-            userRetrieved.Should().BeSameAs(multipleUsers.FirstOrDefault(u => u.Email == mail));
+            userRetrieved.Should().BeSameAs(multipleUsers.First(u => u.Email == mail));
         }
         [Theory]
         [InlineData("kokasela@gmail.com")]

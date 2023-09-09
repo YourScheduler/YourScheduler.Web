@@ -75,7 +75,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             await repository.AddTeamAsync(sangriaTeam);
 
             //Assert
-            var addedTeam = await context.Teams.SingleOrDefaultAsync(t => t.TeamId == sangriaTeam.TeamId);
+            var addedTeam = await context.Teams.SingleAsync(t => t.TeamId == sangriaTeam.TeamId);
 
             addedTeam.Should().NotBeNull();
             addedTeam.Name.Should().Be(sangriaTeam.Name);
@@ -149,7 +149,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             await repository.UpdateTeamAsync(team);
 
             //Assert
-            var updatedTeam = await context.Teams.SingleOrDefaultAsync(t => t.TeamId == team.TeamId);
+            var updatedTeam = await context.Teams.SingleAsync(t => t.TeamId == team.TeamId);
 
             updatedTeam.Should().NotBeNull();
             updatedTeam.Name.Should().Be(updatedTeamName);
@@ -165,11 +165,13 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var repository = new TeamsRepository(context, loggerMock.Object);
 
 
-            //Act
+            //Act\
+
+
             await repository.AddTeamAsync(sangriaTeam);
 
-            //Assert
-            var addedTeam = await context.Teams.SingleOrDefaultAsync(t => t.TeamId == sangriaTeam.TeamId);
+                     //Assert
+            var addedTeam = await context.Teams.SingleAsync(t => t.TeamId == sangriaTeam.TeamId);
 
             addedTeam.Should().NotBeNull();
             addedTeam.Name.Should().Be(sangriaTeam.Name);
@@ -179,4 +181,5 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
         }
 
     }
+
 }
