@@ -7,26 +7,8 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 {
     public class UserRepositoryTests
     {
-        [Fact]
-        public void Test_AddUser_ShouldSucceed()
+        private readonly ApplicationUser[] multipleUsers = new ApplicationUser[]
         {
-            var _dbContextMock = ContextGenerator.Generate();
-            var _repositoryMock = new UsersRepository(_dbContextMock);
-
-            var userToBeAdded = new ApplicationUser { Id = 1, Email = "Karinka@gmail.com", Displayname = "kekanka", Name = "Bolinka", Surname = "Savarova" };
-
-            _repositoryMock.AddUserAsync(userToBeAdded);
-
-            _dbContextMock.Users.FirstOrDefault(d => d.Email == userToBeAdded.Email).Should().BeSameAs(userToBeAdded);
-        }
-        [Fact]
-        public void Test_GetUsersFromDataBase()
-        {
-            var _dbContextMock = ContextGenerator.Generate();
-            var _repositoryMock = new UsersRepository(_dbContextMock);
-
-            var usersToBeAdded = new ApplicationUser[]
-            {
                 new ApplicationUser
                 {
                     Id = 2, Email = "kokela@gmail.com", Displayname = "Dubaduba", Name = "Karina", Surname = "Dubalińska"
@@ -39,9 +21,27 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 {
                     Id = 4, Email = "debancja@gmail.com", Displayname = "DiraNotka", Name = "Kierosław", Surname = "Autokaru"
                 }
-            };
+        };
 
-            _dbContextMock.Users.AddRange(usersToBeAdded);
+        [Fact]
+        public async Task Test_AddUser_ShouldSucceed()
+        {
+            var _dbContextMock = ContextGenerator.Generate();
+            var _repositoryMock = new UsersRepository(_dbContextMock);
+
+            var userToBeAdded = new ApplicationUser { Id = 1, Email = "Karinka@gmail.com", Displayname = "kekanka", Name = "Bolinka", Surname = "Savarova" };
+
+            await _repositoryMock.AddUserAsync(userToBeAdded);
+
+            _dbContextMock.Users.FirstOrDefault(d => d.Email == userToBeAdded.Email).Should().BeSameAs(userToBeAdded);
+        }
+        [Fact]
+        public void Test_GetUsersFromDataBase()
+        {
+            var _dbContextMock = ContextGenerator.Generate();
+            var _repositoryMock = new UsersRepository(_dbContextMock);
+
+            _dbContextMock.Users.AddRange(multipleUsers);
             _dbContextMock.SaveChanges();
 
 
@@ -54,34 +54,18 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
         [InlineData(2)]
         [InlineData(3)]
         [InlineData(4)]
-        public void Test_GetUserById_ShouldSucceed(int id)
+        public async Task Test_GetUserById_ShouldSucceed(int id)
         {
             var _dbContextMock = ContextGenerator.Generate();
             var _repositoryMock = new UsersRepository(_dbContextMock);
 
-            var usersToBeAdded = new ApplicationUser[]
-            {
-                new ApplicationUser
-                {
-                    Id = 2, Email = "kokela@gmail.com", Displayname = "Dubaduba", Name = "Karina", Surname = "Dubalińska"
-                },
-                new ApplicationUser
-                {
-                    Id = 3, Email = "sprea@gmail.com", Displayname = "Bonica", Name = "Jasmina", Surname = "Kiebab"
-                },
-                new ApplicationUser
-                {
-                    Id = 4, Email = "debancja@gmail.com", Displayname = "DiraNotka", Name = "Kierosław", Surname = "Autokaru"
-                }
-            };
-
-            _dbContextMock.Users.AddRange(usersToBeAdded);
+            _dbContextMock.Users.AddRange(multipleUsers);
             _dbContextMock.SaveChanges();
 
-            var userRetrieved = _repositoryMock.GetUserByIdAsync(id);
+            var userRetrieved = await _repositoryMock.GetUserByIdAsync(id);
 
             userRetrieved.Should().NotBeNull();
-            userRetrieved.Should().BeSameAs(usersToBeAdded.FirstOrDefault(u => u.Id == id));
+            userRetrieved.Should().BeSameAs(multipleUsers.FirstOrDefault(u => u.Id == id));
         }
         [Theory]
         [InlineData(7)]
@@ -92,23 +76,8 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var _dbContextMock = ContextGenerator.Generate();
             var _repositoryMock = new UsersRepository(_dbContextMock);
 
-            var usersToBeAdded = new ApplicationUser[]
-            {
-                new ApplicationUser
-                {
-                    Id = 2, Email = "kokela@gmail.com", Displayname = "Dubaduba", Name = "Karina", Surname = "Dubalińska"
-                },
-                new ApplicationUser
-                {
-                    Id = 3, Email = "sprea@gmail.com", Displayname = "Bonica", Name = "Jasmina", Surname = "Kiebab"
-                },
-                new ApplicationUser
-                {
-                    Id = 4, Email = "debancja@gmail.com", Displayname = "DiraNotka", Name = "Kierosław", Surname = "Autokaru"
-                }
-            };
 
-            _dbContextMock.Users.AddRange(usersToBeAdded);
+            _dbContextMock.Users.AddRange(multipleUsers);
             _dbContextMock.SaveChanges();
 
             var userRetrieved = _repositoryMock.GetUserByIdAsync(id);
@@ -124,29 +93,14 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var _dbContextMock = ContextGenerator.Generate();
             var _repositoryMock = new UsersRepository(_dbContextMock);
 
-            var usersToBeAdded = new ApplicationUser[]
-            {
-                new ApplicationUser
-                {
-                    Id = 2, Email = "kokela@gmail.com", Displayname = "Dubaduba", Name = "Karina", Surname = "Dubalińska"
-                },
-                new ApplicationUser
-                {
-                    Id = 3, Email = "sprea@gmail.com", Displayname = "Bonica", Name = "Jasmina", Surname = "Kiebab"
-                },
-                new ApplicationUser
-                {
-                    Id = 4, Email = "debancja@gmail.com", Displayname = "DiraNotka", Name = "Kierosław", Surname = "Autokaru"
-                }
-            };
 
-            _dbContextMock.Users.AddRange(usersToBeAdded);
+            _dbContextMock.Users.AddRange(multipleUsers);
             _dbContextMock.SaveChanges();
 
             var userRetrieved = _repositoryMock.GetUserByEmailAsync(mail);
 
             userRetrieved.Should().NotBeNull();
-            userRetrieved.Should().BeSameAs(usersToBeAdded.FirstOrDefault(u => u.Email == mail));
+            userRetrieved.Should().BeSameAs(multipleUsers.FirstOrDefault(u => u.Email == mail));
         }
         [Theory]
         [InlineData("kokasela@gmail.com")]
@@ -157,23 +111,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var _dbContextMock = ContextGenerator.Generate();
             var _repositoryMock = new UsersRepository(_dbContextMock);
 
-            var usersToBeAdded = new ApplicationUser[]
-            {
-                new ApplicationUser
-                {
-                    Id = 2, Email = "kokela@gmail.com", Displayname = "Dubaduba", Name = "Karina", Surname = "Dubalińska"
-                },
-                new ApplicationUser
-                {
-                    Id = 3, Email = "sprea@gmail.com", Displayname = "Bonica", Name = "Jasmina", Surname = "Kiebab"
-                },
-                new ApplicationUser
-                {
-                    Id = 4, Email = "debancja@gmail.com", Displayname = "DiraNotka", Name = "Kierosław", Surname = "Autokaru"
-                }
-            };
-
-            _dbContextMock.Users.AddRange(usersToBeAdded);
+            _dbContextMock.Users.AddRange(multipleUsers);
             _dbContextMock.SaveChanges();
 
             var userRetrieved = _repositoryMock.GetUserByEmailAsync(mail);

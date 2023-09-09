@@ -9,6 +9,16 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 {
     public class EventsRepositoryTests
     {
+        private readonly Event eventBase = new()
+        {
+            EventId = 1,
+            Name = "Piłkarze",
+            Description = "Bardzo lubimy grać w piłkę nożną",
+            Date = DateTime.MaxValue,
+            IsOpen = true,
+            AdministratorId = 1,
+            PicturePath = "/Pictures/pilkarz.jpg"
+        };
 
         [Fact]
         public async Task EventRepository_AddEvent_ReturnAddedEventById()
@@ -17,20 +27,6 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<EventsRepository>>();
             var repository = new EventsRepository(context, loggerMock.Object);
-            Event eventBase = new()
-            {
-                EventId = 1,
-                Name = "Piłkarze",
-                Description = "Bardzo lubimy grać w piłkę nożną",
-                Date = DateTime.MaxValue,
-                IsOpen = true,
-                AdministratorId = 1,
-                PicturePath = "/Pictures/pilkarz.jpg"
-
-
-            };
-
-
 
             //Act
             await repository.AddEventAsync(eventBase);
@@ -51,17 +47,6 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<EventsRepository>>();
             var repository = new EventsRepository(context, loggerMock.Object);
-            Event eventBase = new()
-            {
-                Name = "Piłkarze",
-                Description = "Bardzo lubimy grać w piłkę nożną",
-                AdministratorId = 1,
-                Date = DateTime.MaxValue,
-                EventId = 1,
-                IsOpen = true,
-                PicturePath = "/Pictures/pilkarz.jpg"
-            };
-
 
             // Act
             await repository.AddEventAsync(eventBase);

@@ -10,6 +10,20 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 {
     public class TeamsRepositoryTests
     {
+        private readonly Team pilkarzeTeam = new()
+        {
+            TeamId = 1,
+            Name = "Piłkarze",
+            Description = "Bardzo lubimy grać w piłkę nożną",
+            PicturePath = "/Picures/Pilkarz.jpg"
+        };
+        private readonly Team sangriaTeam = new()
+        {
+            TeamId = 1,
+            Name = "Sangria",
+            Description = "Test",
+            PicturePath = "/Picures/Pilkarz.jpg"
+        };
        
         [Fact]
         public async Task TeamRepository_AddTeam_ReturnAddedTeamById()
@@ -18,21 +32,16 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context, loggerMock.Object);
-            Team team = new()
-            {
-                TeamId=1,
-                Name="Piłkarze",
-                Description="Bardzo lubimy grać w piłkę nożną",
-                PicturePath = "/Picures/Pilkarz.jpg"
-            };
+
           
             //Act
-            await repository.AddTeamAsync(team);
+            await repository.AddTeamAsync(pilkarzeTeam);
             
-            var teamReturned = await repository.GetTeamByIdAsync(1);
+            var teamReturned = await repository.GetTeamByIdAsync(pilkarzeTeam.TeamId);
 
             //Assert
-            teamReturned.TeamId.Should().Be(1);  
+            teamReturned.TeamId.Should().Be(1);
+            teamReturned.Name.Should().Be("Piłkarze");
                      
             
         }
@@ -44,16 +53,10 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context, loggerMock.Object);
-            Team team = new()
-            {
-                Name = "Piłkarze",
-                Description = "Bardzo lubimy grać w piłkę nożną",
-                PicturePath="/Picures/Pilkarz.jpg"
-            };
 
 
             // Act
-            await repository.AddTeamAsync(team);
+            await repository.AddTeamAsync(pilkarzeTeam);
             var teamReturned = repository.GetAllExistedTeamsQueryable().ToList();  
 
             //Assert
@@ -67,23 +70,17 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context, loggerMock.Object);
-            Team team = new()
-            {
-                Name = "Sangria",
-                Description = "Test",
-                PicturePath = "/Picures/Pilkarz.jpg"
-            };
 
             //Act
-            await repository.AddTeamAsync(team);
+            await repository.AddTeamAsync(sangriaTeam);
 
             //Assert
-            var addedTeam = await context.Teams.SingleOrDefaultAsync(t => t.TeamId == team.TeamId);
+            var addedTeam = await context.Teams.SingleOrDefaultAsync(t => t.TeamId == sangriaTeam.TeamId);
 
             addedTeam.Should().NotBeNull();
-            addedTeam.Name.Should().Be(team.Name);
-            addedTeam.Description.Should().Be(team.Description);
-            addedTeam.PicturePath.Should().Be(team.PicturePath);
+            addedTeam.Name.Should().Be(sangriaTeam.Name);
+            addedTeam.Description.Should().Be(sangriaTeam.Description);
+            addedTeam.PicturePath.Should().Be(sangriaTeam.PicturePath);
         }
 
         [Fact]
@@ -92,25 +89,19 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context,loggerMock.Object);
-            Team team = new()
-            {
-                Name = "Sangria",
-                Description = "Test",
-                PicturePath = "/Picures/Pilkarz.jpg"
-            };
 
-            context.Teams.Add(team);
+            context.Teams.Add(sangriaTeam);
 
             await context.SaveChangesAsync();
 
             //Act
-            var returnedTeam = await repository.GetTeamByIdAsync(team.TeamId);
+            var returnedTeam = await repository.GetTeamByIdAsync(sangriaTeam.TeamId);
 
             //Assert
             returnedTeam.Should().NotBeNull();
-            returnedTeam.Name.Should().Be(team.Name);
-            returnedTeam.Description.Should().Be(team.Description);
-            returnedTeam.PicturePath.Should().Be(team.PicturePath);
+            returnedTeam.Name.Should().Be(sangriaTeam.Name);
+            returnedTeam.Description.Should().Be(sangriaTeam.Description);
+            returnedTeam.PicturePath.Should().Be(sangriaTeam.PicturePath);
         }
 
         [Fact]
@@ -119,22 +110,13 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context,loggerMock.Object);
-            Team team = new()
-            {
-                TeamId=1,
-                Name = "Sangria",
-                Description = "Test",
-                PicturePath = "/Picures/Pilkarz.jpg"
-            };
 
-            context.Teams.Add(team);
+            context.Teams.Add(sangriaTeam);
 
             await context.SaveChangesAsync();
 
             //Act
             await repository.DeleteTeamByIdAsync(1);
-
-
 
            // Assert
             var deletedTeam = repository.GetAllExistedTeamsQueryable().ToList();
@@ -149,13 +131,8 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context,loggerMock.Object);
-            Team team = new Team
-            {
-                TeamId=1,
-                Name = "Sangria",
-                Description = "Test",
-                PicturePath = "/Picures/Pilkarz.jpg"
-            };
+
+            var team = sangriaTeam;
 
             context.Teams.Add(team);
 
@@ -186,23 +163,18 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context, loggerMock.Object);
-            Team team = new Team
-            {
-                Name = "Sangria",
-                Description = "Test",
-                PicturePath = "/Picures/Pilkarz.jpg"
-            };
+
 
             //Act
-            await repository.AddTeamAsync(team);
+            await repository.AddTeamAsync(sangriaTeam);
 
             //Assert
-            var addedTeam = await context.Teams.SingleOrDefaultAsync(t => t.TeamId == team.TeamId);
+            var addedTeam = await context.Teams.SingleOrDefaultAsync(t => t.TeamId == sangriaTeam.TeamId);
 
             addedTeam.Should().NotBeNull();
-            addedTeam.Name.Should().Be(team.Name);
-            addedTeam.Description.Should().Be(team.Description);
-            addedTeam.PicturePath.Should().Be(team.PicturePath);
+            addedTeam.Name.Should().Be(sangriaTeam.Name);
+            addedTeam.Description.Should().Be(sangriaTeam.Description);
+            addedTeam.PicturePath.Should().Be(sangriaTeam.PicturePath);
 
         }
 
