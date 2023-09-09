@@ -45,7 +45,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             _dbContextMock.SaveChanges();
 
 
-            var users = _repositoryMock.GetUsersFromDataBaseQueryable();
+            var users = _repositoryMock.GetUsersFromDataBaseQueryable().ToList();
 
             users.Should().NotBeNull();
             users.Count().Should().Be(3);

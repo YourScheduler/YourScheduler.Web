@@ -1,10 +1,6 @@
-﻿using Castle.Core.Logging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
-using Microsoft.VisualBasic;
-using MimeKit.Cryptography;
 using Moq;
 using Xunit;
 using YourScheduler.Infrastructure.Entities;
@@ -22,7 +18,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context, loggerMock.Object);
-            Team team = new Team
+            Team team = new()
             {
                 TeamId=1,
                 Name="Piłkarze",
@@ -48,7 +44,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context, loggerMock.Object);
-            Team team = new Team
+            Team team = new()
             {
                 Name = "Piłkarze",
                 Description = "Bardzo lubimy grać w piłkę nożną",
@@ -58,7 +54,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 
             // Act
             await repository.AddTeamAsync(team);
-            var teamReturned = await repository.GetAllExistedTeamsAsync();  
+            var teamReturned = repository.GetAllExistedTeamsQueryable().ToList();  
 
             //Assert
             teamReturned.Should().NotBeNullOrEmpty();
@@ -71,7 +67,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context, loggerMock.Object);
-            Team team = new Team
+            Team team = new()
             {
                 Name = "Sangria",
                 Description = "Test",
@@ -96,7 +92,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context,loggerMock.Object);
-            Team team = new Team
+            Team team = new()
             {
                 Name = "Sangria",
                 Description = "Test",
@@ -123,7 +119,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
             var repository = new TeamsRepository(context,loggerMock.Object);
-            Team team = new Team
+            Team team = new()
             {
                 TeamId=1,
                 Name = "Sangria",
@@ -141,11 +137,9 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 
 
            // Assert
-            var deletedTeam = await repository.GetAllExistedTeamsAsync();
-            foreach (var item in deletedTeam)
-            {
-                deletedTeam.Should().BeNull();
-            }
+            var deletedTeam = repository.GetAllExistedTeamsQueryable().ToList();
+
+            deletedTeam.Count.Should().Be(0);
            
         }
 

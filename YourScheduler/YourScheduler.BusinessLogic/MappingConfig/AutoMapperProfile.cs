@@ -35,7 +35,7 @@ namespace YourScheduler.BusinessLogic.MappingConfig
             .ForMember(dest => dest.ApplicationUsersEvents, opt => opt.Ignore())
             .ForMember(dest => dest.ApplicationUsersTeams, opt => opt.Ignore());
 
-            var userDtoMap = CreateMap<ApplicationUser, ApplicationUserDto>();
+            CreateMap<ApplicationUser, ApplicationUserDto>();
 
         }
     }
