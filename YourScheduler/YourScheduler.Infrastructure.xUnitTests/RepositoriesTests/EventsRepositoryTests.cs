@@ -17,7 +17,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<EventsRepository>>();
             var repository = new EventsRepository(context, loggerMock.Object);
-            Event eventBase = new Event
+            Event eventBase = new()
             {
                 EventId = 1,
                 Name = "Piłkarze",
@@ -34,10 +34,11 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 
             //Act
             await repository.AddEventAsync(eventBase);
-            await repository.SaveDataAsync();
+            await context.SaveChangesAsync();
             var eventReturned = await repository.GetEventByIdAsync(1);
             //Assert
             eventReturned.EventId.Should().Be(1);
+            eventReturned.Name.Should().Be("Piłkarze");
 
 
 
@@ -50,7 +51,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<EventsRepository>>();
             var repository = new EventsRepository(context, loggerMock.Object);
-            Event eventBase = new Event
+            Event eventBase = new()
             {
                 Name = "Piłkarze",
                 Description = "Bardzo lubimy grać w piłkę nożną",
@@ -64,8 +65,8 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 
             // Act
             await repository.AddEventAsync(eventBase);
-            await repository.SaveDataAsync();
-            var teamReturned = await repository.GetAvailableEventsAsync(1);
+            await context.SaveChangesAsync();
+            var teamReturned = repository.GetEventsForUserQueryable(1).ToList();
 
             //Assert
             teamReturned.Should().NotBeNullOrEmpty();
