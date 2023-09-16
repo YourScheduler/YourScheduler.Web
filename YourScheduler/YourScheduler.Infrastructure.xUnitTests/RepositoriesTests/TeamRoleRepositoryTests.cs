@@ -21,13 +21,48 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 {
                     TeamRoleId = 1,
                     Name = "User",
-                    TeamRoleFlags = new TeamRoleFlags(1, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+                    TeamRoleFlags = new TeamRoleFlags
+                    {
+                        TeamRoleId = 1,
+                        CanAddTeamEvent = false,
+                        CanAddTeamMember = false,
+                        CanAddTeamRole = false,
+                        CanEditDescription= false,
+                        CanEditRoleFlags = false,
+                        CanEditTeamEvent = false,
+                        CanEditTeamMessage = false,
+                        CanRemoveTeamMember = false,
+                        CanEditTeamName = false,
+                        CanEditTeamPhoto = false,
+                        CanEditTeamRole = false,
+                        CanRemoveTeamEvent = false,
+                        CanRemoveTeamRole = false,
+                        CanSendEmailToTeam = false
+                    }
                 },
+
                 new TeamRole
                 {
                     TeamRoleId = 2,
                     Name = "Admin",
-                    TeamRoleFlags = new TeamRoleFlags(2, true, true, true, true, true, true, true, true, true, true, true, true, true, true)
+                    TeamRoleFlags = new TeamRoleFlags
+                    {
+                        TeamRoleId = 2,
+                        CanAddTeamEvent = true,
+                        CanAddTeamMember = true,
+                        CanAddTeamRole = true,
+                        CanEditDescription= true,
+                        CanEditRoleFlags = true,
+                        CanEditTeamEvent = true,
+                        CanEditTeamMessage = true,
+                        CanRemoveTeamMember = true,
+                        CanEditTeamName = true,
+                        CanEditTeamPhoto = true,
+                        CanEditTeamRole = true,
+                        CanRemoveTeamEvent = true,
+                        CanRemoveTeamRole = true,
+                        CanSendEmailToTeam = true
+                    }
                 }
             }
         };
@@ -57,8 +92,25 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var newRole = new TeamRole
             {
                 TeamRoleId = 3,
-                Name = "VIP",
-                TeamRoleFlags = new TeamRoleFlags(3, true, true, false, false, false, false, true, true, true, false, true, true, true, true)
+                Name = "Moderator",
+                TeamRoleFlags = new TeamRoleFlags
+                {
+                    TeamRoleId = 3,
+                    CanAddTeamEvent = false,
+                    CanAddTeamMember = true,
+                    CanAddTeamRole = false,
+                    CanEditDescription = false,
+                    CanEditRoleFlags = false,
+                    CanEditTeamEvent = false,
+                    CanEditTeamMessage = false,
+                    CanRemoveTeamMember = true,
+                    CanEditTeamName = false,
+                    CanEditTeamPhoto = false,
+                    CanEditTeamRole = false,
+                    CanRemoveTeamEvent = false,
+                    CanRemoveTeamRole = false,
+                    CanSendEmailToTeam = false
+                }
             };
 
             context.Teams.Add(testTeam);
@@ -69,7 +121,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var teamWithRoles = context.Teams.First(t => t.TeamId == testTeam.TeamId);
 
             teamWithRoles.TeamRoles.Count.Should().Be(3);
-            teamWithRoles.TeamRoles.First(t => t.TeamRoleId == newRole.TeamRoleId).Name.Should().Be("VIP");
+            teamWithRoles.TeamRoles.First(t => t.TeamRoleId == newRole.TeamRoleId).Name.Should().Be("Moderator");
         }
         [Fact]
         public async Task UpdateTeamRoleAsync_ShouldSucceed()
@@ -85,7 +137,24 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             {
                 TeamRoleId = 1,
                 Name = "Basic User",
-                TeamRoleFlags = new TeamRoleFlags(1, false, false, false, false, false, false, false, false, false, false, false, false, false, false)
+                TeamRoleFlags = new TeamRoleFlags
+                {
+                    TeamRoleId = 1,
+                    CanAddTeamEvent = false,
+                    CanAddTeamMember = false,
+                    CanAddTeamRole = false,
+                    CanEditDescription = false,
+                    CanEditRoleFlags = false,
+                    CanEditTeamEvent = false,
+                    CanEditTeamMessage = false,
+                    CanRemoveTeamMember = false,
+                    CanEditTeamName = false,
+                    CanEditTeamPhoto = false,
+                    CanEditTeamRole = false,
+                    CanRemoveTeamEvent = false,
+                    CanRemoveTeamRole = false,
+                    CanSendEmailToTeam = false
+                }
             };
 
             await repository.UpdateTeamRoleAsync(roleToUpdate, 1);
