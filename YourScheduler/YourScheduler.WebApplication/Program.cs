@@ -8,6 +8,7 @@ using YourScheduler.Infrastructure.Entities;
 using YourScheduler.BusinessLogic.Services.Settings;
 using FluentAssertions.Common;
 using AutoMapper;
+using YourScheduler.WebApplication.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +47,8 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddBusinessLogicDependencies();
 
+builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
+
 
 var app = builder.Build();
 
@@ -58,12 +61,18 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
 app.UseRouting();
+
 app.UseAuthentication();;
 
 app.UseAuthorization();
+
+app.UseStatusCodePages();
 
 app.MapControllerRoute(
     name: "default",
