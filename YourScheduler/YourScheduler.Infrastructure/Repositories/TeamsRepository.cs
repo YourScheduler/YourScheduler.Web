@@ -18,7 +18,7 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public IQueryable<Team> GetAllExistedTeamsQueryable()
         {
-            return _dbContext.Teams;
+            return  _dbContext.Teams;
         }
 
         public async Task AddTeamAsync(Team team)
@@ -84,7 +84,7 @@ namespace YourScheduler.Infrastructure.Repositories
             return await _dbContext.ApplicationUsersTeams.AnyAsync(e => e.ApplicationUserId == loggedUserId && e.TeamId == teamId);
         }
 
-        
+      
     }
 
 

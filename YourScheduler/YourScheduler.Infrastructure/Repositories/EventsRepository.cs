@@ -96,6 +96,7 @@ namespace YourScheduler.Infrastructure.Repositories
             _logger.LogInformation("User attempt to add event to own calendar at {DT}", DateTime.Now.ToLongTimeString());
 
             await _dbContext.ApplicationUsersEvents.AddAsync(new ApplicationUserEvents { ApplicationUserId = applicationUserId, EventId = eventId });
+            await _dbContext.SaveChangesAsync();
         }
 
         public IQueryable<Event> GetEventsForUserQueryable(int applicationUserId)

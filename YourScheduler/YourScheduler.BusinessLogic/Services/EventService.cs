@@ -12,7 +12,7 @@ namespace YourScheduler.BusinessLogic.Services
         private readonly IMapper _mapper;
 
         public EventService(IEventsRepository eventsRepository, IMapper mapper)
-        { 
+        {
             _eventsRepository = eventsRepository;
             _mapper = mapper;
         }
@@ -84,13 +84,13 @@ namespace YourScheduler.BusinessLogic.Services
         public async Task AddEventForUserAsync(int applicationUserId, int eventId)
         {
             await _eventsRepository.AddEventForUserAsync(applicationUserId, eventId);
-            await _eventsRepository.SaveDataAsync();
+           // await _eventsRepository.SaveDataAsync();
         }
 
         public async Task<List<EventDto>> GetMyEventsAsync(int applicationUserId, string searchString)
         {
             List<EventDto> myEvents = new List<EventDto>();
-            var eventsForUser = await _eventsRepository.GetEventsForUserAsync(applicationUserId);
+            var eventsForUser =  _eventsRepository.GetEventsForUserQueryable(applicationUserId);
             foreach (var eventEntity in eventsForUser)
             {
                 EventDto eventDto = new EventDto();
@@ -116,7 +116,7 @@ namespace YourScheduler.BusinessLogic.Services
         public async Task<List<ApplicationUserDto>> GetUsersForEventAsync(int eventId)
         {
             List<ApplicationUserDto> usersDtos = new List<ApplicationUserDto>();
-            var usersForEvents = await _eventsRepository.GetApplicationUsersForEventAsync(eventId);
+            // var usersForEvents = await _eventsRepository.GetApplicationUsersForEventAsync(eventId);
 
             foreach (var user in usersForEvents)
             {
@@ -139,6 +139,6 @@ namespace YourScheduler.BusinessLogic.Services
         }
 
 
-        
+
     }
 }

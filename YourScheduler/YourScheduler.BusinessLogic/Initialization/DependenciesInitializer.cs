@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using YourScheduler.BusinessLogic.Services;
 using YourScheduler.BusinessLogic.Services.Interfaces;
+using YourScheduler.BusinessLogic.YourScheduler.Commands.CreateCarWorkshop;
 
 namespace YourScheduler.BusinessLogic.Initialization
 {
@@ -10,7 +12,8 @@ namespace YourScheduler.BusinessLogic.Initialization
         {
             serviceCollection.AddScoped<IUserService, UserService>();
             serviceCollection.AddScoped<IEventService, EventService>();
-            serviceCollection.AddScoped<ITeamService, TeamService>();
+            // serviceCollection.AddScoped<ITeamService, TeamService>();
+            serviceCollection.AddMediatR(typeof(CreateTeamCommand));
             serviceCollection.AddScoped<IHomeViewService, HomeViewService>();
             serviceCollection.AddSingleton<IEmailService, EmailService>();         
 
