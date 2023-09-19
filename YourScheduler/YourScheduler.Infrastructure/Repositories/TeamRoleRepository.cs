@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using YourScheduler.Infrastructure.Entities;
+using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.Infrastructure.Repositories
 {
-    public class TeamRoleRepository
+    public class TeamRoleRepository : ITeamRoleRepository
     {
         private readonly YourSchedulerDbContext _dbContext;
         private readonly ILogger _logger;
@@ -17,38 +18,38 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public IQueryable<TeamRole> GetAllTeamRolesForTeamQueryable(int teamId)
         {
-            return _dbContext.ApplicationUsersTeams
-                .Include(tr => tr.TeamRole)
-                .Where(tr => tr.TeamId == teamId)
-                .Select(tr => tr.TeamRole);
+            return _dbContext.TeamRoles
+                .Where(tr => tr.TeamId == teamId);
         }
 
-        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole, int teamId)
+        public async Task<TeamRole?> GetTeamRoleByIdAsync(int teamRoleId)
         {
-            var teamForNewRole = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception ("Could not find team with given id");
-            teamForNewRole.TeamRoles.Add(teamRole);
+            return await _dbContext.TeamRoles.FindAsync(teamRoleId);
+        }
+
+        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole)
+        {
+            await _dbContext.TeamRoles.AddAsync(teamRole);
             await _dbContext.SaveChangesAsync();
             return teamRole;
         }
 
-        public async Task<TeamRole> UpdateTeamRoleAsync(TeamRole teamRoleToUpdate, int teamId)
+        public async Task<TeamRole> UpdateTeamRoleAsync(TeamRole teamRoleToUpdate)
         {
-            var teamForNewRole = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception("Could not find team with given id");
-            var roleInTeam = teamForNewRole.TeamRoles.FirstOrDefault(r => r.TeamRoleId == teamRoleToUpdate.TeamRoleId) ?? throw new Exception("Could not find team role with given id");
-
-            roleInTeam.Name = teamRoleToUpdate.Name;
-            roleInTeam.TeamRoleFlags = teamRoleToUpdate.TeamRoleFlags;
+            _dbContext.Update(teamRoleToUpdate);
             await _dbContext.SaveChangesAsync();
 
             return teamRoleToUpdate;
 
         }
 
-        public async Task RemoveTeamRoleByIdAsync(int teamRoleId, int teamId)
+        public async Task RemoveTeamRoleByIdAsync(int teamRoleId)
         {
-            var teamForRoleDeletion = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception("Could not find team with given id");
-            var roleToBeDeleted = teamForRoleDeletion.TeamRoles.FirstOrDefault(r => r.TeamRoleId == teamRoleId) ?? throw new Exception("Could not find team role with given id");
-            teamForRoleDeletion.TeamRoles.Remove(roleToBeDeleted);
+            var teamRoleToRemove = await GetTeamRoleByIdAsync(teamRoleId) ?? throw new ArgumentNullException("TeamRole not found");
+
+            _dbContext.Remove(teamRoleToRemove);
+            await _dbContext.SaveChangesAsync();
+
         }
     }
 }

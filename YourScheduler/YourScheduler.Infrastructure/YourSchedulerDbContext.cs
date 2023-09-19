@@ -20,6 +20,7 @@ namespace YourScheduler.Infrastructure
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<TeamRole> TeamRoles { get; set; }
         public virtual DbSet<ApplicationUserEvents> ApplicationUsersEvents { get; set; }
         public virtual DbSet<ApplicationUserTeams> ApplicationUsersTeams { get; set; }
 
