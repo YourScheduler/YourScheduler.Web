@@ -62,49 +62,45 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> Create(CreateTeamCommand command)
+        public async Task<ActionResult> Create(TeamDto teamDto)
         {
-            try
+            if (teamDto is null)
             {
-                var loggedUserId = int.Parse(User.Identity.GetUserId());
-                if (command != null)
-                {
-                    //TODO - move out of controller
-                    if (!Directory.Exists("wwwroot/Pictures"))
-                    {
-                        DirectoryInfo di = Directory.CreateDirectory("wwwroot/Pictures");
-                    }
-                    if (command.ImageFile != null)
-                    {
-                        var saveimg = Path.Combine(_webHost.WebRootPath, "Pictures", command.ImageFile.FileName);
-                        string imgext = Path.GetExtension(command.ImageFile.FileName);
-                        if (imgext == ".jpg" || imgext == ".png")
-                        {
-                            using (var uploading = new FileStream(saveimg, FileMode.Create))
-                            {
-                                await command.ImageFile.CopyToAsync(uploading);
-                            }
-                        }
-                        command.PicturePath = "/Pictures/" + command.ImageFile.FileName;
-                    }
-                    else
-                    {
-                        command.PicturePath = "/Pictures/" + "defaultTeam.jpg";
-                    }
-                    command.Creator = loggedUserId;
-                    
-                    await _mediator.Send(command);
-                    //TODO - move out of controller
-                }
-                return RedirectToAction("GetAllTeams", "Team");
+                return BadRequest();
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        public async Task<ActionResult> Edit(int id)
+            //TODO - move out of controller
+            if (!Directory.Exists("wwwroot/Pictures"))
+            {
+                DirectoryInfo di = Directory.CreateDirectory("wwwroot/Pictures");
+            }
+            if (teamDto.ImageFile != null)
+            {
+
+                var saveImg = Path.Combine(_webHost.WebRootPath, "Pictures", teamDto.ImageFile.FileName);
+                string imgExt = Path.GetExtension(teamDto.ImageFile.FileName);
+                
+
+                using (var uploading = new FileStream(saveImg, FileMode.Create))
+                {
+                    await teamDto.ImageFile.CopyToAsync(uploading);
+                }
+                teamDto.PicturePath = "/Pictures/" + teamDto.ImageFile.FileName;
+            }
+            else
+            {
+                teamDto.PicturePath = "/Pictures/" + "defaultTeam.jpg";
+            }
+            teamDto.Creator = "";
+
+            var addedTeam = await _mediator.Send(new CreateTeamCommand(teamDto));
+            //TODO - move out of controller
+            return Ok(addedTeam);
+        }
+        return BadRequest();
+    }
+
+public async Task<ActionResult> Edit(int id)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
             var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);

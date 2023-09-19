@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
-namespace YourScheduler.BusinessLogic.YourScheduler.Queries.GetAllTeams
+namespace YourScheduler.BusinessLogic.Queries.GetAllTeams
 {
     public class GetAllTeamQueryHandler : IRequestHandler<GetAllTeamsQuery, IEnumerable<TeamDto>>
     {
@@ -17,12 +17,12 @@ namespace YourScheduler.BusinessLogic.YourScheduler.Queries.GetAllTeams
         public GetAllTeamQueryHandler(ITeamsRepository teamsRepository, IMapper mapper)
         {
             _mapper = mapper;
-            _teamRepository = teamsRepository;  
+            _teamRepository = teamsRepository;
         }
         public async Task<IEnumerable<TeamDto>> Handle(GetAllTeamsQuery request, CancellationToken cancellationToken)
         {
-            var teams = await _teamRepository.GetAllExistedTeamsQueryable();            
-            var teamsDtos=_mapper.Map<IEnumerable<TeamDto>>(teams);
+            var teams = await _teamRepository.GetAllExistedTeamsQueryable();
+            var teamsDtos = _mapper.Map<IEnumerable<TeamDto>>(teams);
             return teamsDtos;
         }
     }

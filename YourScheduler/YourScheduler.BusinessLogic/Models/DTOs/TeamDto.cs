@@ -14,7 +14,7 @@ public class TeamDto
     [Required(ErrorMessage = "Pole 'Opis zespołu' jest obowiązkowe")]
     public string? Description { get; set; }
 
-    public int Creator { get; set; } = default!;
+    public string Creator { get; set; } = default!;
 
     public string? Message { get; set; }
 

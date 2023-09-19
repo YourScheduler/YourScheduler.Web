@@ -10,19 +10,19 @@ using YourScheduler.BusinessLogic.YourScheduler.Queries.GetAllTeams;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
-namespace YourScheduler.BusinessLogic.YourScheduler.Queries.GetTeamById
+namespace YourScheduler.BusinessLogic.Queries.GetTeamById
 {
-    public class GetTeamByIdQueryHandler: IRequestHandler<GetTeamByIdQuery, TeamDto>
+    public class GetTeamByIdQueryHandler : IRequestHandler<GetTeamByIdQuery, TeamDto>
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IMapper _mapper;
         public GetTeamByIdQueryHandler(ITeamsRepository teamsRepository, IMapper mapper)
         {
             _teamRepository = teamsRepository;
-            _mapper = mapper;   
-            
+            _mapper = mapper;
+
         }
-       
+
         public async Task<TeamDto> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
         {
             var team = await _teamRepository.GetTeamByIdAsync(request.Id);
@@ -30,6 +30,6 @@ namespace YourScheduler.BusinessLogic.YourScheduler.Queries.GetTeamById
             return teamDto;
         }
     }
-     
-    
+
+
 }

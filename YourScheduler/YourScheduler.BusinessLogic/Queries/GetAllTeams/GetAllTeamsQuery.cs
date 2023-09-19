@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using YourScheduler.BusinessLogic.Models.DTOs;
 
-namespace YourScheduler.BusinessLogic.YourScheduler.Queries.GetAllTeams
+namespace YourScheduler.BusinessLogic.Queries.GetAllTeams
 {
-    public class GetAllTeamsQuery:IRequest<IEnumerable<TeamDto>>
+    public class GetAllTeamsQuery : IRequest<IEnumerable<TeamDto>>
     {
     }
 }
