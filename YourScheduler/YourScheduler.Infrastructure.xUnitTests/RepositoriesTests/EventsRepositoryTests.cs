@@ -9,6 +9,16 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
 {
     public class EventsRepositoryTests
     {
+        private readonly Event eventBase = new()
+        {
+            EventId = 1,
+            Name = "Piłkarze",
+            Description = "Bardzo lubimy grać w piłkę nożną",
+            Date = DateTime.MaxValue,
+            IsOpen = true,
+            AdministratorId = 1,
+            PicturePath = "/Pictures/pilkarz.jpg"
+        };
 
         [Fact]
         public async Task EventRepository_AddEvent_ReturnAddedEventById()
@@ -17,27 +27,14 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<EventsRepository>>();
             var repository = new EventsRepository(context, loggerMock.Object);
-            Event eventBase = new Event
-            {
-                EventId = 1,
-                Name = "Piłkarze",
-                Description = "Bardzo lubimy grać w piłkę nożną",
-                Date = DateTime.MaxValue,
-                IsOpen = true,
-                AdministratorId = 1,
-                PicturePath = "/Pictures/pilkarz.jpg"
-
-
-            };
-
-
 
             //Act
             await repository.AddEventAsync(eventBase);
-            await repository.SaveDataAsync();
+            await context.SaveChangesAsync();
             var eventReturned = await repository.GetEventByIdAsync(1);
             //Assert
             eventReturned.EventId.Should().Be(1);
+            eventReturned.Name.Should().Be("Piłkarze");
 
 
 
@@ -50,22 +47,11 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<EventsRepository>>();
             var repository = new EventsRepository(context, loggerMock.Object);
-            Event eventBase = new Event
-            {
-                Name = "Piłkarze",
-                Description = "Bardzo lubimy grać w piłkę nożną",
-                AdministratorId = 1,
-                Date = DateTime.MaxValue,
-                EventId = 1,
-                IsOpen = true,
-                PicturePath = "/Pictures/pilkarz.jpg"
-            };
-
 
             // Act
             await repository.AddEventAsync(eventBase);
-            await repository.SaveDataAsync();
-            var teamReturned = await repository.GetAvailableEventsAsync(1);
+            await context.SaveChangesAsync();
+            var teamReturned = repository.GetEventsForUserQueryable(1).ToList();
 
             //Assert
             teamReturned.Should().NotBeNullOrEmpty();

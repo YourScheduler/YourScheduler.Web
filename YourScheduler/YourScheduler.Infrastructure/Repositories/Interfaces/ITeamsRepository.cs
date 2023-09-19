@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YourScheduler.Infrastructure.Entities;
+﻿using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.Infrastructure.Repositories.Interfaces
 {
     public interface ITeamsRepository
     {
         public IQueryable<Team> GetAllExistedTeamsQueryable();
-        public Task<List<Team>> GetAllExistedTeamsAsync();
 
-        public Task AddTeamAsync(Team team);
+        public Task<Team> AddTeamAsync(Team team);
 
-        public Task<Team?> GetTeamByIdAsync(int id);
+        public Task<Team> GetTeamByIdAsync(int id);
 
         public Task DeleteTeamByIdAsync(int id);
 
-        public Task UpdateTeamAsync(Team teamToBase);
+        public Task<Team> UpdateTeamAsync(Team teamToBase);
 
-        public Task<List<Team>> GetTeamsForUserAsync(int applicationUserId);
+        public IQueryable<Team> GetTeamsForUserQueryable(int applicationUserId);
 
-        public Task<List<ApplicationUser>> GetAllTeamMembersForTeamAsync(int teamId);
+        public IQueryable<ApplicationUser> GetAllTeamMembersForTeamQueryable(int teamId);
 
         public Task<bool> VerifyIsTeamMemberAsync(int loggedUserId, int teamId);
 

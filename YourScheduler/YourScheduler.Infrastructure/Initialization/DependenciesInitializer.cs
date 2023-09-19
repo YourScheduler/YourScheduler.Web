@@ -1,20 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.SqlServer;
-using System.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YourScheduler.Infrastructure;
+﻿using Microsoft.Extensions.DependencyInjection;
 using YourScheduler.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
-using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
-using Microsoft.AspNetCore.Builder;
 
 namespace YourScheduler.Infrastructure.Initialization
 {

@@ -6,19 +6,22 @@ using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Services;
 using YourScheduler.BusinessLogic.Services.Interfaces;
 using System.IO;
+using MediatR;
+using YourScheduler.BusinessLogic.YourScheduler.Commands.CreateCarWorkshop;
+using YourScheduler.BusinessLogic.YourScheduler.Queries.GetAllTeams;
 
 namespace YourScheduler.WebApplication.Controllers
 {
     public class TeamController : Controller
     {
-        private readonly ITeamService _teamService;
+        private readonly IMediator _mediator;
         private readonly IUserService _userService;
         private readonly IWebHostEnvironment _webHost;
 
-        public TeamController(IWebHostEnvironment webHost, ITeamService teamService, IUserService userService)
+        public TeamController(IWebHostEnvironment webHost, IMediator mediator, IUserService userService)
         {
             _webHost = webHost;
-            _teamService = teamService;
+            _mediator = mediator;
             _userService = userService;
         }
 
@@ -26,7 +29,7 @@ namespace YourScheduler.WebApplication.Controllers
         public async Task<ActionResult> GetAllTeams(string searchString)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var viewModel = await _teamService.GetAvailableTeamsAsync(loggedUserId, searchString);
+            var viewModel = await _mediator.Send(new GetAllTeamsQuery());
             if (String.IsNullOrEmpty(searchString))
             {
                 return View(viewModel);
@@ -44,12 +47,12 @@ namespace YourScheduler.WebApplication.Controllers
             var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
             return View(model);
         }
-        public async Task<ActionResult> DetailsUserTeams(int id)
-        {
-            var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
-            return View(model);
-        }
+        //public async Task<ActionResult> DetailsUserTeams(int id)
+        //{
+        //    var loggedUserId = int.Parse(User.Identity.GetUserId());
+        //    var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+        //    return View(model);
+        //}
 
         [Authorize]
         public ActionResult Create()
@@ -59,48 +62,45 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> Create(TeamDto model)
+        public async Task<ActionResult> Create(TeamDto teamDto)
         {
-            try
+            if (teamDto is null)
             {
-                var loggedUserId = int.Parse(User.Identity.GetUserId());
-                if (model != null)
-                {
-                    //TODO - move out of controller
-                    if (!Directory.Exists("wwwroot/Pictures"))
-                    {
-                        DirectoryInfo di = Directory.CreateDirectory("wwwroot/Pictures");
-                    }
-                    if (model.ImageFile != null)
-                    {
-                        var saveimg = Path.Combine(_webHost.WebRootPath, "Pictures", model.ImageFile.FileName);
-                        string imgext = Path.GetExtension(model.ImageFile.FileName);
-                        if (imgext == ".jpg" || imgext == ".png")
-                        {
-                            using (var uploading = new FileStream(saveimg, FileMode.Create))
-                            {
-                                await model.ImageFile.CopyToAsync(uploading);
-                            }
-                        }
-                        model.PicturePath = "/Pictures/" + model.ImageFile.FileName;
-                    }
-                    else
-                    {
-                        model.PicturePath = "/Pictures/" + "defaultTeam.jpg";
-                    }
-                    model.AdministratorId = loggedUserId;
-                    await _teamService.AddTeamAsync(model);
-                    //TODO - move out of controller
-                }
-                return RedirectToAction("GetAllTeams", "Team");
+                return BadRequest();
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        public async Task<ActionResult> Edit(int id)
+            //TODO - move out of controller
+            if (!Directory.Exists("wwwroot/Pictures"))
+            {
+                DirectoryInfo di = Directory.CreateDirectory("wwwroot/Pictures");
+            }
+            if (teamDto.ImageFile != null)
+            {
+
+                var saveImg = Path.Combine(_webHost.WebRootPath, "Pictures", teamDto.ImageFile.FileName);
+                string imgExt = Path.GetExtension(teamDto.ImageFile.FileName);
+                
+
+                using (var uploading = new FileStream(saveImg, FileMode.Create))
+                {
+                    await teamDto.ImageFile.CopyToAsync(uploading);
+                }
+                teamDto.PicturePath = "/Pictures/" + teamDto.ImageFile.FileName;
+            }
+            else
+            {
+                teamDto.PicturePath = "/Pictures/" + "defaultTeam.jpg";
+            }
+            teamDto.Creator = "";
+
+            var addedTeam = await _mediator.Send(new CreateTeamCommand(teamDto));
+            //TODO - move out of controller
+            return Ok(addedTeam);
+        }
+        return BadRequest();
+    }
+
+public async Task<ActionResult> Edit(int id)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
             var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
@@ -139,10 +139,10 @@ namespace YourScheduler.WebApplication.Controllers
 
             var userName = HttpContext.User.Identity.GetUserName();
             var user = _userService.GetUserByEmail(userName);
-            model.AdministratorId = user.Id;
+           // model.AdministratorId = user.Id;
             try
             {
-                await _teamService.UpdateTeamAsync(model);
+               // await _teamService.UpdateTeamAsync(model);
                 return RedirectToAction("GetAllTeams");
             }
             catch
@@ -154,15 +154,15 @@ namespace YourScheduler.WebApplication.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
-            if (model.AdministratorId == loggedUserId)
-            {
-                return View(model);
-            }
-            else
-            {
-                return View("DeleteError");
-            }
+           // var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            //if (model.AdministratorId == loggedUserId)
+            //{
+            //    return View(model);
+            //}
+            //else
+            //{
+            //    return View("DeleteError");
+            //}
         }
 
         [HttpPost]
@@ -192,7 +192,7 @@ namespace YourScheduler.WebApplication.Controllers
             try
             {
                 var userId = int.Parse(User.Identity.GetUserId());
-                await _teamService.DeleteTeamFromCalendarAsync(id, userId);
+                //await _teamService.DeleteTeamFromCalendarAsync(id, userId);
                 return RedirectToAction("GetUserTeams");
             }
             catch
@@ -201,19 +201,19 @@ namespace YourScheduler.WebApplication.Controllers
             }
         }
 
-        public async Task<ActionResult> GetUserTeams(string searchString)
-        {
-            var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var model = await _teamService.GetMyTeamsAsync(loggedUserId, searchString);
-            return View(model);
-        }
+        //public async Task<ActionResult> GetUserTeams(string searchString)
+        //{
+        //    var loggedUserId = int.Parse(User.Identity.GetUserId());
+        //    var model = await _teamService.GetMyTeamsAsync(loggedUserId, searchString);
+        //    return View(model);
+        //}
 
         [Route("addthisteam/{id:int}")]
         public async Task<ActionResult> AddThisTeam(int id)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
-            return View(model);
+          //  var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            return View();
         }
 
         [HttpPost]
@@ -223,7 +223,7 @@ namespace YourScheduler.WebApplication.Controllers
             try
             {
                 var userId = int.Parse(User.Identity.GetUserId());
-                await _teamService.AddTeamForUserAsync(userId, model.Id);
+              //  await _teamService.AddTeamForUserAsync(userId, model.Id);
                 return RedirectToAction(nameof(GetAllTeams));
             }
             catch (Exception)
@@ -237,10 +237,10 @@ namespace YourScheduler.WebApplication.Controllers
         {
             TeamMembersDto teamMembersDto = new TeamMembersDto();
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var modelTeam = await _teamService.GetTeamByIdAsync(id, loggedUserId);
-            teamMembersDto.Name = modelTeam.Name;
-            teamMembersDto.Description = modelTeam.Description;
-            teamMembersDto.TeamUsers = await _teamService.GetUsersForTeamAsync(id);
+          //  var modelTeam = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+          //  teamMembersDto.Name = modelTeam.Name;
+         //   teamMembersDto.Description = modelTeam.Description;
+          //  teamMembersDto.TeamUsers = await _teamService.GetUsersForTeamAsync(id);
             return View(teamMembersDto);
         }
     }
