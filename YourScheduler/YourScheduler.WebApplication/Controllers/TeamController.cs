@@ -9,7 +9,9 @@ using YourScheduler.BusinessLogic.Services.Interfaces;
 
 namespace YourScheduler.WebApplication.Controllers
 {
-    public class TeamController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TeamController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IUserService _userService;
@@ -22,21 +24,21 @@ namespace YourScheduler.WebApplication.Controllers
             _userService = userService;
         }
 
-        [Authorize]
-        public async Task<ActionResult> GetAllTeams(string searchString)
-        {
-            var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var viewModel = await _mediator.Send(new GetAllTeamsQuery());
-            if (String.IsNullOrEmpty(searchString))
-            {
-                return View(viewModel);
-            }
-            else
-            {
-                var allTeams2 = viewModel.Where(e => e.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
-                return View(allTeams2);
-            }
-        }
+        //[Authorize]
+        //public async Task<ActionResult> GetAllTeams(string searchString)
+        //{
+        //    var loggedUserId = int.Parse(User.Identity.GetUserId());
+        //    var viewModel = await _mediator.Send(new GetAllTeamsQuery());
+        //    if (String.IsNullOrEmpty(searchString))
+        //    {
+        //        return View(viewModel);
+        //    }
+        //    else
+        //    {
+        //        var allTeams2 = viewModel.Where(e => e.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase)).ToList();
+        //        return View(allTeams2);
+        //    }
+        //}
 
         //public async Task<ActionResult> DetailsAllTeams(int id)
         //{
@@ -51,15 +53,10 @@ namespace YourScheduler.WebApplication.Controllers
         //    return View(model);
         //}
 
-        [Authorize]
-        public ActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult> Create(TeamDto teamDto)
+        [Route("createTeam")]
+        public async Task<ActionResult> Create([FromBody]TeamDto teamDto)
         {
             if (teamDto is null)
             {
@@ -181,20 +178,20 @@ namespace YourScheduler.WebApplication.Controllers
         //    return View(model);
         //}
 
-        [HttpPost]
-        public async Task<ActionResult> DeleteFromCalendar(int id, TeamDto model)
-        {
-            try
-            {
-                var userId = int.Parse(User.Identity.GetUserId());
-                //await _teamService.DeleteTeamFromCalendarAsync(id, userId);
-                return RedirectToAction("GetUserTeams");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        //[HttpPost]
+        //public async Task<ActionResult> DeleteFromCalendar(int id, TeamDto model)
+        //{
+        //    try
+        //    {
+        //        var userId = int.Parse(User.Identity.GetUserId());
+        //        //await _teamService.DeleteTeamFromCalendarAsync(id, userId);
+        //        return RedirectToAction("GetUserTeams");
+        //    }
+        //    catch
+        //    {
+        //        return View();
+        //    }
+        //}
 
         //public async Task<ActionResult> GetUserTeams(string searchString)
         //{
@@ -203,40 +200,40 @@ namespace YourScheduler.WebApplication.Controllers
         //    return View(model);
         //}
 
-        [Route("addthisteam/{id:int}")]
-        public async Task<ActionResult> AddThisTeam(int id)
-        {
-            var loggedUserId = int.Parse(User.Identity.GetUserId());
-            //  var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
-            return View();
-        }
+        //[Route("addthisteam/{id:int}")]
+        //public async Task<ActionResult> AddThisTeam(int id)
+        //{
+        //    var loggedUserId = int.Parse(User.Identity.GetUserId());
+        //    //  var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+        //    return View();
+        //}
 
-        [HttpPost]
-        [Route("addthisteam/{id:int}")]
-        public async Task<ActionResult> AddThisTeam(TeamDto model)
-        {
-            try
-            {
-                var userId = int.Parse(User.Identity.GetUserId());
-                //  await _teamService.AddTeamForUserAsync(userId, model.Id);
-                return RedirectToAction(nameof(GetAllTeams));
-            }
-            catch (Exception)
-            {
-                return View("AddThisTeamError");
-            }
-        }
+        //[HttpPost]
+        //[Route("addthisteam/{id:int}")]
+        //public async Task<ActionResult> AddThisTeam(TeamDto model)
+        //{
+        //    try
+        //    {
+        //        var userId = int.Parse(User.Identity.GetUserId());
+        //        //  await _teamService.AddTeamForUserAsync(userId, model.Id);
+        //        return RedirectToAction(nameof(GetAllTeams));
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return View("AddThisTeamError");
+        //    }
+        //}
 
-        [Route("teammembers/{id:int}")]
-        public async Task<ActionResult> TeamMembers(int id)
-        {
-            TeamMembersDto teamMembersDto = new TeamMembersDto();
-            var loggedUserId = int.Parse(User.Identity.GetUserId());
-            //  var modelTeam = await _teamService.GetTeamByIdAsync(id, loggedUserId);
-            //  teamMembersDto.Name = modelTeam.Name;
-            //   teamMembersDto.Description = modelTeam.Description;
-            //  teamMembersDto.TeamUsers = await _teamService.GetUsersForTeamAsync(id);
-            return View(teamMembersDto);
-        }
+        //[Route("teammembers/{id:int}")]
+        //public async Task<ActionResult> TeamMembers(int id)
+        //{
+        //    TeamMembersDto teamMembersDto = new TeamMembersDto();
+        //    var loggedUserId = int.Parse(User.Identity.GetUserId());
+        //    //  var modelTeam = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+        //    //  teamMembersDto.Name = modelTeam.Name;
+        //    //   teamMembersDto.Description = modelTeam.Description;
+        //    //  teamMembersDto.TeamUsers = await _teamService.GetUsersForTeamAsync(id);
+        //    return View(teamMembersDto);
+        //}
     }
 }

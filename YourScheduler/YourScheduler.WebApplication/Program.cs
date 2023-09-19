@@ -13,8 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("YourSchedulerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'YourSchedulerDbContextConnection' not found.");
 
+
 builder.Services.AddDbContext<YourSchedulerDbContext>(options =>
  options.UseSqlServer(connectionString));
+
+builder.Services.AddControllers();
+
 builder.Services.AddAuthentication()
     .AddFacebook(options =>
     {
@@ -31,7 +35,7 @@ builder.Services.AddAuthentication()
 var emailConfig = builder.Configuration.GetSection("MailSettings").Get<MailSettings>();
 builder.Services.AddSingleton(emailConfig);
 
-builder.Services.AddControllers();
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
