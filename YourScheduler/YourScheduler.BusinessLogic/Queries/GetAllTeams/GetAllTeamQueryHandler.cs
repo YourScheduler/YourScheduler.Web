@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace YourScheduler.BusinessLogic.Queries.GetAllTeams
         }
         public async Task<IEnumerable<TeamDto>> Handle(GetAllTeamsQuery request, CancellationToken cancellationToken)
         {
-            var teams = await _teamRepository.GetAllExistedTeamsQueryable();
+            var teams = await _teamRepository.GetAllExistedTeamsQueryable().ToListAsync();
             var teamsDtos = _mapper.Map<IEnumerable<TeamDto>>(teams);
             return teamsDtos;
         }

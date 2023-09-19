@@ -25,15 +25,15 @@ namespace YourScheduler.UI.Controllers
         }
         // GET: UserController
 
-        [Authorize]
-        public  ActionResult Index()
-        {
-            var userId =int.Parse( HttpContext.User.Identity.GetUserId());
+        //[Authorize]
+        //public  ActionResult Index()
+        //{
+        //    var userId =int.Parse( HttpContext.User.Identity.GetUserId());
 
 
-            var model = _userService.GetUserById(userId);
-            return View(model);
-        }
+        //    var model = _userService.GetUserById(userId);
+        //    return View(model);
+        //}
 
         // GET: UserController/Details/5
       //  [Route("details/{id:int}")]
@@ -64,12 +64,12 @@ namespace YourScheduler.UI.Controllers
         }
 
         // GET: UserController/Edit/5
-        [Route("edit/{id:int}")]
-        public ActionResult Edit(int id)
-        {
-            var model = _userService.GetUserById(id);
-            return View(model);
-        }
+        //[Route("edit/{id:int}")]
+        //public ActionResult Edit(int id)
+        //{
+        //    var model = _userService.GetUserById(id);
+        //    return View(model);
+        //}
 
         // POST: UserController/Edit/5
         [HttpPost]

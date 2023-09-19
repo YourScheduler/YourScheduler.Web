@@ -8,7 +8,7 @@ using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Services
 {
-    public class UserService :IUserService
+    public class UserService : IUserService
     {
         private readonly IUsersRepository _usersRepository;
         private readonly IMapper _mapper;

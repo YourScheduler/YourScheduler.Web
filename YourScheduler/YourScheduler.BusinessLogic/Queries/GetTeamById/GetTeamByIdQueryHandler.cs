@@ -1,13 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YourScheduler.BusinessLogic.Models.DTOs;
-using YourScheduler.BusinessLogic.YourScheduler.Queries.GetAllTeams;
-using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Queries.GetTeamById
