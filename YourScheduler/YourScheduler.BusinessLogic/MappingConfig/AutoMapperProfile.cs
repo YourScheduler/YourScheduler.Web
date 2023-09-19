@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.Infrastructure.Entities;
 
@@ -26,10 +25,12 @@ namespace YourScheduler.BusinessLogic.MappingConfig
                 .ForMember(dest => dest.CanLoggedUserEdit, opt => opt.Ignore());
 
             CreateMap<TeamDto, Team>()
-                .ForSourceMember(src => src.ImageFile, opt => opt.DoNotValidate());
+                .ForSourceMember(src => src.ImageFile, opt => opt.DoNotValidate())
+                .ForMember(dest => dest.TeamMembers, opt => opt.Ignore());
 
             CreateMap<Team, TeamDto>()
-                .ForMember(dest => dest.ImageFile, opt => opt.Ignore());
+                .ForMember(dest => dest.ImageFile, opt => opt.Ignore())
+                .ForSourceMember(src => src.TeamMembers, opt => opt.DoNotValidate());
 
             CreateMap<ApplicationUserDto, ApplicationUser>()
             .ForMember(dest => dest.ApplicationUsersEvents, opt => opt.Ignore())

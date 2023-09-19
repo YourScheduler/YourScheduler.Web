@@ -20,10 +20,9 @@ namespace YourScheduler.Infrastructure
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<TeamRole> TeamRoles { get; set; }
         public virtual DbSet<ApplicationUserEvents> ApplicationUsersEvents { get; set; }
         public virtual DbSet<ApplicationUserTeams> ApplicationUsersTeams { get; set; }
-
-        public virtual DbSet<HomeView> HomeViews { get; set; }
 
         public YourSchedulerDbContext(DbContextOptions options):base(options)
         {
@@ -44,7 +43,6 @@ namespace YourScheduler.Infrastructure
                 .HasData(SeedData.GetApplicationUserEventSeed());
             builder.Entity<ApplicationUserTeams>()
                 .HasData(SeedData.GetApplicationUserTeamSeed());
-            builder.Entity<HomeView>().HasData(SeedData.GetHomeViewSeed());
         }
     }
 }
