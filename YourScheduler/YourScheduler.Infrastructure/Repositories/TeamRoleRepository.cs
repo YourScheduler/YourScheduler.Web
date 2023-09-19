@@ -23,14 +23,15 @@ namespace YourScheduler.Infrastructure.Repositories
                 .Select(tr => tr.TeamRole);
         }
 
-        public async Task AddTeamRoleAsync(TeamRole teamRole, int teamId)
+        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole, int teamId)
         {
             var teamForNewRole = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception ("Could not find team with given id");
             teamForNewRole.TeamRoles.Add(teamRole);
             await _dbContext.SaveChangesAsync();
+            return teamRole;
         }
 
-        public async Task UpdateTeamRoleAsync(TeamRole teamRoleToUpdate, int teamId)
+        public async Task<TeamRole> UpdateTeamRoleAsync(TeamRole teamRoleToUpdate, int teamId)
         {
             var teamForNewRole = await _dbContext.Teams.SingleOrDefaultAsync(t => t.TeamId == teamId) ?? throw new Exception("Could not find team with given id");
             var roleInTeam = teamForNewRole.TeamRoles.FirstOrDefault(r => r.TeamRoleId == teamRoleToUpdate.TeamRoleId) ?? throw new Exception("Could not find team role with given id");
@@ -38,6 +39,8 @@ namespace YourScheduler.Infrastructure.Repositories
             roleInTeam.Name = teamRoleToUpdate.Name;
             roleInTeam.TeamRoleFlags = teamRoleToUpdate.TeamRoleFlags;
             await _dbContext.SaveChangesAsync();
+
+            return teamRoleToUpdate;
 
         }
 

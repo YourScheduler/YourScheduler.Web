@@ -21,11 +21,13 @@ namespace YourScheduler.Infrastructure.Repositories
             return  _dbContext.Teams;
         }
 
-        public async Task AddTeamAsync(Team team)
+        public async Task<Team> AddTeamAsync(Team team)
         {
             _logger.LogInformation("User attempt to add new team at {DT}", DateTime.Now.ToLongTimeString());
             await _dbContext.Teams.AddAsync(team);
             await _dbContext.SaveChangesAsync();
+
+            return team;
         }
 
         public async Task<Team> GetTeamByIdAsync(int id)
@@ -45,7 +47,7 @@ namespace YourScheduler.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateTeamAsync(Team teamToBase)
+        public async Task<Team> UpdateTeamAsync(Team teamToBase)
         {
             _logger.LogInformation("User attempt to update team by ID at {DT}", DateTime.Now.ToLongTimeString());
             var teamToUpdate = await GetTeamByIdAsync(teamToBase.TeamId);
@@ -63,6 +65,7 @@ namespace YourScheduler.Infrastructure.Repositories
                 teamToUpdate.PicturePath = teamToBase.PicturePath;
                 await _dbContext.SaveChangesAsync();
             }
+            return teamToBase;
         }
 
         public IQueryable<Team> GetTeamsForUserQueryable(int applicationUserId)

@@ -6,13 +6,13 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
     {
         public IQueryable<Team> GetAllExistedTeamsQueryable();
 
-        public Task AddTeamAsync(Team team);
+        public Task<Team> AddTeamAsync(Team team);
 
         public Task<Team> GetTeamByIdAsync(int id);
 
         public Task DeleteTeamByIdAsync(int id);
 
-        public Task UpdateTeamAsync(Team teamToBase);
+        public Task<Team> UpdateTeamAsync(Team teamToBase);
 
         public IQueryable<Team> GetTeamsForUserQueryable(int applicationUserId);
 

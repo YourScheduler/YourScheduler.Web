@@ -9,7 +9,7 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 {
     public interface IEventsRepository
     {
-        public Task AddEventAsync(Event eventTobase);
+        public Task<Event> AddEventAsync(Event eventTobase);
 
         public IQueryable<Event> GetAvailableEventsQueryable(int loggedUserId);
 
@@ -19,7 +19,7 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
 
         public Task DeleteEventFromCalendarByIdAsync(int id, int userId);
 
-        public Task UpdateEventAsync(Event eventToBase);
+        public Task<Event> UpdateEventAsync(Event eventToBase);
 
         public Task<bool> CheckIfLoggedUserIsParticipantAsync(int loggedUserId, int eventId);
 

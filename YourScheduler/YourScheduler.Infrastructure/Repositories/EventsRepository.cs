@@ -15,10 +15,11 @@ namespace YourScheduler.Infrastructure.Repositories
             _dbContext = dbContext;
             _logger = logger;
         }
-        public async Task AddEventAsync(Event eventTobase)
+        public async Task<Event> AddEventAsync(Event eventTobase)
         {
             _logger.LogInformation("User attempt to add new event at {DT}", DateTime.Now.ToLongTimeString());
             await _dbContext.Events.AddAsync(eventTobase);
+            return eventTobase;
         }
 
         public IQueryable<Event> GetAvailableEventsQueryable(int loggedUserId)
@@ -64,7 +65,7 @@ namespace YourScheduler.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateEventAsync(Event eventToBase)
+        public async Task<Event> UpdateEventAsync(Event eventToBase)
         {
             _logger.LogInformation("User attempt to update event at {DT}", DateTime.Now.ToLongTimeString());
 
@@ -84,6 +85,7 @@ namespace YourScheduler.Infrastructure.Repositories
                 eventToUpdate.PicturePath = eventToBase.PicturePath;
                 await _dbContext.SaveChangesAsync();
             }
+            return eventToUpdate;
         }
 
         public async Task<bool> CheckIfLoggedUserIsParticipantAsync(int loggedUserId, int eventId)

@@ -12,6 +12,6 @@ namespace YourScheduler.Infrastructure.Repositories.Interfaces
         IQueryable<ApplicationUser> GetUsersFromDataBaseQueryable();
         Task<ApplicationUser> GetUserByIdAsync(int id);
         Task<ApplicationUser> GetUserByEmailAsync(string email);
-        public Task AddUserAsync(ApplicationUser user);
+        public Task<ApplicationUser> AddUserAsync(ApplicationUser user);
     }
 }

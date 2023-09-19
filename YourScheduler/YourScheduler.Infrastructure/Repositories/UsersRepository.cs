@@ -13,10 +13,12 @@ namespace YourScheduler.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddUserAsync(ApplicationUser user)
+        public async Task<ApplicationUser> AddUserAsync(ApplicationUser user)
         {
             await _dbContext.Users.AddAsync(user);
             await _dbContext.SaveChangesAsync();
+
+            return user;
         }
 
         public IQueryable<ApplicationUser> GetUsersFromDataBaseQueryable()
