@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
