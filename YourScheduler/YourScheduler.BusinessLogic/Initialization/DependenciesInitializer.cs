@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 using YourScheduler.BusinessLogic.Services;
 using YourScheduler.BusinessLogic.Services.Interfaces;
 
@@ -12,7 +14,8 @@ namespace YourScheduler.BusinessLogic.Initialization
             serviceCollection.AddScoped<IEventService, EventService>();
             serviceCollection.AddScoped<ITeamService, TeamService>();
             serviceCollection.AddScoped<IHomeViewService, HomeViewService>();
-            serviceCollection.AddSingleton<IEmailService, EmailService>();         
+            serviceCollection.AddSingleton<IEmailService, EmailService>();
+            serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
 
         }
     }
