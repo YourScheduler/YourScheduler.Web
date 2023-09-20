@@ -5,10 +5,10 @@ namespace YourScheduler.BusinessLogic.Queries.GetTeamById
 {
     public class GetTeamByIdQuery : IRequest<TeamDto>
     {
-        public int Id { get;}
-        public GetTeamByIdQuery(int id)
+        public int TeamId { get;}
+        public GetTeamByIdQuery(int teamId)
         {
-            Id = id;
+            TeamId = teamId;
         }
     }
 }

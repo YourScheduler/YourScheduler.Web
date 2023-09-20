@@ -20,31 +20,6 @@ namespace YourScheduler.BusinessLogic.Services
             _usersRepository = usersRepository;
             
         }
-        //public List<ApplicationUserDto> GetAllUsers()
-        //{
-
-        //    //List<ApplicationUserDto> users = new List<ApplicationUserDto>();  
-        //    //foreach (var item in _usersRepository.GetUsersFromDataBase())
-        //    //{ 
-        //    //    users.Add(_mapper.Map<ApplicationUserDto>(item));    
-        //    //}
-
-        //    return users;
-        //}
-
-        //public ApplicationUserDto GetUserById(int id)
-        //{
-
-        //    var user = _usersRepository.GetUserById(id);
-        //    return _mapper.Map<ApplicationUserDto>(user);
-        //}
-
-        public void UpdateUser(ApplicationUserDto userDtoUpdated)
-        {
-            var user = _mapper.Map<ApplicationUser>(userDtoUpdated);
-
-          //  _usersRepository.UpdateUser(user);
-        }
 
         //public void AddUser(ApplicationUserDto newUser)
         //{
