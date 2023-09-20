@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using MediatR;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using YourScheduler.BusinessLogic.Features.Commands.TeamCommands.AddTeamForUserCommand;
+using YourScheduler.BusinessLogic.Features.Queries.TeamQueries.GetAvailableTeamsQuery;
+using YourScheduler.BusinessLogic.Features.Queries.TeamQueries.GetTeamByIdQuery;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Services.Interfaces;
 
@@ -11,19 +15,28 @@ namespace YourScheduler.WebApplication.Controllers
         private readonly ITeamService _teamService;
         private readonly IUserService _userService;
         private readonly IWebHostEnvironment _webHost;
+        private readonly IMediator _mediator;
 
-        public TeamController(IWebHostEnvironment webHost, ITeamService teamService, IUserService userService)
+        public TeamController(IWebHostEnvironment webHost, ITeamService teamService, IUserService userService, IMediator mediator)
         {
             _webHost = webHost;
             _teamService = teamService;
             _userService = userService;
+            _mediator = mediator;
         }
 
         [Authorize]
         public async Task<ActionResult> GetAllTeams(string searchString)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var viewModel = await _teamService.GetAvailableTeamsAsync(loggedUserId, searchString);
+            //var viewModel = await _teamService.GetAvailableTeamsAsync(loggedUserId, searchString);
+            var viewModel = await _mediator.Send(new GetAvailableTeamsRequest
+            {
+                LoggedUserId = loggedUserId,
+                SearchString = searchString
+            });
+
+
             if (String.IsNullOrEmpty(searchString))
             {
                 return View(viewModel);
@@ -38,13 +51,23 @@ namespace YourScheduler.WebApplication.Controllers
         public async Task<ActionResult> DetailsAllTeams(int id)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            //var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            var model = await _mediator.Send(new GetTeamByIdRequest
+            {
+                Id = id,
+                LoggedUserId = loggedUserId
+            });
             return View(model);
         }
         public async Task<ActionResult> DetailsUserTeams(int id)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            //var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            var model = await _mediator.Send(new GetTeamByIdRequest
+            {
+                Id = id,
+                LoggedUserId = loggedUserId
+            });
             return View(model);
         }
 
@@ -86,7 +109,9 @@ namespace YourScheduler.WebApplication.Controllers
                         model.PicturePath = "/Pictures/" + "defaultTeam.jpg";
                     }
                     model.AdministratorId = loggedUserId;
-                    await _teamService.AddTeamAsync(model);
+
+                    //await _teamService.AddTeamAsync(model);
+                    await _mediator.Send(model);
                     //TODO - move out of controller
                 }
                 return RedirectToAction("GetAllTeams", "Team");
@@ -209,7 +234,13 @@ namespace YourScheduler.WebApplication.Controllers
         public async Task<ActionResult> AddThisTeam(int id)
         {
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            //var model = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            var model = await _mediator.Send(new GetTeamByIdRequest
+            {
+                Id = id,
+                LoggedUserId = loggedUserId
+            });
+
             return View(model);
         }
 
@@ -220,7 +251,12 @@ namespace YourScheduler.WebApplication.Controllers
             try
             {
                 var userId = int.Parse(User.Identity.GetUserId());
-                await _teamService.AddTeamForUserAsync(userId, model.Id);
+                //await _teamService.AddTeamForUserAsync(userId, model.Id);
+                await _mediator.Send(new AddTeamForUserRequest
+                {
+                    ApplicationUserId = userId,
+                    TeamId = model.Id
+                });
                 return RedirectToAction(nameof(GetAllTeams));
             }
             catch (Exception)
@@ -234,7 +270,12 @@ namespace YourScheduler.WebApplication.Controllers
         {
             TeamMembersDto teamMembersDto = new TeamMembersDto();
             var loggedUserId = int.Parse(User.Identity.GetUserId());
-            var modelTeam = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            //var modelTeam = await _teamService.GetTeamByIdAsync(id, loggedUserId);
+            var modelTeam = await _mediator.Send(new GetTeamByIdRequest
+            {
+                Id = id,
+                LoggedUserId = loggedUserId
+            });
             teamMembersDto.Name = modelTeam.Name;
             teamMembersDto.Description = modelTeam.Description;
             teamMembersDto.TeamUsers = await _teamService.GetUsersForTeamAsync(id);
