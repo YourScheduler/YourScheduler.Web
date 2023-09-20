@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YourScheduler.BusinessLogic.Models.DTOs;
 
 namespace YourScheduler.BusinessLogic.Queries.GetUserByEmail
 {
-    internal class GetUserByEmailQuery
+    public class GetUserByEmailQuery : IRequest<ApplicationUserDto>
     {
+        public string UserEmail { get;}
+
+        public GetUserByEmailQuery(string userEmail)
+        {
+            UserEmail = userEmail;
+        }
     }
 }

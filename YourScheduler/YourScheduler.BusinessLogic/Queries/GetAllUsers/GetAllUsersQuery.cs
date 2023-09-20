@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YourScheduler.BusinessLogic.Models.DTOs;
 
 namespace YourScheduler.BusinessLogic.Queries.GetAllUsers
 {
-    internal class GetAllUsersQuery
+    public class GetAllUsersQuery : IRequest<IEnumerable<ApplicationUserDto>>
     {
     }
 }

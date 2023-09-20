@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YourScheduler.BusinessLogic.Models.DTOs;
+using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.BusinessLogic.Commands.AddUser
 {
-    internal class AddUserCommand
+    public class AddUserCommand : IRequest<ApplicationUser>
     {
+        public ApplicationUserDto UserDto { get; }
+
+        public AddUserCommand(ApplicationUserDto userDto)
+        {
+            UserDto = userDto;
+        }
     }
+
 }

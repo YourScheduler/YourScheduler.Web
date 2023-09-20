@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YourScheduler.BusinessLogic.Models.DTOs;
 
 namespace YourScheduler.BusinessLogic.Queries.GetUserById
 {
-    internal class GetUserById
+    public class GetUserByIdQuery : IRequest<ApplicationUserDto>
     {
+        public int UserId { get; }
+
+        public GetUserByIdQuery(int userId)
+        {
+            UserId = userId;
+        }
     }
 }
+   
