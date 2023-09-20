@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace YourScheduler.BusinessLogic.Models.DTOs;
 
-public class TeamDto
+public class TeamDto : IRequest
 {
     public int Id { get; set; }
 
