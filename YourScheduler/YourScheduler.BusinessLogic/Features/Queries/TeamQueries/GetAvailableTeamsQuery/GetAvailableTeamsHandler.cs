@@ -4,7 +4,7 @@ using YourScheduler.BusinessLogic.Services.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Features.Queries.TeamQueries.GetAvailableTeamsQuery;
 
-public class GetAvailableTeamsHandler : IRequestHandler<GetAvailableTeamsRequest, IEnumerable<TeamDto>
+public class GetAvailableTeamsHandler : IRequestHandler<GetAvailableTeamsRequest, IEnumerable<TeamDto>>
 {
     private readonly ITeamService _teamService;
     public GetAvailableTeamsHandler(ITeamService teamService)
