@@ -12,8 +12,8 @@ using YourScheduler.Infrastructure;
 namespace YourScheduler.Infrastructure.Migrations
 {
     [DbContext(typeof(YourSchedulerDbContext))]
-    [Migration("20230729201956_init")]
-    partial class init
+    [Migration("20230920144159_YS_TR")]
+    partial class YS_TR
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -254,10 +254,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "admin",
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AHQg8xn1k0PeymLNAM+gvH2tgxZpMFD+r2oO/ZpNEAHXCAB8HqFjnvF9XjndxMwsyw==",
+                            PasswordHash = "APwf8BMOgLKRP0seikdwExHQPNx++6H5XIabOitTaKtCIzcO+qORSlTve96/QvoO0Q==",
                             PhoneNumber = "111 222 333",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4CYEYYRUNSYQFJ3SD6YLNVBVSATFMYN4",
+                            SecurityStamp = "D6PMR5MAMAOZHVK67CCSINDDHLHCTNCZ",
                             Surname = "admin",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
@@ -274,10 +274,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Krzysztof",
                             NormalizedEmail = "JARZYNA@GMAIL.COM",
                             NormalizedUserName = "JARZYNA@GMAIL.COM",
-                            PasswordHash = "ADy9ifkP17xORPNtehpavgmIgH8iaLgmUulzZ3oAUa6eH4ST8sFqniLT27b6FvrC9g==",
+                            PasswordHash = "AGwcsSu7MqQGaQi4ZPo0h2bbOa11WhRIIUTGJdmqu1P0ExmfY5C9Tl23MSgGchzV2A==",
                             PhoneNumber = "666 598 456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "YR4MDIREKBSJZWUDIFDT4BMFEF55DMJR",
+                            SecurityStamp = "HJ25DQ7NCSZGCUD6WWSCDRJDU2AHSIT4",
                             Surname = "Jarzyna",
                             TwoFactorEnabled = false,
                             UserName = "jarzyna@gmail.com"
@@ -294,10 +294,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Jane",
                             NormalizedEmail = "JANE_JOHNSON@GMAIL.COM",
                             NormalizedUserName = "JANE_JOHNSON@GMAIL.COM",
-                            PasswordHash = "AE8xB53GySzAPTSI6lyFZe9ax3UjWtgPjJLSANmlWwZoT9zSuJ72nNCFUpT+MbkUnw==",
+                            PasswordHash = "AGCn+Kd1R2r3CEqnsxkhxhvqM660XXcqPmEJu2uT/uDlYFVeCMtObFVBJV2HBD7d6Q==",
                             PhoneNumber = "666 598 456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "GTV3KYR2KZXBNMGYUP2RV54YJIAWPY4C",
+                            SecurityStamp = "ZVHGK6SAKDV3Y3MEPIDSK5NMOUEHVMXZ",
                             Surname = "Johnson",
                             TwoFactorEnabled = false,
                             UserName = "jane_johnson@gmail.com"
@@ -314,10 +314,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Michael",
                             NormalizedEmail = "MICHAELWW@GMAIL.COM",
                             NormalizedUserName = "MICHAELWW@GMAIL.COM",
-                            PasswordHash = "ADe7hiEory8B2ZWuUVTVOYbAG5W6RXMeoTrLqdRxOz0i0TGCTxrj8bsafTOnFo48ew==",
+                            PasswordHash = "ADXiYSXc2jDBaP2pbRpBcM3YAb52kvKASm7vNdtXYox79tkzB7PZ+rMDki2wigRWwg==",
                             PhoneNumber = "987 654 321",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "DPGARQ53DKNXCVDXOVRY7UE3ULE467Y7",
+                            SecurityStamp = "7NR3EVVGCCK5KQJK3LUPU765PDSWXYR3",
                             Surname = "Williams",
                             TwoFactorEnabled = false,
                             UserName = "michaelww@gmail.com"
@@ -334,10 +334,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "William",
                             NormalizedEmail = "JONESWILLIAM@GMAIL.COM",
                             NormalizedUserName = "JONESWILLIAM@GMAIL.COM",
-                            PasswordHash = "AIZveIg0PUKd+BvDuzTcCCV+I0FIWOmGQPTeozin+UUjKV5Ei4U0ZPgRsufTxsihIw==",
+                            PasswordHash = "AOuVax2TjxtDtDNWt0mJLYVzxksTD9GZHYoqMb6/vZe3sY8NuSp/dCOliqbSxFXV/w==",
                             PhoneNumber = "123 456 789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "PXQMEA7KSZZANEERHBQVP62EPI6JVS7M",
+                            SecurityStamp = "6LMEJF3UK3ZWL6JQD3OKFMO7WAJJGDDF",
                             Surname = "Jones",
                             TwoFactorEnabled = false,
                             UserName = "joneswilliam@gmail.com"
@@ -354,17 +354,17 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Olivia",
                             NormalizedEmail = "OLIVIAB@GMAIL.COM",
                             NormalizedUserName = "OLIVIAB@GMAIL.COM",
-                            PasswordHash = "AOCW6gerOEZvXknY4AiisYqAv5Sdcdr7keQ3yca/hjW+/b9tOME/7a5mJ60C4QxTZA==",
+                            PasswordHash = "AMqTg/5C4uPrLZmGTIvxG7WBeLJrj2bGS0CX9PJpvZDV12cZtPsKDJJAFCw+eLyidg==",
                             PhoneNumber = "666 598 456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "VWMFU56TZDBSL4B5HCQXSR3QZB7GVX6Q",
+                            SecurityStamp = "5Q5CIT55BF5SFZKNHETXGUWYEGBN6HLM",
                             Surname = "Brown",
                             TwoFactorEnabled = false,
                             UserName = "oliviab@gmail.com"
                         });
                 });
 
-            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserEvent", b =>
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserEvents", b =>
                 {
                     b.Property<int>("ApplicationUserId")
                         .HasColumnType("int");
@@ -421,7 +421,7 @@ namespace YourScheduler.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserTeam", b =>
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserTeams", b =>
                 {
                     b.Property<int>("ApplicationUserId")
                         .HasColumnType("int");
@@ -429,9 +429,12 @@ namespace YourScheduler.Infrastructure.Migrations
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
-                    b.HasKey("ApplicationUserId", "TeamId");
+                    b.Property<int>("TeamRoleId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("TeamId");
+                    b.HasKey("ApplicationUserId", "TeamId", "TeamRoleId");
+
+                    b.HasIndex("TeamRoleId");
 
                     b.ToTable("ApplicationUsersTeams");
 
@@ -439,52 +442,62 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             ApplicationUserId = 1,
-                            TeamId = 1
+                            TeamId = 1,
+                            TeamRoleId = 1
                         },
                         new
                         {
                             ApplicationUserId = 2,
-                            TeamId = 2
+                            TeamId = 2,
+                            TeamRoleId = 2
                         },
                         new
                         {
                             ApplicationUserId = 2,
-                            TeamId = 3
+                            TeamId = 3,
+                            TeamRoleId = 3
                         },
                         new
                         {
                             ApplicationUserId = 2,
-                            TeamId = 4
+                            TeamId = 4,
+                            TeamRoleId = 4
                         },
                         new
                         {
                             ApplicationUserId = 3,
-                            TeamId = 4
+                            TeamId = 4,
+                            TeamRoleId = 4
                         },
                         new
                         {
                             ApplicationUserId = 4,
-                            TeamId = 4
+                            TeamId = 4,
+                            TeamRoleId = 4
                         },
                         new
                         {
                             ApplicationUserId = 5,
-                            TeamId = 5
+                            TeamId = 5,
+                            TeamRoleId = 5
                         },
                         new
                         {
                             ApplicationUserId = 5,
-                            TeamId = 6
+                            TeamId = 6,
+                            TeamRoleId = 6
                         },
                         new
                         {
                             ApplicationUserId = 6,
-                            TeamId = 5
+                            TeamId = 5,
+                            TeamRoleId = 5
                         },
                         new
                         {
                             ApplicationUserId = 6,
-                            TeamId = 6
+                            TeamId = 6,
+                            TeamRoleId = 6
                         });
                 });
 
@@ -495,6 +508,9 @@ namespace YourScheduler.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"));
+
+                    b.Property<int>("AdministratorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -514,9 +530,6 @@ namespace YourScheduler.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("administratorId")
-                        .HasColumnType("int");
-
                     b.HasKey("EventId");
 
                     b.ToTable("Events");
@@ -525,101 +538,72 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             EventId = 1,
+                            AdministratorId = 1,
                             Date = new DateTime(2023, 6, 22, 19, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Koncert z okazji urodzin TVP",
                             IsOpen = true,
                             Name = "Koncert Zenka Martyniuka",
-                            PicturePath = "/Pictures/eventId=1.jpg",
-                            administratorId = 1
+                            PicturePath = "/Pictures/eventId=1.jpg"
                         },
                         new
                         {
                             EventId = 2,
+                            AdministratorId = 1,
                             Date = new DateTime(2023, 12, 1, 17, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Wyjątkowe spotkanie z autorami bestsellerowych książek",
                             IsOpen = true,
                             Name = "Spotkanie Literackie: Autorzy Bestsellerów",
-                            PicturePath = "/Pictures/eventId=2.jpg",
-                            administratorId = 1
+                            PicturePath = "/Pictures/eventId=2.jpg"
                         },
                         new
                         {
                             EventId = 3,
+                            AdministratorId = 2,
                             Date = new DateTime(2023, 10, 2, 15, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Spektakl muzyczny pełen magii i emocji",
                             IsOpen = true,
                             Name = "Występ Teatru Muzycznego: Magiczna Melodia",
-                            PicturePath = "/Pictures/eventId=3.jpg",
-                            administratorId = 2
+                            PicturePath = "/Pictures/eventId=3.jpg"
                         },
                         new
                         {
                             EventId = 4,
+                            AdministratorId = 3,
                             Date = new DateTime(2023, 9, 11, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Najnowsze trendy i innowacje technologiczne na światowym poziomie",
                             IsOpen = true,
                             Name = "Konferencja Technologiczna: Przyszłość Innowacji",
-                            PicturePath = "/Pictures/defaultEvent.jpg",
-                            administratorId = 3
+                            PicturePath = "/Pictures/defaultEvent.jpg"
                         },
                         new
                         {
                             EventId = 5,
+                            AdministratorId = 4,
                             Date = new DateTime(2024, 1, 8, 20, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Przyjemny wieczór filmowy z wyjątkowymi produkcjami z całego świata",
                             IsOpen = false,
                             Name = "Sesja Filmowa: Kino bez Granic",
-                            PicturePath = "/Pictures/defaultEvent.jpg",
-                            administratorId = 4
+                            PicturePath = "/Pictures/defaultEvent.jpg"
                         },
                         new
                         {
                             EventId = 6,
+                            AdministratorId = 5,
                             Date = new DateTime(2023, 7, 15, 16, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Wyjątkowy pokaz kulinarny, podczas którego można odkryć smaki z różnych zakątków świata",
                             IsOpen = false,
                             Name = "Pokaz Kulinarny: Świat Smaków",
-                            PicturePath = "/Pictures/eventId=6.jpg",
-                            administratorId = 5
+                            PicturePath = "/Pictures/eventId=6.jpg"
                         },
                         new
                         {
                             EventId = 7,
+                            AdministratorId = 6,
                             Date = new DateTime(2023, 8, 10, 18, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Niezwykłe przedstawienie teatralne pełne emocji i wrażeń",
                             IsOpen = true,
                             Name = "Sztuka na Scenie: Wieczór Teatru",
-                            PicturePath = "/Pictures/defaultEvent.jpg",
-                            administratorId = 6
-                        });
-                });
-
-            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.HomeView", b =>
-                {
-                    b.Property<int>("HomeViewId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HomeViewId"));
-
-                    b.Property<string>("GeneralInfo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImgPath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("HomeViewId");
-
-                    b.ToTable("HomeViews");
-
-                    b.HasData(
-                        new
-                        {
-                            HomeViewId = 1,
-                            GeneralInfo = "Sciezka do jpg",
-                            ImgPath = "/Pictures/harmonogram_870x450_a.jpg"
+                            PicturePath = "/Pictures/defaultEvent.jpg"
                         });
                 });
 
@@ -631,11 +615,14 @@ namespace YourScheduler.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"));
 
-                    b.Property<int>("AdministratorId")
-                        .HasColumnType("int");
+                    b.Property<string>("Creator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -643,7 +630,6 @@ namespace YourScheduler.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PicturePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TeamId");
@@ -654,7 +640,7 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             TeamId = 1,
-                            AdministratorId = 0,
+                            Creator = "Olivia",
                             Description = "Grupa szkółki pływackiej Argonaut",
                             Name = "Grupa początkująca basen Chełm",
                             PicturePath = "/Pictures/teamId=1.jpg"
@@ -662,7 +648,7 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             TeamId = 2,
-                            AdministratorId = 0,
+                            Creator = "Wasyl",
                             Description = "Grupa zrzeszająca mieszkańców osiedla Lawendowe Wzgórze w Gdańsku",
                             Name = "Mieszkańcy osiedla Lawendowe Wzgórze",
                             PicturePath = "/Pictures/teamId=2.jpg"
@@ -670,7 +656,7 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             TeamId = 3,
-                            AdministratorId = 0,
+                            Creator = "Billy",
                             Description = "Zapraszamy do naszego kreatywnego warsztatu artystycznego, gdzie możesz rozwijać swoje umiejętności w różnych dziedzinach sztuki.",
                             Name = "Kreatywny Warsztat Artystyczny",
                             PicturePath = "/Pictures/defaultTeam.jpg"
@@ -678,7 +664,7 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             TeamId = 4,
-                            AdministratorId = 0,
+                            Creator = "Maks",
                             Description = "Dołącz do naszego klubu fitness i wellness, gdzie możesz ćwiczyć, relaksować się i dbać o swoje zdrowie pod okiem profesjonalnych instruktorów.",
                             Name = "Klub Fitness i Wellness",
                             PicturePath = "/Pictures/teamId=4.jpg"
@@ -686,7 +672,7 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             TeamId = 5,
-                            AdministratorId = 0,
+                            Creator = "Kokodźambo",
                             Description = "Zapraszamy do naszego klubu fotograficznego, gdzie pasjonaci fotografii mogą się spotkać, dzielić się wiedzą i rozwijać swoje umiejętności fotograficzne.",
                             Name = "Klub Fotograficzny Obiektyw",
                             PicturePath = "/Pictures/defaultTeam.jpg"
@@ -694,10 +680,232 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             TeamId = 6,
-                            AdministratorId = 0,
+                            Creator = "PiknaSukna",
                             Description = "Nasze studio tańca Ritmo oferuje różnorodne style taneczne dla osób w każdym wieku, bez względu na poziom zaawansowania.",
                             Name = "Studio Tańca Ritmo",
                             PicturePath = "/Pictures/defaultTeam.jpg"
+                        });
+                });
+
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRole", b =>
+                {
+                    b.Property<int>("TeamRoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamRoleId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TeamRoleId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamRoleId = 1,
+                            Name = "Chobok",
+                            TeamId = 1
+                        },
+                        new
+                        {
+                            TeamRoleId = 2,
+                            Name = "Master Blaster",
+                            TeamId = 2
+                        },
+                        new
+                        {
+                            TeamRoleId = 3,
+                            Name = "Perturbator",
+                            TeamId = 3
+                        },
+                        new
+                        {
+                            TeamRoleId = 4,
+                            Name = "Ciastek",
+                            TeamId = 4
+                        },
+                        new
+                        {
+                            TeamRoleId = 5,
+                            Name = "Kaczucha",
+                            TeamId = 5
+                        },
+                        new
+                        {
+                            TeamRoleId = 6,
+                            Name = "Karal",
+                            TeamId = 6
+                        });
+                });
+
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRoleFlags", b =>
+                {
+                    b.Property<int>("TeamRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CanAddTeamEvent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanAddTeamMember")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanAddTeamRole")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEditDescription")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEditRoleFlags")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEditTeamEvent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEditTeamMessage")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEditTeamName")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEditTeamPhoto")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanEditTeamRole")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanRemoveTeamEvent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanRemoveTeamMember")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanRemoveTeamRole")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CanSendEmailToTeam")
+                        .HasColumnType("bit");
+
+                    b.HasKey("TeamRoleId");
+
+                    b.ToTable("TeamRolesFlags");
+
+                    b.HasData(
+                        new
+                        {
+                            TeamRoleId = 1,
+                            CanAddTeamEvent = true,
+                            CanAddTeamMember = true,
+                            CanAddTeamRole = true,
+                            CanEditDescription = true,
+                            CanEditRoleFlags = true,
+                            CanEditTeamEvent = true,
+                            CanEditTeamMessage = true,
+                            CanEditTeamName = true,
+                            CanEditTeamPhoto = true,
+                            CanEditTeamRole = true,
+                            CanRemoveTeamEvent = true,
+                            CanRemoveTeamMember = true,
+                            CanRemoveTeamRole = true,
+                            CanSendEmailToTeam = true
+                        },
+                        new
+                        {
+                            TeamRoleId = 2,
+                            CanAddTeamEvent = true,
+                            CanAddTeamMember = true,
+                            CanAddTeamRole = true,
+                            CanEditDescription = true,
+                            CanEditRoleFlags = true,
+                            CanEditTeamEvent = true,
+                            CanEditTeamMessage = true,
+                            CanEditTeamName = true,
+                            CanEditTeamPhoto = true,
+                            CanEditTeamRole = true,
+                            CanRemoveTeamEvent = true,
+                            CanRemoveTeamMember = true,
+                            CanRemoveTeamRole = true,
+                            CanSendEmailToTeam = true
+                        },
+                        new
+                        {
+                            TeamRoleId = 3,
+                            CanAddTeamEvent = true,
+                            CanAddTeamMember = true,
+                            CanAddTeamRole = true,
+                            CanEditDescription = true,
+                            CanEditRoleFlags = true,
+                            CanEditTeamEvent = true,
+                            CanEditTeamMessage = true,
+                            CanEditTeamName = true,
+                            CanEditTeamPhoto = true,
+                            CanEditTeamRole = true,
+                            CanRemoveTeamEvent = true,
+                            CanRemoveTeamMember = true,
+                            CanRemoveTeamRole = true,
+                            CanSendEmailToTeam = true
+                        },
+                        new
+                        {
+                            TeamRoleId = 4,
+                            CanAddTeamEvent = true,
+                            CanAddTeamMember = true,
+                            CanAddTeamRole = true,
+                            CanEditDescription = true,
+                            CanEditRoleFlags = true,
+                            CanEditTeamEvent = true,
+                            CanEditTeamMessage = true,
+                            CanEditTeamName = true,
+                            CanEditTeamPhoto = true,
+                            CanEditTeamRole = true,
+                            CanRemoveTeamEvent = true,
+                            CanRemoveTeamMember = true,
+                            CanRemoveTeamRole = true,
+                            CanSendEmailToTeam = true
+                        },
+                        new
+                        {
+                            TeamRoleId = 5,
+                            CanAddTeamEvent = true,
+                            CanAddTeamMember = true,
+                            CanAddTeamRole = true,
+                            CanEditDescription = true,
+                            CanEditRoleFlags = true,
+                            CanEditTeamEvent = true,
+                            CanEditTeamMessage = true,
+                            CanEditTeamName = true,
+                            CanEditTeamPhoto = true,
+                            CanEditTeamRole = true,
+                            CanRemoveTeamEvent = true,
+                            CanRemoveTeamMember = true,
+                            CanRemoveTeamRole = true,
+                            CanSendEmailToTeam = true
+                        },
+                        new
+                        {
+                            TeamRoleId = 6,
+                            CanAddTeamEvent = true,
+                            CanAddTeamMember = true,
+                            CanAddTeamRole = true,
+                            CanEditDescription = true,
+                            CanEditRoleFlags = true,
+                            CanEditTeamEvent = true,
+                            CanEditTeamMessage = true,
+                            CanEditTeamName = true,
+                            CanEditTeamPhoto = true,
+                            CanEditTeamRole = true,
+                            CanRemoveTeamEvent = true,
+                            CanRemoveTeamMember = true,
+                            CanRemoveTeamRole = true,
+                            CanSendEmailToTeam = true
                         });
                 });
 
@@ -752,7 +960,7 @@ namespace YourScheduler.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserEvent", b =>
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserEvents", b =>
                 {
                     b.HasOne("YourScheduler.Infrastructure.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany("ApplicationUsersEvents")
@@ -771,23 +979,49 @@ namespace YourScheduler.Infrastructure.Migrations
                     b.Navigation("Event");
                 });
 
-            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserTeam", b =>
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUserTeams", b =>
                 {
                     b.HasOne("YourScheduler.Infrastructure.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany("ApplicationUsersTeams")
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("YourScheduler.Infrastructure.Entities.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamId")
+                        .WithMany("TeamMembers")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("YourScheduler.Infrastructure.Entities.TeamRole", "TeamRole")
+                        .WithMany("ApplicationUserTeams")
+                        .HasForeignKey("TeamRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Team");
+
+                    b.Navigation("TeamRole");
+                });
+
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRole", b =>
+                {
+                    b.HasOne("YourScheduler.Infrastructure.Entities.Team", null)
+                        .WithMany("TeamRoles")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRoleFlags", b =>
+                {
+                    b.HasOne("YourScheduler.Infrastructure.Entities.TeamRole", null)
+                        .WithOne("TeamRoleFlags")
+                        .HasForeignKey("YourScheduler.Infrastructure.Entities.TeamRoleFlags", "TeamRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUser", b =>
@@ -795,6 +1029,21 @@ namespace YourScheduler.Infrastructure.Migrations
                     b.Navigation("ApplicationUsersEvents");
 
                     b.Navigation("ApplicationUsersTeams");
+                });
+
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.Team", b =>
+                {
+                    b.Navigation("TeamMembers");
+
+                    b.Navigation("TeamRoles");
+                });
+
+            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRole", b =>
+                {
+                    b.Navigation("ApplicationUserTeams");
+
+                    b.Navigation("TeamRoleFlags")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

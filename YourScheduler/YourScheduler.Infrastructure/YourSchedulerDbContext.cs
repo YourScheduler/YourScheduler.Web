@@ -11,7 +11,8 @@ using Microsoft.AspNet.Identity;
 using YourScheduler.Infrastructure.Entities;
 using System.Buffers.Text;
 using YourScheduler.Infrastructure;
-
+using FluentAssertions;
+using System.Reflection.Emit;
 
 namespace YourScheduler.Infrastructure
 {
@@ -23,6 +24,7 @@ namespace YourScheduler.Infrastructure
         public virtual DbSet<TeamRole> TeamRoles { get; set; }
         public virtual DbSet<ApplicationUserEvents> ApplicationUsersEvents { get; set; }
         public virtual DbSet<ApplicationUserTeams> ApplicationUsersTeams { get; set; }
+        public virtual DbSet<TeamRoleFlags> TeamRolesFlags { get; set; }
 
         public YourSchedulerDbContext(DbContextOptions options):base(options)
         {
@@ -32,11 +34,27 @@ namespace YourScheduler.Infrastructure
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<ApplicationUserTeams>()
+                .HasOne(at => at.ApplicationUser)
+                .WithMany(au => au.ApplicationUsersTeams)
+                .HasForeignKey(at => at.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUserTeams>()
+                .HasOne(at => at.Team)
+                .WithMany(t => t.TeamMembers)
+                .HasForeignKey(t => t.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // seed data to database:
             builder.Entity<ApplicationUser>()
                 .HasData(SeedData.GetUsersSeed());
             builder.Entity<Event>()
                 .HasData(SeedData.GetEventsSeed());
+            builder.Entity<TeamRoleFlags>()
+                .HasData(SeedData.GetTeamRoleFlagsSeed());
+            builder.Entity<TeamRole>()
+                .HasData(SeedData.GetTeamRoleSeed());
             builder.Entity<Team>()
                 .HasData(SeedData.GetTeamsSeed());
             builder.Entity<ApplicationUserEvents>()

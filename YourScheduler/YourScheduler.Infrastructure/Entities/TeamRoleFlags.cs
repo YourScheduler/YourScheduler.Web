@@ -1,7 +1,10 @@
-﻿namespace YourScheduler.Infrastructure.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace YourScheduler.Infrastructure.Entities
 {
     public class TeamRoleFlags
     {
+        [Key]
         public int TeamRoleId { get; set; }
         public bool CanRemoveTeamMember { get; set; } = false;
         public bool CanAddTeamMember { get; set; } = false;

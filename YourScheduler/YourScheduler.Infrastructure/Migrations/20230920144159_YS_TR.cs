@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YourScheduler.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class YS_TR : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -67,26 +67,12 @@ namespace YourScheduler.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsOpen = table.Column<bool>(type: "bit", nullable: false),
-                    administratorId = table.Column<int>(type: "int", nullable: false),
+                    AdministratorId = table.Column<int>(type: "int", nullable: false),
                     PicturePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.EventId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "HomeViews",
-                columns: table => new
-                {
-                    HomeViewId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    GeneralInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImgPath = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HomeViews", x => x.HomeViewId);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,9 +82,10 @@ namespace YourScheduler.Infrastructure.Migrations
                     TeamId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AdministratorId = table.Column<int>(type: "int", nullable: false),
-                    PicturePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Creator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -236,26 +223,84 @@ namespace YourScheduler.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TeamRoles",
+                columns: table => new
+                {
+                    TeamRoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamRoles", x => x.TeamRoleId);
+                    table.ForeignKey(
+                        name: "FK_TeamRoles_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ApplicationUsersTeams",
                 columns: table => new
                 {
                     ApplicationUserId = table.Column<int>(type: "int", nullable: false),
+                    TeamRoleId = table.Column<int>(type: "int", nullable: false),
                     TeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationUsersTeams", x => new { x.ApplicationUserId, x.TeamId });
+                    table.PrimaryKey("PK_ApplicationUsersTeams", x => new { x.ApplicationUserId, x.TeamId, x.TeamRoleId });
                     table.ForeignKey(
                         name: "FK_ApplicationUsersTeams_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUsersTeams_TeamRoles_TeamRoleId",
+                        column: x => x.TeamRoleId,
+                        principalTable: "TeamRoles",
+                        principalColumn: "TeamRoleId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ApplicationUsersTeams_Teams_TeamId",
-                        column: x => x.TeamId,
+                        name: "FK_ApplicationUsersTeams_Teams_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalTable: "Teams",
                         principalColumn: "TeamId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeamRolesFlags",
+                columns: table => new
+                {
+                    TeamRoleId = table.Column<int>(type: "int", nullable: false),
+                    CanRemoveTeamMember = table.Column<bool>(type: "bit", nullable: false),
+                    CanAddTeamMember = table.Column<bool>(type: "bit", nullable: false),
+                    CanAddTeamRole = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamRole = table.Column<bool>(type: "bit", nullable: false),
+                    CanRemoveTeamRole = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditRoleFlags = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamPhoto = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditDescription = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamMessage = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamName = table.Column<bool>(type: "bit", nullable: false),
+                    CanAddTeamEvent = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamEvent = table.Column<bool>(type: "bit", nullable: false),
+                    CanRemoveTeamEvent = table.Column<bool>(type: "bit", nullable: false),
+                    CanSendEmailToTeam = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamRolesFlags", x => x.TeamRoleId);
+                    table.ForeignKey(
+                        name: "FK_TeamRolesFlags_TeamRoles_TeamRoleId",
+                        column: x => x.TeamRoleId,
+                        principalTable: "TeamRoles",
+                        principalColumn: "TeamRoleId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -264,44 +309,39 @@ namespace YourScheduler.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Displayname", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "", "admin", "admin@gmail.com", false, true, null, "admin", "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AHQg8xn1k0PeymLNAM+gvH2tgxZpMFD+r2oO/ZpNEAHXCAB8HqFjnvF9XjndxMwsyw==", "111 222 333", false, "4CYEYYRUNSYQFJ3SD6YLNVBVSATFMYN4", "admin", false, "admin@gmail.com" },
-                    { 2, 0, "", "kjarzyna", "jarzyna@gmail.com", false, true, null, "Krzysztof", "JARZYNA@GMAIL.COM", "JARZYNA@GMAIL.COM", "ADy9ifkP17xORPNtehpavgmIgH8iaLgmUulzZ3oAUa6eH4ST8sFqniLT27b6FvrC9g==", "666 598 456", false, "YR4MDIREKBSJZWUDIFDT4BMFEF55DMJR", "Jarzyna", false, "jarzyna@gmail.com" },
-                    { 3, 0, "", "Jane", "jane_johnson@gmail.com", false, true, null, "Jane", "JANE_JOHNSON@GMAIL.COM", "JANE_JOHNSON@GMAIL.COM", "AE8xB53GySzAPTSI6lyFZe9ax3UjWtgPjJLSANmlWwZoT9zSuJ72nNCFUpT+MbkUnw==", "666 598 456", false, "GTV3KYR2KZXBNMGYUP2RV54YJIAWPY4C", "Johnson", false, "jane_johnson@gmail.com" },
-                    { 4, 0, "", "willmich", "michaelww@gmail.com", false, true, null, "Michael", "MICHAELWW@GMAIL.COM", "MICHAELWW@GMAIL.COM", "ADe7hiEory8B2ZWuUVTVOYbAG5W6RXMeoTrLqdRxOz0i0TGCTxrj8bsafTOnFo48ew==", "987 654 321", false, "DPGARQ53DKNXCVDXOVRY7UE3ULE467Y7", "Williams", false, "michaelww@gmail.com" },
-                    { 5, 0, "", "william", "joneswilliam@gmail.com", false, true, null, "William", "JONESWILLIAM@GMAIL.COM", "JONESWILLIAM@GMAIL.COM", "AIZveIg0PUKd+BvDuzTcCCV+I0FIWOmGQPTeozin+UUjKV5Ei4U0ZPgRsufTxsihIw==", "123 456 789", false, "PXQMEA7KSZZANEERHBQVP62EPI6JVS7M", "Jones", false, "joneswilliam@gmail.com" },
-                    { 6, 0, "", "brownie", "oliviab@gmail.com", false, true, null, "Olivia", "OLIVIAB@GMAIL.COM", "OLIVIAB@GMAIL.COM", "AOCW6gerOEZvXknY4AiisYqAv5Sdcdr7keQ3yca/hjW+/b9tOME/7a5mJ60C4QxTZA==", "666 598 456", false, "VWMFU56TZDBSL4B5HCQXSR3QZB7GVX6Q", "Brown", false, "oliviab@gmail.com" }
+                    { 1, 0, "", "admin", "admin@gmail.com", false, true, null, "admin", "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "APwf8BMOgLKRP0seikdwExHQPNx++6H5XIabOitTaKtCIzcO+qORSlTve96/QvoO0Q==", "111 222 333", false, "D6PMR5MAMAOZHVK67CCSINDDHLHCTNCZ", "admin", false, "admin@gmail.com" },
+                    { 2, 0, "", "kjarzyna", "jarzyna@gmail.com", false, true, null, "Krzysztof", "JARZYNA@GMAIL.COM", "JARZYNA@GMAIL.COM", "AGwcsSu7MqQGaQi4ZPo0h2bbOa11WhRIIUTGJdmqu1P0ExmfY5C9Tl23MSgGchzV2A==", "666 598 456", false, "HJ25DQ7NCSZGCUD6WWSCDRJDU2AHSIT4", "Jarzyna", false, "jarzyna@gmail.com" },
+                    { 3, 0, "", "Jane", "jane_johnson@gmail.com", false, true, null, "Jane", "JANE_JOHNSON@GMAIL.COM", "JANE_JOHNSON@GMAIL.COM", "AGCn+Kd1R2r3CEqnsxkhxhvqM660XXcqPmEJu2uT/uDlYFVeCMtObFVBJV2HBD7d6Q==", "666 598 456", false, "ZVHGK6SAKDV3Y3MEPIDSK5NMOUEHVMXZ", "Johnson", false, "jane_johnson@gmail.com" },
+                    { 4, 0, "", "willmich", "michaelww@gmail.com", false, true, null, "Michael", "MICHAELWW@GMAIL.COM", "MICHAELWW@GMAIL.COM", "ADXiYSXc2jDBaP2pbRpBcM3YAb52kvKASm7vNdtXYox79tkzB7PZ+rMDki2wigRWwg==", "987 654 321", false, "7NR3EVVGCCK5KQJK3LUPU765PDSWXYR3", "Williams", false, "michaelww@gmail.com" },
+                    { 5, 0, "", "william", "joneswilliam@gmail.com", false, true, null, "William", "JONESWILLIAM@GMAIL.COM", "JONESWILLIAM@GMAIL.COM", "AOuVax2TjxtDtDNWt0mJLYVzxksTD9GZHYoqMb6/vZe3sY8NuSp/dCOliqbSxFXV/w==", "123 456 789", false, "6LMEJF3UK3ZWL6JQD3OKFMO7WAJJGDDF", "Jones", false, "joneswilliam@gmail.com" },
+                    { 6, 0, "", "brownie", "oliviab@gmail.com", false, true, null, "Olivia", "OLIVIAB@GMAIL.COM", "OLIVIAB@GMAIL.COM", "AMqTg/5C4uPrLZmGTIvxG7WBeLJrj2bGS0CX9PJpvZDV12cZtPsKDJJAFCw+eLyidg==", "666 598 456", false, "5Q5CIT55BF5SFZKNHETXGUWYEGBN6HLM", "Brown", false, "oliviab@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Events",
-                columns: new[] { "EventId", "Date", "Description", "IsOpen", "Name", "PicturePath", "administratorId" },
+                columns: new[] { "EventId", "AdministratorId", "Date", "Description", "IsOpen", "Name", "PicturePath" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 6, 22, 19, 0, 0, 0, DateTimeKind.Unspecified), "Koncert z okazji urodzin TVP", true, "Koncert Zenka Martyniuka", "/Pictures/eventId=1.jpg", 1 },
-                    { 2, new DateTime(2023, 12, 1, 17, 0, 0, 0, DateTimeKind.Unspecified), "Wyjątkowe spotkanie z autorami bestsellerowych książek", true, "Spotkanie Literackie: Autorzy Bestsellerów", "/Pictures/eventId=2.jpg", 1 },
-                    { 3, new DateTime(2023, 10, 2, 15, 0, 0, 0, DateTimeKind.Unspecified), "Spektakl muzyczny pełen magii i emocji", true, "Występ Teatru Muzycznego: Magiczna Melodia", "/Pictures/eventId=3.jpg", 2 },
-                    { 4, new DateTime(2023, 9, 11, 12, 0, 0, 0, DateTimeKind.Unspecified), "Najnowsze trendy i innowacje technologiczne na światowym poziomie", true, "Konferencja Technologiczna: Przyszłość Innowacji", "/Pictures/defaultEvent.jpg", 3 },
-                    { 5, new DateTime(2024, 1, 8, 20, 0, 0, 0, DateTimeKind.Unspecified), "Przyjemny wieczór filmowy z wyjątkowymi produkcjami z całego świata", false, "Sesja Filmowa: Kino bez Granic", "/Pictures/defaultEvent.jpg", 4 },
-                    { 6, new DateTime(2023, 7, 15, 16, 0, 0, 0, DateTimeKind.Unspecified), "Wyjątkowy pokaz kulinarny, podczas którego można odkryć smaki z różnych zakątków świata", false, "Pokaz Kulinarny: Świat Smaków", "/Pictures/eventId=6.jpg", 5 },
-                    { 7, new DateTime(2023, 8, 10, 18, 0, 0, 0, DateTimeKind.Unspecified), "Niezwykłe przedstawienie teatralne pełne emocji i wrażeń", true, "Sztuka na Scenie: Wieczór Teatru", "/Pictures/defaultEvent.jpg", 6 }
+                    { 1, 1, new DateTime(2023, 6, 22, 19, 0, 0, 0, DateTimeKind.Unspecified), "Koncert z okazji urodzin TVP", true, "Koncert Zenka Martyniuka", "/Pictures/eventId=1.jpg" },
+                    { 2, 1, new DateTime(2023, 12, 1, 17, 0, 0, 0, DateTimeKind.Unspecified), "Wyjątkowe spotkanie z autorami bestsellerowych książek", true, "Spotkanie Literackie: Autorzy Bestsellerów", "/Pictures/eventId=2.jpg" },
+                    { 3, 2, new DateTime(2023, 10, 2, 15, 0, 0, 0, DateTimeKind.Unspecified), "Spektakl muzyczny pełen magii i emocji", true, "Występ Teatru Muzycznego: Magiczna Melodia", "/Pictures/eventId=3.jpg" },
+                    { 4, 3, new DateTime(2023, 9, 11, 12, 0, 0, 0, DateTimeKind.Unspecified), "Najnowsze trendy i innowacje technologiczne na światowym poziomie", true, "Konferencja Technologiczna: Przyszłość Innowacji", "/Pictures/defaultEvent.jpg" },
+                    { 5, 4, new DateTime(2024, 1, 8, 20, 0, 0, 0, DateTimeKind.Unspecified), "Przyjemny wieczór filmowy z wyjątkowymi produkcjami z całego świata", false, "Sesja Filmowa: Kino bez Granic", "/Pictures/defaultEvent.jpg" },
+                    { 6, 5, new DateTime(2023, 7, 15, 16, 0, 0, 0, DateTimeKind.Unspecified), "Wyjątkowy pokaz kulinarny, podczas którego można odkryć smaki z różnych zakątków świata", false, "Pokaz Kulinarny: Świat Smaków", "/Pictures/eventId=6.jpg" },
+                    { 7, 6, new DateTime(2023, 8, 10, 18, 0, 0, 0, DateTimeKind.Unspecified), "Niezwykłe przedstawienie teatralne pełne emocji i wrażeń", true, "Sztuka na Scenie: Wieczór Teatru", "/Pictures/defaultEvent.jpg" }
                 });
 
             migrationBuilder.InsertData(
-                table: "HomeViews",
-                columns: new[] { "HomeViewId", "GeneralInfo", "ImgPath" },
-                values: new object[] { 1, "Sciezka do jpg", "/Pictures/harmonogram_870x450_a.jpg" });
-
-            migrationBuilder.InsertData(
                 table: "Teams",
-                columns: new[] { "TeamId", "AdministratorId", "Description", "Name", "PicturePath" },
+                columns: new[] { "TeamId", "Creator", "Description", "Message", "Name", "PicturePath" },
                 values: new object[,]
                 {
-                    { 1, 0, "Grupa szkółki pływackiej Argonaut", "Grupa początkująca basen Chełm", "/Pictures/teamId=1.jpg" },
-                    { 2, 0, "Grupa zrzeszająca mieszkańców osiedla Lawendowe Wzgórze w Gdańsku", "Mieszkańcy osiedla Lawendowe Wzgórze", "/Pictures/teamId=2.jpg" },
-                    { 3, 0, "Zapraszamy do naszego kreatywnego warsztatu artystycznego, gdzie możesz rozwijać swoje umiejętności w różnych dziedzinach sztuki.", "Kreatywny Warsztat Artystyczny", "/Pictures/defaultTeam.jpg" },
-                    { 4, 0, "Dołącz do naszego klubu fitness i wellness, gdzie możesz ćwiczyć, relaksować się i dbać o swoje zdrowie pod okiem profesjonalnych instruktorów.", "Klub Fitness i Wellness", "/Pictures/teamId=4.jpg" },
-                    { 5, 0, "Zapraszamy do naszego klubu fotograficznego, gdzie pasjonaci fotografii mogą się spotkać, dzielić się wiedzą i rozwijać swoje umiejętności fotograficzne.", "Klub Fotograficzny Obiektyw", "/Pictures/defaultTeam.jpg" },
-                    { 6, 0, "Nasze studio tańca Ritmo oferuje różnorodne style taneczne dla osób w każdym wieku, bez względu na poziom zaawansowania.", "Studio Tańca Ritmo", "/Pictures/defaultTeam.jpg" }
+                    { 1, "Olivia", "Grupa szkółki pływackiej Argonaut", null, "Grupa początkująca basen Chełm", "/Pictures/teamId=1.jpg" },
+                    { 2, "Wasyl", "Grupa zrzeszająca mieszkańców osiedla Lawendowe Wzgórze w Gdańsku", null, "Mieszkańcy osiedla Lawendowe Wzgórze", "/Pictures/teamId=2.jpg" },
+                    { 3, "Billy", "Zapraszamy do naszego kreatywnego warsztatu artystycznego, gdzie możesz rozwijać swoje umiejętności w różnych dziedzinach sztuki.", null, "Kreatywny Warsztat Artystyczny", "/Pictures/defaultTeam.jpg" },
+                    { 4, "Maks", "Dołącz do naszego klubu fitness i wellness, gdzie możesz ćwiczyć, relaksować się i dbać o swoje zdrowie pod okiem profesjonalnych instruktorów.", null, "Klub Fitness i Wellness", "/Pictures/teamId=4.jpg" },
+                    { 5, "Kokodźambo", "Zapraszamy do naszego klubu fotograficznego, gdzie pasjonaci fotografii mogą się spotkać, dzielić się wiedzą i rozwijać swoje umiejętności fotograficzne.", null, "Klub Fotograficzny Obiektyw", "/Pictures/defaultTeam.jpg" },
+                    { 6, "PiknaSukna", "Nasze studio tańca Ritmo oferuje różnorodne style taneczne dla osób w każdym wieku, bez względu na poziom zaawansowania.", null, "Studio Tańca Ritmo", "/Pictures/defaultTeam.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -320,20 +360,46 @@ namespace YourScheduler.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "ApplicationUsersTeams",
-                columns: new[] { "ApplicationUserId", "TeamId" },
+                table: "TeamRoles",
+                columns: new[] { "TeamRoleId", "Name", "TeamId" },
                 values: new object[,]
                 {
-                    { 1, 1 },
-                    { 2, 2 },
-                    { 2, 3 },
-                    { 2, 4 },
-                    { 3, 4 },
-                    { 4, 4 },
-                    { 5, 5 },
-                    { 5, 6 },
-                    { 6, 5 },
-                    { 6, 6 }
+                    { 1, "Chobok", 1 },
+                    { 2, "Master Blaster", 2 },
+                    { 3, "Perturbator", 3 },
+                    { 4, "Ciastek", 4 },
+                    { 5, "Kaczucha", 5 },
+                    { 6, "Karal", 6 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ApplicationUsersTeams",
+                columns: new[] { "ApplicationUserId", "TeamId", "TeamRoleId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 2 },
+                    { 2, 3, 3 },
+                    { 2, 4, 4 },
+                    { 3, 4, 4 },
+                    { 4, 4, 4 },
+                    { 5, 5, 5 },
+                    { 5, 6, 6 },
+                    { 6, 5, 5 },
+                    { 6, 6, 6 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TeamRolesFlags",
+                columns: new[] { "TeamRoleId", "CanAddTeamEvent", "CanAddTeamMember", "CanAddTeamRole", "CanEditDescription", "CanEditRoleFlags", "CanEditTeamEvent", "CanEditTeamMessage", "CanEditTeamName", "CanEditTeamPhoto", "CanEditTeamRole", "CanRemoveTeamEvent", "CanRemoveTeamMember", "CanRemoveTeamRole", "CanSendEmailToTeam" },
+                values: new object[,]
+                {
+                    { 1, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                    { 2, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                    { 3, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                    { 4, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                    { 5, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                    { 6, true, true, true, true, true, true, true, true, true, true, true, true, true, true }
                 });
 
             migrationBuilder.CreateIndex(
@@ -342,9 +408,9 @@ namespace YourScheduler.Infrastructure.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ApplicationUsersTeams_TeamId",
+                name: "IX_ApplicationUsersTeams_TeamRoleId",
                 table: "ApplicationUsersTeams",
-                column: "TeamId");
+                column: "TeamRoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -384,6 +450,11 @@ namespace YourScheduler.Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamRoles_TeamId",
+                table: "TeamRoles",
+                column: "TeamId");
         }
 
         /// <inheritdoc />
@@ -411,19 +482,22 @@ namespace YourScheduler.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "HomeViews");
+                name: "TeamRolesFlags");
 
             migrationBuilder.DropTable(
                 name: "Events");
-
-            migrationBuilder.DropTable(
-                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "TeamRoles");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
         }
     }
 }
