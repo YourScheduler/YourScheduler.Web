@@ -8,12 +8,10 @@ namespace YourScheduler.UI.Controllers
 {
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
 
        // private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _signInManager;
-        public UserController(IUserService userService)
+        public UserController()
         {
-            _userService = userService;
                    
         }
        // GET: UserController

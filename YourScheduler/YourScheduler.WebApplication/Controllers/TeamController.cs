@@ -14,14 +14,12 @@ namespace YourScheduler.WebApplication.Controllers
     public class TeamController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IUserService _userService;
         private readonly IWebHostEnvironment _webHost;
 
-        public TeamController(IWebHostEnvironment webHost, IMediator mediator, IUserService userService)
+        public TeamController(IWebHostEnvironment webHost, IMediator mediator)
         {
             _webHost = webHost;
             _mediator = mediator;
-            _userService = userService;
         }
 
         //[Authorize]
