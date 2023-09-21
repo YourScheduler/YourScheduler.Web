@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
+using Xunit.Sdk;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories;
 
@@ -152,8 +153,11 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             await repository.UpdateTeamRoleAsync(roleToUpdate);
             context.TeamRoles.First(t => t.TeamRoleId == roleToUpdate.TeamRoleId).Name.Should().Be(roleToUpdate.Name);
         }
-        [Fact]
-        public async Task RemoveTeamRoleByIdAsync_ShouldSucceed()
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public async Task RemoveTeamRoleByIdAsync_ShouldSucceed(int teamRoleId)
         {
             var context = ContextGenerator.Generate();
             var loggerMock = new Mock<ILogger<TeamsRepository>>();
@@ -162,11 +166,30 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             await context.TeamRoles.AddRangeAsync(new List<TeamRole>() { userTeamRole, adminTeamRole });
             context.SaveChanges();
 
+            var initialCount = context.TeamRoles.Count();
 
+            await repository.RemoveTeamRoleByIdAsync(teamRoleId);
 
-            await repository.RemoveTeamRoleByIdAsync(1);
+            context.TeamRoles.Count().Should().Be(initialCount - 1);
 
-            context.TeamRoles.Count().Should().Be(1);
+        }
+        [Theory]
+        [InlineData(5)]
+        [InlineData(7)]
+        [InlineData(12)]
+        public async Task RemoveTeamRoleByIdAsync_ShouldThrowException(int teamRoleId)
+        {
+            var context = ContextGenerator.Generate();
+            var loggerMock = new Mock<ILogger<TeamsRepository>>();
+            var repository = new TeamRoleRepository(context, loggerMock.Object);
+
+            await context.TeamRoles.AddRangeAsync(new List<TeamRole>() { userTeamRole, adminTeamRole });
+            context.SaveChanges();
+
+            Func<Task> removeMethod = async () => await repository.RemoveTeamRoleByIdAsync(teamRoleId);
+
+            await removeMethod.Should().ThrowAsync<ArgumentNullException>();
+
         }
     }
 }
