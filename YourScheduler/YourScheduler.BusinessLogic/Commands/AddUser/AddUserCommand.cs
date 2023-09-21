@@ -1,10 +1,9 @@
 ﻿using MediatR;
 using YourScheduler.BusinessLogic.Models.DTOs;
-using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.BusinessLogic.Commands.AddUser
 {
-    public class AddUserCommand : IRequest<ApplicationUser>
+    public class AddUserCommand : IRequest<ApplicationUserDto>
     {
         public ApplicationUserDto UserDto { get; }
 
