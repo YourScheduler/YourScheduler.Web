@@ -16,7 +16,7 @@ public class EventDto
     [Required(ErrorMessage = "Pole 'Data' jest obowiązkowe")]
     public DateTime Date { get; set; }
 
-    public bool Isopen { get; set; }
+    public bool Isopen { get; set; } = default!;
 
     public int AdministratorId { get; set; }
 
@@ -26,7 +26,7 @@ public class EventDto
 
     public bool IsLoggedUserParticipant { get; set; } = false;
 
-    public string PicturePath { get; set; }
+    public string? PicturePath { get; set; }
 
-    public IFormFile ImageFile { get; set; }
+    public IFormFile? ImageFile { get; set; }
 }

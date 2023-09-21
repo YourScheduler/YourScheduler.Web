@@ -1,4 +1,5 @@
-﻿using YourScheduler.Infrastructure.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.Infrastructure.Repositories
@@ -12,39 +13,28 @@ namespace YourScheduler.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public void AddUser(ApplicationUser user)
+        public async Task<ApplicationUser> AddUserAsync(ApplicationUser user)
         {
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            await _dbContext.Users.AddAsync(user);
+            await _dbContext.SaveChangesAsync();
+
+            return user;
         }
 
-        public List<ApplicationUser> GetUsersFromDataBase()
+        public IQueryable<ApplicationUser> GetUsersFromDataBaseQueryable()
         {
-            var users = new List<ApplicationUser>();   
-            users = _dbContext.Users.ToList();
-
-            return users;
+            return _dbContext.Users;
         }
 
-        public void UpdateUser(ApplicationUser updatedUser)
+        public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
-            throw new NotImplementedException();
-        }  
-        
-        public  ApplicationUser GetUserByEmail(string email)
-        {
-         
-              return  _dbContext.ApplicationUsers.FirstOrDefault(x => x.Email == email);
-
+            return  await _dbContext.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception("Could not find a user with specified email");
         }
 
-        public ApplicationUser GetUserById(int id)
+        public async Task<ApplicationUser> GetUserByIdAsync(int id)
         {
-            return _dbContext.ApplicationUsers.FirstOrDefault(u => u.Id == id);
+            return await _dbContext.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == id) ?? throw new Exception("Could not find a user with specified id");
         }
-
-       
-
 
     }
 }

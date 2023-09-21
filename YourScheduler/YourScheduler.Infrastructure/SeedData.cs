@@ -210,43 +210,202 @@ namespace YourScheduler.Infrastructure
                 TeamId = 1,
                 Name = "Grupa początkująca basen Chełm",
                 Description = "Grupa szkółki pływackiej Argonaut",
-                PicturePath = "/Pictures/teamId=1.jpg"
+                PicturePath = "/Pictures/teamId=1.jpg",
+                Creator = "Olivia"
             },
             new Team
             {
                 TeamId = 2,
                 Name = "Mieszkańcy osiedla Lawendowe Wzgórze",
                 Description = "Grupa zrzeszająca mieszkańców osiedla Lawendowe Wzgórze w Gdańsku",
-                PicturePath = "/Pictures/teamId=2.jpg"
+                PicturePath = "/Pictures/teamId=2.jpg",
+                Creator = "Wasyl"
             },
             new Team
             {
                 TeamId = 3,
                 Name = "Kreatywny Warsztat Artystyczny",
                 Description = "Zapraszamy do naszego kreatywnego warsztatu artystycznego, gdzie możesz rozwijać swoje umiejętności w różnych dziedzinach sztuki.",
-                PicturePath = "/Pictures/defaultTeam.jpg"
+                PicturePath = "/Pictures/defaultTeam.jpg",
+                Creator = "Billy"
             },
             new Team
             {
                 TeamId = 4,
                 Name = "Klub Fitness i Wellness",
                 Description = "Dołącz do naszego klubu fitness i wellness, gdzie możesz ćwiczyć, relaksować się i dbać o swoje zdrowie pod okiem profesjonalnych instruktorów.",
-                PicturePath="/Pictures/teamId=4.jpg"
+                PicturePath="/Pictures/teamId=4.jpg",
+                Creator = "Maks"
             },
             new Team
             {
                 TeamId = 5,
                 Name = "Klub Fotograficzny Obiektyw",
                 Description = "Zapraszamy do naszego klubu fotograficznego, gdzie pasjonaci fotografii mogą się spotkać, dzielić się wiedzą i rozwijać swoje umiejętności fotograficzne.",
-                PicturePath = "/Pictures/defaultTeam.jpg"
+                PicturePath = "/Pictures/defaultTeam.jpg",
+                Creator = "Kokodźambo"
             },
             new Team
             {
                 TeamId = 6,
                 Name = "Studio Tańca Ritmo",
                 Description = "Nasze studio tańca Ritmo oferuje różnorodne style taneczne dla osób w każdym wieku, bez względu na poziom zaawansowania.",
-                PicturePath = "/Pictures/defaultTeam.jpg"
+                PicturePath = "/Pictures/defaultTeam.jpg",
+                Creator = "PiknaSukna"
             }
+        };
+
+        public static TeamRole[] teamRoleSeed = new TeamRole[]
+        {
+                new TeamRole
+                {
+                    TeamId = 1,
+                    Name = "Chobok",
+                    TeamRoleId = 1
+                },
+                new TeamRole
+                {
+                    TeamId = 2,
+                    Name = "Master Blaster",
+                    TeamRoleId = 2
+                },
+                new TeamRole
+                {
+                    TeamId = 3,
+                    Name = "Perturbator",
+                    TeamRoleId = 3
+                },
+                new TeamRole
+                {
+                    TeamId = 4,
+                    Name = "Ciastek",
+                    TeamRoleId = 4
+                },
+                new TeamRole
+                {
+                    TeamId = 5,
+                    Name = "Kaczucha",
+                    TeamRoleId = 5
+                },
+                new TeamRole
+                {
+                    TeamId = 6,
+                    Name = "Karal",
+                    TeamRoleId = 6
+                }
+        };
+        public static TeamRoleFlags[] teamRoleFlagsSeed = new TeamRoleFlags[]
+        {
+            new TeamRoleFlags()
+            {
+                TeamRoleId= 1,
+                CanAddTeamEvent= true,
+                CanRemoveTeamEvent= true,
+                CanAddTeamMember= true,
+                CanRemoveTeamMember= true,
+                CanAddTeamRole= true,
+                CanEditDescription= true,
+                CanEditRoleFlags= true,
+                CanEditTeamEvent= true,
+                CanEditTeamMessage= true,
+                CanEditTeamName= true,
+                CanEditTeamPhoto= true,
+                CanEditTeamRole= true,
+                CanRemoveTeamRole= true,
+                CanSendEmailToTeam= true
+            },
+            new TeamRoleFlags()
+            {
+                TeamRoleId= 2,
+                CanAddTeamEvent= true,
+                CanRemoveTeamEvent= true,
+                CanAddTeamMember= true,
+                CanRemoveTeamMember= true,
+                CanAddTeamRole= true,
+                CanEditDescription= true,
+                CanEditRoleFlags= true,
+                CanEditTeamEvent= true,
+                CanEditTeamMessage= true,
+                CanEditTeamName= true,
+                CanEditTeamPhoto= true,
+                CanEditTeamRole= true,
+                CanRemoveTeamRole= true,
+                CanSendEmailToTeam= true
+            },
+            new TeamRoleFlags()
+            {
+                TeamRoleId= 3,
+                CanAddTeamEvent= true,
+                CanRemoveTeamEvent= true,
+                CanAddTeamMember= true,
+                CanRemoveTeamMember= true,
+                CanAddTeamRole= true,
+                CanEditDescription= true,
+                CanEditRoleFlags= true,
+                CanEditTeamEvent= true,
+                CanEditTeamMessage= true,
+                CanEditTeamName= true,
+                CanEditTeamPhoto= true,
+                CanEditTeamRole= true,
+                CanRemoveTeamRole= true,
+                CanSendEmailToTeam= true
+            },
+            new TeamRoleFlags()
+            {
+                TeamRoleId= 4,
+                CanAddTeamEvent= true,
+                CanRemoveTeamEvent= true,
+                CanAddTeamMember= true,
+                CanRemoveTeamMember= true,
+                CanAddTeamRole= true,
+                CanEditDescription= true,
+                CanEditRoleFlags= true,
+                CanEditTeamEvent= true,
+                CanEditTeamMessage= true,
+                CanEditTeamName= true,
+                CanEditTeamPhoto= true,
+                CanEditTeamRole= true,
+                CanRemoveTeamRole= true,
+                CanSendEmailToTeam= true
+            },
+            new TeamRoleFlags()
+            {
+                TeamRoleId= 5,
+                CanAddTeamEvent= true,
+                CanRemoveTeamEvent= true,
+                CanAddTeamMember= true,
+                CanRemoveTeamMember= true,
+                CanAddTeamRole= true,
+                CanEditDescription= true,
+                CanEditRoleFlags= true,
+                CanEditTeamEvent= true,
+                CanEditTeamMessage= true,
+                CanEditTeamName= true,
+                CanEditTeamPhoto= true,
+                CanEditTeamRole= true,
+                CanRemoveTeamRole= true,
+                CanSendEmailToTeam= true
+            },
+            new TeamRoleFlags()
+            {
+                TeamRoleId= 6,
+                CanAddTeamEvent= true,
+                CanRemoveTeamEvent= true,
+                CanAddTeamMember= true,
+                CanRemoveTeamMember= true,
+                CanAddTeamRole= true,
+                CanEditDescription= true,
+                CanEditRoleFlags= true,
+                CanEditTeamEvent= true,
+                CanEditTeamMessage= true,
+                CanEditTeamName= true,
+                CanEditTeamPhoto= true,
+                CanEditTeamRole= true,
+                CanRemoveTeamRole= true,
+                CanSendEmailToTeam= true
+            }
+
+
         };
         public static ApplicationUserEvents[] applicationUserEventSeed = new ApplicationUserEvents[]
         {
@@ -261,16 +420,16 @@ namespace YourScheduler.Infrastructure
         };
         public static ApplicationUserTeams[] applicationUserTeamSeed = new ApplicationUserTeams[]
         {
-            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 1},
-            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 2},
-            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 4},
-            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 4},
-            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 4},
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 5},
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 6},
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 5},
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 6}
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 1, TeamRoleId = 1},
+            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 2, TeamRoleId = 2},
+            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 3, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 4, TeamRoleId = 4},
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 4, TeamRoleId = 4},
+            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 4, TeamRoleId = 4},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 5, TeamRoleId = 5},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 6, TeamRoleId = 6},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 5, TeamRoleId = 5},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 6, TeamRoleId = 6}
         };
         public static ApplicationUser[] GetUsersSeed()
         {
@@ -283,6 +442,14 @@ namespace YourScheduler.Infrastructure
         public static Team[] GetTeamsSeed()
         {
             return teamSeed;
+        }
+        public static TeamRole[] GetTeamRoleSeed()
+        {
+            return teamRoleSeed;
+        }
+        public static TeamRoleFlags[] GetTeamRoleFlagsSeed()
+        {
+            return teamRoleFlagsSeed;
         }
         public static ApplicationUserEvents[] GetApplicationUserEventSeed()
         {
@@ -360,19 +527,5 @@ namespace YourScheduler.Infrastructure
             return retVal;
         }
 
-        public static HomeView[] homeViewSeed = new HomeView[]
-        {
-            new HomeView
-            {
-                HomeViewId = 1,
-                GeneralInfo="Sciezka do jpg",
-                ImgPath="/Pictures/harmonogram_870x450_a.jpg"
-             }
-        };
-
-        public static HomeView[] GetHomeViewSeed()
-        {
-            return homeViewSeed;
-        }
     }
 }

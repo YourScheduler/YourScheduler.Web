@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using YourScheduler.Infrastructure.Entities;
 
-
 namespace YourScheduler.Infrastructure
 {
     public class YourSchedulerDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
@@ -11,10 +10,10 @@ namespace YourScheduler.Infrastructure
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
+        public virtual DbSet<TeamRole> TeamRoles { get; set; }
         public virtual DbSet<ApplicationUserEvents> ApplicationUsersEvents { get; set; }
         public virtual DbSet<ApplicationUserTeams> ApplicationUsersTeams { get; set; }
-
-        public virtual DbSet<HomeView> HomeViews { get; set; }
+        public virtual DbSet<TeamRoleFlags> TeamRolesFlags { get; set; }
 
         public YourSchedulerDbContext(DbContextOptions options):base(options)
         {
@@ -24,18 +23,33 @@ namespace YourScheduler.Infrastructure
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<ApplicationUserTeams>()
+                .HasOne(at => at.ApplicationUser)
+                .WithMany(au => au.ApplicationUsersTeams)
+                .HasForeignKey(at => at.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUserTeams>()
+                .HasOne(at => at.Team)
+                .WithMany(t => t.TeamMembers)
+                .HasForeignKey(t => t.ApplicationUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // seed data to database:
             builder.Entity<ApplicationUser>()
                 .HasData(SeedData.GetUsersSeed());
             builder.Entity<Event>()
                 .HasData(SeedData.GetEventsSeed());
+            builder.Entity<TeamRoleFlags>()
+                .HasData(SeedData.GetTeamRoleFlagsSeed());
+            builder.Entity<TeamRole>()
+                .HasData(SeedData.GetTeamRoleSeed());
             builder.Entity<Team>()
                 .HasData(SeedData.GetTeamsSeed());
             builder.Entity<ApplicationUserEvents>()
                 .HasData(SeedData.GetApplicationUserEventSeed());
             builder.Entity<ApplicationUserTeams>()
                 .HasData(SeedData.GetApplicationUserTeamSeed());
-            builder.Entity<HomeView>().HasData(SeedData.GetHomeViewSeed());
         }
     }
 }

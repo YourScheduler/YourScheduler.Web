@@ -14,8 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("YourSchedulerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'YourSchedulerDbContextConnection' not found.");
 
+
 builder.Services.AddDbContext<YourSchedulerDbContext>(options =>
  options.UseSqlServer(connectionString));
+
+builder.Services.AddControllers();
+
 builder.Services.AddAuthentication()
     .AddFacebook(options =>
     {
@@ -32,7 +36,7 @@ builder.Services.AddAuthentication()
 var emailConfig = builder.Configuration.GetSection("MailSettings").Get<MailSettings>();
 builder.Services.AddSingleton(emailConfig);
 
-builder.Services.AddControllers();
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -41,23 +45,22 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 
 builder.Services.AddInfrastructureDependencies(builder.Configuration);
 
-builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthorization();
 
 builder.Services.AddBusinessLogicDependencies();
 
-builder.Services.AddTransient<GlobalExceptionHandlingMiddleware>();
-
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();
@@ -72,13 +75,7 @@ app.UseAuthentication();;
 
 app.UseAuthorization();
 
-app.UseStatusCodePages();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapRazorPages();
+app.MapControllers();
 
 var mapper = app.Services.GetRequiredService<IMapper>();
 mapper.ConfigurationProvider.AssertConfigurationIsValid();

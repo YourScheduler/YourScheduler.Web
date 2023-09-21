@@ -20,7 +20,7 @@ namespace YourScheduler.BusinessLogic.Services.Interfaces
 
         public Task<List<EventDto>> GetMyEventsAsync(int applicationUserId, string searchString);
 
-        public Task<List<ApplicationUserDto>> GetUsersForEventAsync(int eventId);
+        //public Task<List<ApplicationUserDto>> GetUsersForEventAsync(int eventId);
 
         public Task<EventMembersDto> GetEventMembersDtoAsync(int eventId, int loggedUserId);
     }

@@ -12,14 +12,14 @@ namespace YourScheduler.BusinessLogic.Services.Interfaces
 
         public Task DeleteTeamAsync(int id);
 
-        public Task DeleteTeamFromCalendarAsync(int id, int userId);
+       // public Task DeleteTeamFromCalendarAsync(int id, int userId);
 
         public Task UpdateTeamAsync(TeamDto teamDto);
 
-        public Task AddTeamForUserAsync(int applicationUserId, int teamId);
+    //    public Task AddTeamForUserAsync(int applicationUserId, int teamId);
 
-        public Task<List<TeamDto>> GetMyTeamsAsync(int applicationUserId,string searchString);
+      //  public Task<List<TeamDto>> GetMyTeamsAsync(int applicationUserId,string searchString);
 
-        public Task<List<ApplicationUserDto>> GetUsersForTeamAsync(int teamid);
+       // public Task<List<ApplicationUserDto>> GetUsersForTeamAsync(int teamid);
     }
 }
