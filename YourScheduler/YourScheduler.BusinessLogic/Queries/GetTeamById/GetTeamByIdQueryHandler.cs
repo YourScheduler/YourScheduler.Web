@@ -18,7 +18,7 @@ namespace YourScheduler.BusinessLogic.Queries.GetTeamById
 
         public async Task<TeamDto> Handle(GetTeamByIdQuery request, CancellationToken cancellationToken)
         {
-            var team = await _teamRepository.GetTeamByIdAsync(request.Id);
+            var team = await _teamRepository.GetTeamByIdAsync(request.TeamId);
             var teamDto = _mapper.Map<TeamDto>(team);
             return teamDto;
         }

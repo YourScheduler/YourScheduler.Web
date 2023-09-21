@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using YourScheduler.BusinessLogic.Models.DTOs;
+using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.CreateTeam
@@ -17,8 +18,8 @@ namespace YourScheduler.BusinessLogic.Commands.CreateTeam
 
         public async Task<TeamDto> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
-            var Team = _mapper.Map<Infrastructure.Entities.Team>(request.TeamDto);
-            var addedTeam = await _teamRepository.AddTeamAsync(Team);
+            var team = _mapper.Map<Team>(request.TeamDto);
+            var addedTeam = await _teamRepository.AddTeamAsync(team);
 
             return _mapper.Map<TeamDto>(addedTeam);
         }
