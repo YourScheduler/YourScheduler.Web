@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace YourScheduler.Infrastructure.Entities;
+﻿namespace YourScheduler.Infrastructure.Entities;
 public  class Team
 {
     public int TeamId { get; set; }

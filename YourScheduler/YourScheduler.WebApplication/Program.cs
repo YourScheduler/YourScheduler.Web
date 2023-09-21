@@ -8,6 +8,7 @@ using YourScheduler.Infrastructure.Entities;
 using YourScheduler.BusinessLogic.Services.Settings;
 using FluentAssertions.Common;
 using AutoMapper;
+using YourScheduler.WebApplication.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,7 +64,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+
+app.UseRouting();
 
 app.UseAuthentication();;
 
