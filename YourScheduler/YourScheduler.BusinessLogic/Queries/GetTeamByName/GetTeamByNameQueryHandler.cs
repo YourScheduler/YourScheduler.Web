@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using YourScheduler.BusinessLogic.Extension;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Queries.GetTeamByName
 {
-    public class GetTeamByNameQueryHandler : IRequestHandler<GetTeamByNameQuery, TeamDto>
+    public class GetTeamByNameQueryHandler : IRequestHandler<GetTeamByNameQuery, IEnumerable<TeamDto>>
     {
         private readonly ITeamsRepository _teamRepository;
         private readonly IMapper _mapper;
@@ -20,9 +17,20 @@ namespace YourScheduler.BusinessLogic.Queries.GetTeamByName
             _mapper = mapper;
 
         }
-        public Task<TeamDto> Handle(GetTeamByNameQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<TeamDto>> Handle(GetTeamByNameQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var teams = _teamRepository.GetAllExistedTeamsQueryable();
+            var teamsNames = await teams
+                .Select(t => t.Name)
+                .ToListAsync();
+
+            var matchingNames = teamsNames.SearchByInput(request.Input);
+
+            var results = await teams.Where(t => matchingNames.Contains(t.Name))
+                .ToListAsync();
+
+            return _mapper.Map<IEnumerable<TeamDto>>(results);
+               
         }
     }
 }

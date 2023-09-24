@@ -27,8 +27,8 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("getByName/{input}")]
         public async Task<IActionResult> GetTeamByName(string input)
         {
-            var teamDto = _mediator.Send(new GetTeamByNameQuery(input));
-            return Ok(teamDto);
+            var teamsDto = await _mediator.Send(new GetTeamByNameQuery(input));
+            return Ok(teamsDto);
         }
 
         //[Authorize]

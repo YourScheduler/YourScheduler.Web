@@ -8,7 +8,7 @@ using YourScheduler.BusinessLogic.Models.DTOs;
 
 namespace YourScheduler.BusinessLogic.Queries.GetTeamByName
 {
-    public class GetTeamByNameQuery : IRequest<TeamDto>
+    public class GetTeamByNameQuery : IRequest<IEnumerable<TeamDto>>
     {
         public string Input { get; }
 

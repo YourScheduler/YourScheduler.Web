@@ -4,20 +4,22 @@ using System.Text.Json;
 
 namespace YourScheduler.WebApplication.Middlewares
 {
-    public class GlobalExceptionHandlingMiddleware : IMiddleware
+    public class GlobalExceptionHandlingMiddleware
     {
         private readonly ILogger<GlobalExceptionHandlingMiddleware> _logger;
+        private readonly RequestDelegate _next;
 
-        public GlobalExceptionHandlingMiddleware(ILogger<GlobalExceptionHandlingMiddleware> logger)
+        public GlobalExceptionHandlingMiddleware(ILogger<GlobalExceptionHandlingMiddleware> logger, RequestDelegate next)
         {
             _logger = logger;
+            _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {
-                await next(context);
+                await _next(context);
             }
             catch (Exception ex)
             {
@@ -37,7 +39,7 @@ namespace YourScheduler.WebApplication.Middlewares
                 error.Status = (int)HttpStatusCode.InternalServerError;
                 error.Type = "Server error";
                 error.Title = "Server error";
-                error.Detail = "An internal server error has occured";
+                error.Detail = $"An internal server error has occured {exception.Message}";
             
             string json = JsonSerializer.Serialize(error);
 
