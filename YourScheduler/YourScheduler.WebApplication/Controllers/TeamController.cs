@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using YourScheduler.BusinessLogic.Commands.CreateTeam;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Queries.GetAllTeams;
+using YourScheduler.BusinessLogic.Queries.GetTeamByName;
 using YourScheduler.BusinessLogic.Services.Interfaces;
 
 namespace YourScheduler.WebApplication.Controllers
@@ -20,6 +21,14 @@ namespace YourScheduler.WebApplication.Controllers
         {
             _webHost = webHost;
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Route("getByName/{input}")]
+        public async Task<IActionResult> GetTeamByName(string input)
+        {
+            var teamDto = _mediator.Send(new GetTeamByNameQuery(input));
+            return Ok(teamDto);
         }
 
         //[Authorize]
