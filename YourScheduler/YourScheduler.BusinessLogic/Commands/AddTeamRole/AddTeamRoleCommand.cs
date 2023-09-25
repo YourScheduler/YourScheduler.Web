@@ -5,7 +5,7 @@ namespace YourScheduler.BusinessLogic.Commands.AddTeamRole
 {
     public class AddTeamRoleQuery : IRequest<TeamRole>
     {
-        public TeamRole TeamRole { get; set; }
+        public TeamRole TeamRole { get; }
 
         public AddTeamRoleQuery(TeamRole teamRole)
         {
