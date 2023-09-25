@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.BusinessLogic.Commands.UpdateTeamRole
 {
-    internal class UpdateTeamRoleQuery
+    public class UpdateTeamRoleCommand : IRequest<TeamRole>
     {
+        public TeamRole TeamRole { get; }
+
+        public UpdateTeamRoleCommand(TeamRole teamRole)
+        {
+            TeamRole = teamRole;
+        }
     }
 }
