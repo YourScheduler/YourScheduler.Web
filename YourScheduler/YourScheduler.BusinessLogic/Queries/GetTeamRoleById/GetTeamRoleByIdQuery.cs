@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using YourScheduler.Infrastructure.Entities;
+using YourScheduler.BusinessLogic.Models.DTOs;
 
 namespace YourScheduler.BusinessLogic.Queries.GetTeamRoleById
 {
-    public class GetTeamRoleByIdQuery : IRequest<TeamRole>
+    public class GetTeamRoleByIdQuery : IRequest<TeamRoleDto>
     {
         public int TeamRoleId { get; }
 
