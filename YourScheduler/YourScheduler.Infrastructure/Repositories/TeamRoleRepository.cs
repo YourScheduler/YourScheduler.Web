@@ -26,7 +26,7 @@ namespace YourScheduler.Infrastructure.Repositories
             return await _dbContext.TeamRoles.FindAsync(teamRoleId) ?? throw new ArgumentNullException("Could not find a TeamRole with given Id");
         }
 
-        public async Task<TeamRoleDto> AddTeamRoleAsync(TeamRoleDto teamRole)
+        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole)
         {
             await _dbContext.TeamRoles.AddAsync(teamRole);
             await _dbContext.SaveChangesAsync();

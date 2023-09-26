@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using YourScheduler.BusinessLogic.Commands.AddTeamRole;
 using YourScheduler.BusinessLogic.Commands.RemoveTeamRoleById;
 using YourScheduler.BusinessLogic.Commands.UpdateTeamRole;
+using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Queries.GetAllTeamRolesForTeam;
 using YourScheduler.BusinessLogic.Queries.GetTeamRoleById;
 using YourScheduler.Infrastructure.Entities;
@@ -44,9 +45,9 @@ namespace YourScheduler.WebApplication.Controllers
         [HttpPut]
         [Authorize]
         [Route("CreateTeamRole")]
-        public async Task<IActionResult> CreateTeamRole([FromBody] TeamRole teamRole)
+        public async Task<IActionResult> CreateTeamRole([FromBody] TeamRoleDto teamRoleDto)
         {
-            var createdTeamRole = await _mediator.Send(new AddTeamRoleCommand(teamRole));
+            var createdTeamRole = await _mediator.Send(new AddTeamRoleCommand(teamRoleDto));
 
             return new ObjectResult(createdTeamRole) { StatusCode = StatusCodes.Status201Created };
         }
@@ -54,9 +55,9 @@ namespace YourScheduler.WebApplication.Controllers
         [HttpPatch]
         [Authorize]
         [Route("UpdateTeamRole")]
-        public async Task<IActionResult> UpdateTeamRole([FromBody] TeamRole teamRole)
+        public async Task<IActionResult> UpdateTeamRole([FromBody] TeamRoleDto teamRoleDto)
         {
-            await _mediator.Send(new UpdateTeamRoleCommand(teamRole));
+            await _mediator.Send(new UpdateTeamRoleCommand(teamRoleDto));
 
             return NoContent();
         }
