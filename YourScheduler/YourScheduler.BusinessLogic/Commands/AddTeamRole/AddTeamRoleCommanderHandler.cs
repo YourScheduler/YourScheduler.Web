@@ -1,21 +1,25 @@
-﻿using MediatR;
-using YourScheduler.Infrastructure.Entities;
+﻿using AutoMapper;
+using MediatR;
+using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.AddTeamRole
 {
-    public class AddTeamRoleCommnandHandler : IRequestHandler<AddTeamRoleCommand, TeamRole>
+    public class AddTeamRoleCommnandHandler : IRequestHandler<AddTeamRoleCommand, TeamRoleDto>
     {
         private readonly ITeamRoleRepository _teamRoleRepository;
+        private readonly IMapper _mapper;
 
-        public AddTeamRoleCommnandHandler(ITeamRoleRepository teamRoleRepository)
+        public AddTeamRoleCommnandHandler(ITeamRoleRepository teamRoleRepository, IMapper mapper)
         {
             _teamRoleRepository = teamRoleRepository;
+            _mapper = mapper;
         }
 
-        public async Task<TeamRole> Handle(AddTeamRoleCommand request, CancellationToken cancellationToken)
+        public async Task<TeamRoleDto> Handle(AddTeamRoleCommand request, CancellationToken cancellationToken)
         {
-            return await _teamRoleRepository.AddTeamRoleAsync(request.TeamRole);
+            var returnedTeamRole = await _teamRoleRepository.AddTeamRoleAsync(request.TeamRole);
+            return _mapper.Map<TeamRoleDto>(returnedTeamRole);
         }
     }
 }

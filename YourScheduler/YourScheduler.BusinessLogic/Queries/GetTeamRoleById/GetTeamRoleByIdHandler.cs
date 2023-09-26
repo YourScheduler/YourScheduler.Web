@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
 using YourScheduler.BusinessLogic.Models.DTOs;
-using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Queries.GetTeamRoleById

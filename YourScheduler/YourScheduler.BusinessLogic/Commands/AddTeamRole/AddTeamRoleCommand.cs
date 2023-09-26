@@ -1,9 +1,10 @@
 ﻿using MediatR;
+using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.BusinessLogic.Commands.AddTeamRole
 {
-    public class AddTeamRoleCommand : IRequest<TeamRole>
+    public class AddTeamRoleCommand : IRequest<TeamRoleDto>
     {
         public TeamRole TeamRole { get; }
 
