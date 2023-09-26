@@ -36,7 +36,7 @@ builder.Services.AddAuthentication()
 var emailConfig = builder.Configuration.GetSection("MailSettings").Get<MailSettings>();
 builder.Services.AddSingleton(emailConfig);
 
-
+builder.Services.AddScoped<GlobalExceptionHandlingMiddleware>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -55,6 +55,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -62,6 +63,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 }
+
+app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 

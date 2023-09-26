@@ -38,6 +38,12 @@ namespace YourScheduler.BusinessLogic.MappingConfig
 
             CreateMap<ApplicationUser, ApplicationUserDto>();
 
+            CreateMap<TeamRole, TeamRoleDto>()
+                .ForSourceMember(src => src.ApplicationUserTeams, opt => opt.DoNotValidate());
+
+            CreateMap<TeamRoleDto, TeamRole>()
+                .ForMember(dest => dest.ApplicationUserTeams, opt => opt.Ignore());
+
         }
     }
 }

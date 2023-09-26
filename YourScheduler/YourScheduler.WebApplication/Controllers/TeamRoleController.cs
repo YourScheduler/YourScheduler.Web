@@ -24,8 +24,8 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("getAllTeamRolesForTeam/{input}")]
-        public async Task<IActionResult> GetAllTeamRolesForTeam([FromBody] int teamId)
+        [Route("getAllTeamRolesForTeam/{teamId}")]
+        public async Task<IActionResult> GetAllTeamRolesForTeam(int teamId)
         {
             var returnedTeamRoles = await _mediator.Send(new GetAllTeamRolesForTeamQuery(teamId));
 
@@ -34,8 +34,8 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpGet]
         [Authorize]
-        [Route("GetTeamRoleById/{input}")]
-        public async Task<IActionResult> GetTeamRoleById([FromBody] int teamRoleId)
+        [Route("GetTeamRoleById/{teamRoleId}")]
+        public async Task<IActionResult> GetTeamRoleById(int teamRoleId)
         {
             var returnedRole = await _mediator.Send(new GetTeamRoleByIdQuery(teamRoleId));
 
@@ -44,7 +44,7 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("CreateTeamRole/{input}")]
+        [Route("CreateTeamRole")]
         public async Task<IActionResult> CreateTeamRole([FromBody] TeamRole teamRole)
         {
             var createdTeamRole = await _mediator.Send(new AddTeamRoleCommand(teamRole));
@@ -54,7 +54,7 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpPatch]
         [Authorize]
-        [Route("UpdateTeamRole/{input}")]
+        [Route("UpdateTeamRole")]
         public async Task<IActionResult> UpdateTeamRole([FromBody] TeamRole teamRole)
         {
             await _mediator.Send(new UpdateTeamRoleCommand(teamRole));
@@ -64,7 +64,7 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpDelete]
         [Authorize]
-        [Route("DeleteTeamRole/{input}")]
+        [Route("DeleteTeamRole/{teamRoleId}")]
         public async Task<IActionResult> RemoveTeamRoleById(int teamRoleId)
         {
             await _mediator.Send(new RemoveTeamRoleByIdCommand(teamRoleId));
