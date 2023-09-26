@@ -19,7 +19,8 @@ namespace YourScheduler.BusinessLogic.Commands.UpdateTeamRole
 
         public async Task<TeamRoleDto> Handle(UpdateTeamRoleCommand request, CancellationToken cancellationToken)
         {
-            var returnedTeamRole = await _teamRoleRepository.UpdateTeamRoleAsync(request.TeamRole);
+            var mappedTeamRole = _mapper.Map<TeamRole>(request.TeamRoleDto);
+            var returnedTeamRole = await _teamRoleRepository.UpdateTeamRoleAsync(mappedTeamRole);
             return _mapper.Map<TeamRoleDto>(returnedTeamRole);
         }
     }

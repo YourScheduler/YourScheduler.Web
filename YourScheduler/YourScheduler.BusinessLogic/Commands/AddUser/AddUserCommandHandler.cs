@@ -20,9 +20,9 @@ namespace YourScheduler.BusinessLogic.Commands.AddUser
         public async Task<ApplicationUserDto> Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
             var remappedUser = _mapper.Map<ApplicationUser>(request.UserDto);
-            await _usersRepository.AddUserAsync(remappedUser);
+            var addedUser = await _usersRepository.AddUserAsync(remappedUser);
 
-            return _mapper.Map<ApplicationUserDto>(remappedUser);
+            return _mapper.Map<ApplicationUserDto>(addedUser);
                 
         }
     }

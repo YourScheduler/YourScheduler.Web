@@ -6,11 +6,11 @@ namespace YourScheduler.BusinessLogic.Commands.UpdateTeamRole
 {
     public class UpdateTeamRoleCommand : IRequest<TeamRoleDto>
     {
-        public TeamRole TeamRole { get; }
+        public TeamRole TeamRoleDto { get; }
 
-        public UpdateTeamRoleCommand(TeamRole teamRole)
+        public UpdateTeamRoleCommand(TeamRole teamRoleDto)
         {
-            TeamRole = teamRole;
+            TeamRoleDto = teamRoleDto;
         }
     }
 }

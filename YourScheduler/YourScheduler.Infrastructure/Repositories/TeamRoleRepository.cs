@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
@@ -27,7 +26,7 @@ namespace YourScheduler.Infrastructure.Repositories
             return await _dbContext.TeamRoles.FindAsync(teamRoleId) ?? throw new ArgumentNullException("Could not find a TeamRole with given Id");
         }
 
-        public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole)
+        public async Task<TeamRoleDto> AddTeamRoleAsync(TeamRoleDto teamRole)
         {
             await _dbContext.TeamRoles.AddAsync(teamRole);
             await _dbContext.SaveChangesAsync();

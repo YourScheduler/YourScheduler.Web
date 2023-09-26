@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using YourScheduler.BusinessLogic.Models.DTOs;
+using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.AddTeamRole
@@ -18,8 +19,9 @@ namespace YourScheduler.BusinessLogic.Commands.AddTeamRole
 
         public async Task<TeamRoleDto> Handle(AddTeamRoleCommand request, CancellationToken cancellationToken)
         {
-            var returnedTeamRole = await _teamRoleRepository.AddTeamRoleAsync(request.TeamRole);
-            return _mapper.Map<TeamRoleDto>(returnedTeamRole);
+            var mappedDto = _mapper.Map<TeamRole>(request);
+            var addedRole = await _teamRoleRepository.AddTeamRoleAsync(mappedDto);
+            return _mapper.Map<TeamRoleDto>(addedRole);
         }
     }
 }
