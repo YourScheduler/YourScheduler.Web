@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 using YourScheduler.BusinessLogic.Commands.AddTeamRole;
+using YourScheduler.BusinessLogic.Commands.RemoveTeamRoleById;
 using YourScheduler.BusinessLogic.Commands.UpdateTeamRole;
 using YourScheduler.BusinessLogic.Queries.GetAllTeamRolesForTeam;
 using YourScheduler.BusinessLogic.Queries.GetTeamRoleById;
@@ -64,6 +65,12 @@ namespace YourScheduler.WebApplication.Controllers
         [HttpDelete]
         [Authorize]
         [Route("DeleteTeamRole/{input}")]
+        public async Task<IActionResult> RemoveTeamRoleById(int teamRoleId)
+        {
+            await _mediator.Send(new RemoveTeamRoleByIdCommand(teamRoleId));
+
+            return Ok();
+        }
 
     }
 }
