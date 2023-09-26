@@ -1,14 +1,15 @@
 ﻿using MediatR;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories;
+using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Queries.GetTeamRoleById
 {
     public class GetTeamRoleByIdHandler : IRequestHandler<GetTeamRoleByIdQuery, TeamRole>
     {
-        private readonly TeamRoleRepository _teamRoleRepository;
+        private readonly ITeamRoleRepository _teamRoleRepository;
 
-        public GetTeamRoleByIdHandler(TeamRoleRepository teamRoleRepository)
+        public GetTeamRoleByIdHandler(ITeamRoleRepository teamRoleRepository)
         {
             _teamRoleRepository = teamRoleRepository;
         }

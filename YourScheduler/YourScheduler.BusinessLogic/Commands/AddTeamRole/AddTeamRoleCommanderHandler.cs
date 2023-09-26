@@ -1,14 +1,14 @@
 ﻿using MediatR;
 using YourScheduler.Infrastructure.Entities;
-using YourScheduler.Infrastructure.Repositories;
+using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.AddTeamRole
 {
     public class AddTeamRoleCommnandHandler : IRequestHandler<AddTeamRoleCommand, TeamRole>
     {
-        private readonly TeamRoleRepository _teamRoleRepository;
+        private readonly ITeamRoleRepository _teamRoleRepository;
 
-        public AddTeamRoleCommnandHandler(TeamRoleRepository teamRoleRepository)
+        public AddTeamRoleCommnandHandler(ITeamRoleRepository teamRoleRepository)
         {
             _teamRoleRepository = teamRoleRepository;
         }

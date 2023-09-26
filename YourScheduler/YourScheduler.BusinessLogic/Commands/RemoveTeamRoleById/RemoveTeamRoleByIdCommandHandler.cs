@@ -1,13 +1,13 @@
 ﻿using MediatR;
-using YourScheduler.Infrastructure.Repositories;
+using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.RemoveTeamRoleById
 {
     public class RemoveTeamRoleByIdCommandHandler : IRequestHandler<RemoveTeamRoleByIdCommand>
     {
-        private readonly TeamRoleRepository _teamRoleRepository;
+        private readonly ITeamRoleRepository _teamRoleRepository;
 
-        public RemoveTeamRoleByIdCommandHandler(TeamRoleRepository teamRoleRepository)
+        public RemoveTeamRoleByIdCommandHandler(ITeamRoleRepository teamRoleRepository)
         {
             _teamRoleRepository = teamRoleRepository;
         }
