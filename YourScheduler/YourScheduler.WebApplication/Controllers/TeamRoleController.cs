@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 using YourScheduler.BusinessLogic.Commands.AddTeamRole;
+using YourScheduler.BusinessLogic.Commands.UpdateTeamRole;
 using YourScheduler.BusinessLogic.Queries.GetAllTeamRolesForTeam;
 using YourScheduler.BusinessLogic.Queries.GetTeamRoleById;
 using YourScheduler.Infrastructure.Entities;
@@ -41,14 +43,27 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpPut]
         [Authorize]
-        [Route("CreateTeamRole")]
+        [Route("CreateTeamRole/{input}")]
         public async Task<IActionResult> CreateTeamRole([FromBody] TeamRole teamRole)
         {
-            var createdTeamRole = await _mediator.Send(new AddTeamRoleQuery(teamRole));
+            var createdTeamRole = await _mediator.Send(new AddTeamRoleCommand(teamRole));
 
             return new ObjectResult(createdTeamRole) { StatusCode = StatusCodes.Status201Created };
         }
 
+        [HttpPatch]
+        [Authorize]
+        [Route("UpdateTeamRole/{input}")]
+        public async Task<IActionResult> UpdateTeamRole([FromBody] TeamRole teamRole)
+        {
+            await _mediator.Send(new UpdateTeamRoleCommand(teamRole));
+
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("DeleteTeamRole/{input}")]
 
     }
 }
