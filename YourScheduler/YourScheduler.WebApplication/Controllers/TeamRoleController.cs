@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YourScheduler.BusinessLogic.Queries.GetAllTeamRolesForTeam;
+using YourScheduler.BusinessLogic.Queries.GetTeamRoleById;
 
 namespace YourScheduler.WebApplication.Controllers
 {
@@ -19,10 +20,19 @@ namespace YourScheduler.WebApplication.Controllers
         [HttpGet]
         [Authorize]
         [Route("getAllTeamRolesForTeam/{input}")]
-        public async Task<IActionResult> GetAllTeamRolesForTeam([FromBody]int teamId)
+        public async Task<IActionResult> GetAllTeamRolesForTeam([FromBody] int teamId)
         {
             var returnedTeamRoles = await _mediator.Send(new GetAllTeamRolesForTeamQuery(teamId));
             return Ok(returnedTeamRoles);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetTeamRoleById/{input}")]
+        public async Task<IActionResult> GetTeamRoleById([FromBody] int teamRoleId)
+        {
+            var returnedRole = await _mediator.Send(new GetTeamRoleByIdQuery(teamRoleId));
+            return Ok(returnedRole);
         }
 
 
