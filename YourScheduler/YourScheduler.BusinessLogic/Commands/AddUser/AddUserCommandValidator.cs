@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace YourScheduler.BusinessLogic.Commands.AddUser
         {
             RuleFor(c => c.UserDto.Name).NotEmpty().MinimumLength(2).WithMessage("Name should have at least 2 characters")
              .MinimumLength(20).WithMessage("Name should have maximum of 20 characters");
-            RuleFor(c => c.UserDto.Email).EmailAddress().WithMessage("Please enter email");
+            RuleFor(c => c.UserDto.Email).EmailAddress(EmailValidationMode.AspNetCoreCompatible).WithMessage("Please enter email");
         }
     }
 }
