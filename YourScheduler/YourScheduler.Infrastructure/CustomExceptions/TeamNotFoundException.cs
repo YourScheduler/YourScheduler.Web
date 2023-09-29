@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace YourScheduler.WebApplication.CustomExceptions
+namespace YourScheduler.Infrastructure.CustomExceptions
 {
     public class TeamNotFoundException : CustomException
     {
