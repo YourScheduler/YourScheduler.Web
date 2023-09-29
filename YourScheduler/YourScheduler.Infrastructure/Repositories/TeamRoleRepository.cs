@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using YourScheduler.Infrastructure.CustomExceptions;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
@@ -23,13 +24,14 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public async Task<TeamRole> GetTeamRoleByIdAsync(int teamRoleId)
         {
-            return await _dbContext.TeamRoles.FindAsync(teamRoleId) ?? throw new ArgumentNullException("Could not find a TeamRole with given Id");
+            return await _dbContext.TeamRoles.FindAsync(teamRoleId) ?? throw new TeamRoleNotFoundException();
         }
 
         public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole)
         {
             await _dbContext.TeamRoles.AddAsync(teamRole);
             await _dbContext.SaveChangesAsync();
+
             return teamRole;
         }
 
@@ -44,7 +46,7 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public async Task RemoveTeamRoleByIdAsync(int teamRoleId)
         {
-            var teamRoleToRemove = await GetTeamRoleByIdAsync(teamRoleId) ?? throw new ArgumentNullException("TeamRole not found");
+            var teamRoleToRemove = await GetTeamRoleByIdAsync(teamRoleId);
 
             _dbContext.Remove(teamRoleToRemove);
             await _dbContext.SaveChangesAsync();
