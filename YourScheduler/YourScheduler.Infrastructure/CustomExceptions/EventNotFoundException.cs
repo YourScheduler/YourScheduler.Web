@@ -10,7 +10,7 @@ namespace YourScheduler.Infrastructure.CustomExceptions
             Status = (int)HttpStatusCode.NotFound,
             Type = "Could not find entity",
             Title = "Could not find Event",
-            Detail = "The requested event does'nt exist in the database"
+            Detail = "The requested event with provided Id does'nt exist in the database"
         })
         { }
     }

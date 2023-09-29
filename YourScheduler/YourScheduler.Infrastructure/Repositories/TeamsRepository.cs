@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using YourScheduler.Infrastructure.CustomExceptions;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
-using YourScheduler.WebApplication.CustomExceptions;
 
 namespace YourScheduler.Infrastructure.Repositories
 {

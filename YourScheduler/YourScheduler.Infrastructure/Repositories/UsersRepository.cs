@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using YourScheduler.Infrastructure.CustomExceptions;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
@@ -28,12 +29,12 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
-            return  await _dbContext.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email) ?? throw new Exception("Could not find a user with specified email");
+            return  await _dbContext.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email) ?? throw new UserByEmailNotFoundException();
         }
 
         public async Task<ApplicationUser> GetUserByIdAsync(int id)
         {
-            return await _dbContext.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == id) ?? throw new Exception("Could not find a user with specified id");
+            return await _dbContext.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == id) ?? throw new UserByIdNotFoundException();
         }
 
     }
