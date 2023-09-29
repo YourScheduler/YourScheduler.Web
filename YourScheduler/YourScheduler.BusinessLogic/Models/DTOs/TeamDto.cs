@@ -18,7 +18,7 @@ public class TeamDto
 
     public string? Message { get; set; }
 
-    public ICollection<TeamRole> TeamRoles { get; set; } = default!;
+    public ICollection<TeamRoleDto> TeamRoles { get; set; } = default!;
 
     public string? PicturePath { get; set; }
 
