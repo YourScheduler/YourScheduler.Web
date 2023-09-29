@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace YourScheduler.Infrastructure.CustomExceptions
 {
-    internal class TeamRoleNotFoundException
+    public class TeamRoleNotFoundException : CustomException
     {
+        public TeamRoleNotFoundException() : base(new ProblemDetails
+        {
+            Status = (int)HttpStatusCode.NotFound,
+            Type = "Could not find entity",
+            Title = "Could not find TeamRole",
+            Detail = "The requested TeamRole with provided Id does'nt exist in the database"
+        })
+        { }
     }
 }
