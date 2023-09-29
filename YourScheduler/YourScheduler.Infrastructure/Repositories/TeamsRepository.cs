@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
+using YourScheduler.WebApplication.CustomExceptions;
 
 namespace YourScheduler.Infrastructure.Repositories
 {
@@ -33,7 +34,7 @@ namespace YourScheduler.Infrastructure.Repositories
         public async Task<Team> GetTeamByIdAsync(int id)
         {
             _logger.LogInformation("User attempt to get team by ID at {DT}", DateTime.Now.ToLongTimeString());
-            Team retrievedTeam = await _dbContext.Teams.FirstOrDefaultAsync(t => t.TeamId == id) ?? throw new Exception("Could not find a team with specified id");
+            Team retrievedTeam = await _dbContext.Teams.FirstOrDefaultAsync(t => t.TeamId == id) ?? throw new TeamNotFoundException();
             return retrievedTeam;
         }
         public async Task DeleteTeamByIdAsync(int id)
