@@ -21,35 +21,39 @@ namespace YourScheduler.UI.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route("AddUser")]
-        public async Task<ApplicationUserDto> AddUserAsync([FromBody]ApplicationUserDto applicationUserDto)
+        public async Task<IActionResult> AddUserAsync([FromBody]ApplicationUserDto applicationUserDto)
         {
-            return await _mediator.Send(new AddUserCommand(applicationUserDto));
+            var returnedUser = await _mediator.Send(new AddUserCommand(applicationUserDto));
+            return new ObjectResult(returnedUser) { StatusCode = StatusCodes.Status201Created };
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("GetUsers")]
-        public async Task<IEnumerable<ApplicationUserDto>> GetUsersAsync()
+        public async Task<IActionResult> GetUsersAsync()
         {
-            return await _mediator.Send(new GetAllUsersQuery());
+            var returnedUsers = await _mediator.Send(new GetAllUsersQuery());
+            return Ok(returnedUsers);
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("GetUserById/userId")]
-        public async Task<ApplicationUserDto> GetUserById(int userId)
+        //[Authorize]
+        [Route("GetUserById/{userId}")]
+        public async Task<IActionResult> GetUserById(int userId)
         {
-            return await _mediator.Send(new GetUserByIdQuery(userId));
+            var returnedUser = await _mediator.Send(new GetUserByIdQuery(userId));
+            return Ok(returnedUser);
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("GetUserByEmail/userEmail")]
-        public async Task<ApplicationUserDto> GetUserByEmail(string userEmail)
+        //[Authorize]
+        [Route("GetUserByEmail/{userEmail}")]
+        public async Task<IActionResult> GetUserByEmail(string userEmail)
         {
-            return await _mediator.Send(new GetUserByEmailQuery(userEmail));
+            var returnedUser = await _mediator.Send(new GetUserByEmailQuery(userEmail));
+            return Ok(returnedUser);
         }
 
     }
