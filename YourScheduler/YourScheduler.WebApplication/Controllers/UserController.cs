@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using YourScheduler.BusinessLogic.Commands.AddUser;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Queries.GetAllUsers;
+using YourScheduler.BusinessLogic.Queries.GetUserById;
 using YourScheduler.Infrastructure.Repositories;
 
 namespace YourScheduler.UI.Controllers
@@ -33,6 +34,14 @@ namespace YourScheduler.UI.Controllers
         public async Task<IEnumerable<ApplicationUserDto>> GetUsersAsync()
         {
             return await _mediator.Send(new GetAllUsersQuery());
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetUserById/userId")]
+        public async Task<ApplicationUserDto> GetUserById(int userId)
+        {
+            return await _mediator.Send(new GetUserByIdQuery(userId));
         }
 
 
