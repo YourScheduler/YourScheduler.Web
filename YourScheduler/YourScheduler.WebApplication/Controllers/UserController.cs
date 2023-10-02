@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using YourScheduler.BusinessLogic.Commands.AddUser;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Queries.GetAllUsers;
+using YourScheduler.BusinessLogic.Queries.GetUserByEmail;
 using YourScheduler.BusinessLogic.Queries.GetUserById;
-using YourScheduler.Infrastructure.Repositories;
 
 namespace YourScheduler.UI.Controllers
 {
@@ -44,6 +44,13 @@ namespace YourScheduler.UI.Controllers
             return await _mediator.Send(new GetUserByIdQuery(userId));
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("GetUserByEmail/userEmail")]
+        public async Task<ApplicationUserDto> GetUserByEmail(string userEmail)
+        {
+            return await _mediator.Send(new GetUserByEmailQuery(userEmail));
+        }
 
     }
 }
