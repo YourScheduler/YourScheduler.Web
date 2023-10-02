@@ -21,7 +21,7 @@ namespace YourScheduler.UI.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         [Route("AddUser")]
         public async Task<IActionResult> AddUserAsync([FromBody]ApplicationUserDto applicationUserDto)
         {
@@ -30,7 +30,7 @@ namespace YourScheduler.UI.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("GetUsers")]
         public async Task<IActionResult> GetUsersAsync()
         {
@@ -39,7 +39,7 @@ namespace YourScheduler.UI.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("GetUserById/{userId}")]
         public async Task<IActionResult> GetUserById(int userId)
         {
@@ -48,7 +48,7 @@ namespace YourScheduler.UI.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("GetUserByEmail/{userEmail}")]
         public async Task<IActionResult> GetUserByEmail(string userEmail)
         {
