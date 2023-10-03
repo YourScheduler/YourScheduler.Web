@@ -1,13 +1,14 @@
 ﻿using MediatR;
 using YourScheduler.Infrastructure.Repositories;
+using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.RemoveTeamMember
 {
     public class RemoveTeamMemberCommandHandler : IRequestHandler<RemoveTeamMemberCommand>
     {
-        private readonly TeamMemberRepository _teamMemberRepository;
+        private readonly ITeamMemberRepository _teamMemberRepository;
 
-        public RemoveTeamMemberCommandHandler(TeamMemberRepository teamMemberRepository)
+        public RemoveTeamMemberCommandHandler(ITeamMemberRepository teamMemberRepository)
         {
             _teamMemberRepository = teamMemberRepository;
         }
