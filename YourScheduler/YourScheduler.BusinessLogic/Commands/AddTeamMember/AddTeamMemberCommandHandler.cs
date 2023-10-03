@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
+using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.AddTeamMember
 {
-    internal class AddTeamMemberCommandHandle
+    public class AddTeamMemberCommandHandler : IRequestHandler<AddTeamMemberCommand>
     {
+        private readonly ITeamMemberRepository _teamMemberRepository;
+
+        public AddTeamMemberCommandHandler(ITeamMemberRepository teamMemberRepository)
+        {
+            _teamMemberRepository = teamMemberRepository;
+        }
+
+        public async Task Handle(AddTeamMemberCommand request, CancellationToken cancellationToken)
+        {
+            await _teamMemberRepository.AddTeamMemberAsync(request.UserId, request.TeamRoleId, request.TeamId);
+        }
     }
 }

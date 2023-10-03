@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace YourScheduler.BusinessLogic.Commands.AddTeamMember
 {
-    internal class AddTeamMemberCommand
+    public class AddTeamMemberCommand : IRequest
     {
+        public int UserId { get;}
+        public int TeamRoleId { get;}
+        public int TeamId { get;}
+
+        public AddTeamMemberCommand(int userId, int teamRoleId, int teamId)
+        {
+            UserId = userId;
+            TeamRoleId = teamRoleId;
+            TeamId = teamId;
+        }
     }
 }
