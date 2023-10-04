@@ -1,6 +1,40 @@
-﻿namespace YourScheduler.WebApplication.Controllers
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Owin.Security.Notifications;
+using YourScheduler.BusinessLogic.Commands.AddTeamMember;
+using YourScheduler.BusinessLogic.Commands.RemoveTeamMember;
+
+namespace YourScheduler.WebApplication.Controllers
 {
-    public class TeamMemberController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TeamMemberController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public TeamMemberController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("AddTeamMember")]
+        public async Task<IActionResult> AddTeamMember(int userId, int teamRoleId, int teamId)
+        {
+            await _mediator.Send(new AddTeamMemberCommand(userId, teamRoleId, teamId));
+            return NoContent();
+        }
+        [HttpDelete]
+        [Authorize]
+        [Route("RemoveTeamMember")]
+        public async Task<IActionResult> RemoveTeamMember(int userId, int teamId)
+        {
+            await _mediator.Send(new RemoveTeamMemberCommand(userId, teamId));
+            return Ok();
+        }
+
+        
     }
 }
