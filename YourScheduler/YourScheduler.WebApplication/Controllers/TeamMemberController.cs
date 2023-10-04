@@ -27,6 +27,7 @@ namespace YourScheduler.WebApplication.Controllers
             await _mediator.Send(new AddTeamMemberCommand(userId, teamRoleId, teamId));
             return NoContent();
         }
+
         [HttpDelete]
         [Authorize]
         [Route("RemoveTeamMember")]
@@ -41,18 +42,22 @@ namespace YourScheduler.WebApplication.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
-            
+              
         }
         [HttpPut]
         [Authorize]
         [Route("UpdateTeamMemberRole")]
         public async Task<IActionResult> UpdateTeamMemberRole(int userId, int teamRoleId, int teamId)
         {
-            await _mediator.Send(new UpdateTeamMemberRoleCommand(userId, teamRoleId, teamId));
-            return NoContent();
-        }
-
-        
+            try
+            {
+                await _mediator.Send(new UpdateTeamMemberRoleCommand(userId, teamRoleId, teamId));
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            } 
+        } 
     }
 }
