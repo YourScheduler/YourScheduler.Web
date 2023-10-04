@@ -32,8 +32,17 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("RemoveTeamMember")]
         public async Task<IActionResult> RemoveTeamMember(int userId, int teamId)
         {
-            await _mediator.Send(new RemoveTeamMemberCommand(userId, teamId));
-            return Ok();
+            try
+            {
+                await _mediator.Send(new RemoveTeamMemberCommand(userId, teamId));
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+            
         }
         [HttpPut]
         [Authorize]
