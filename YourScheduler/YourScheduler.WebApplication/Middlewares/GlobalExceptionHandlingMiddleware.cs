@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Net;
 using System.Text.Json;
 using YourScheduler.Infrastructure.CustomExceptions;
@@ -38,6 +39,8 @@ namespace YourScheduler.WebApplication.Middlewares
         {
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            var stackTrace = new StackTrace(customException).GetFrame(0);
+            customException.ProblemDetails.Instance = $"Declaring Method: {stackTrace.GetMethod().DeclaringType.Name}";
 
             string json = JsonSerializer.Serialize(customException.ProblemDetails);
 
