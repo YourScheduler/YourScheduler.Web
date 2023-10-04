@@ -43,8 +43,16 @@ namespace YourScheduler.UI.Controllers
         [Route("GetUserById/{userId}")]
         public async Task<IActionResult> GetUserById(int userId)
         {
-            var returnedUser = await _mediator.Send(new GetUserByIdQuery(userId));
-            return Ok(returnedUser);
+            try
+            {
+                var returnedUser = await _mediator.Send(new GetUserByIdQuery(userId));
+                return Ok(returnedUser);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet]
@@ -52,8 +60,16 @@ namespace YourScheduler.UI.Controllers
         [Route("GetUserByEmail/{userEmail}")]
         public async Task<IActionResult> GetUserByEmail(string userEmail)
         {
-            var returnedUser = await _mediator.Send(new GetUserByEmailQuery(userEmail));
-            return Ok(returnedUser);
+            try
+            {
+                var returnedUser = await _mediator.Send(new GetUserByEmailQuery(userEmail));
+                return Ok(returnedUser);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
     }
