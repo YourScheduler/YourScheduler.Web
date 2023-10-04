@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Owin.Security.Notifications;
 using YourScheduler.BusinessLogic.Commands.AddTeamMember;
 using YourScheduler.BusinessLogic.Commands.RemoveTeamMember;
+using YourScheduler.BusinessLogic.Commands.UpdateTeamMemberRole;
 
 namespace YourScheduler.WebApplication.Controllers
 {
@@ -33,6 +34,14 @@ namespace YourScheduler.WebApplication.Controllers
         {
             await _mediator.Send(new RemoveTeamMemberCommand(userId, teamId));
             return Ok();
+        }
+        [HttpPut]
+        [Authorize]
+        [Route("UpdateTeamMemberRole")]
+        public async Task<IActionResult> UpdateTeamMemberRole(int userId, int teamRoleId, int teamId)
+        {
+            await _mediator.Send(new UpdateTeamMemberRoleCommand(userId, teamRoleId, teamId));
+            return NoContent();
         }
 
         
