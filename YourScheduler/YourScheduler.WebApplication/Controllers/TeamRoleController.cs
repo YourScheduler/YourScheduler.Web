@@ -42,7 +42,7 @@ namespace YourScheduler.WebApplication.Controllers
             return Ok(returnedRole);
         }
 
-        [HttpPut]
+        [HttpPost]
         [Authorize]
         [Route("CreateTeamRole")]
         public async Task<IActionResult> CreateTeamRole([FromBody] TeamRoleDto teamRoleDto)
