@@ -51,7 +51,7 @@ namespace YourScheduler.WebApplication.Controllers
             return new ObjectResult(createdTeamRole) { StatusCode = StatusCodes.Status201Created };
         }
 
-        [HttpPatch]
+        [HttpPut]
         [Authorize]
         [Route("UpdateTeamRole")]
         public async Task<IActionResult> UpdateTeamRole([FromBody] TeamRoleDto teamRoleDto)

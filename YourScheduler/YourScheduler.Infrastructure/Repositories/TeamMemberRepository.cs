@@ -10,7 +10,7 @@ namespace YourScheduler.Infrastructure.Repositories
         private readonly YourSchedulerDbContext _dbContext;
         private readonly ILogger _logger;
 
-        public TeamMemberRepository(YourSchedulerDbContext dbContext, ILogger<TeamsRepository> logger)
+        public TeamMemberRepository(YourSchedulerDbContext dbContext, ILogger<TeamMemberRepository> logger)
         {
             _dbContext = dbContext;
             _logger = logger;
