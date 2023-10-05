@@ -36,8 +36,6 @@ builder.Services.AddAuthentication()
 var emailConfig = builder.Configuration.GetSection("MailSettings").Get<MailSettings>();
 builder.Services.AddSingleton(emailConfig);
 
-builder.Services.AddScoped<GlobalExceptionHandlingMiddleware>();
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -63,8 +61,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 }
-
-app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
