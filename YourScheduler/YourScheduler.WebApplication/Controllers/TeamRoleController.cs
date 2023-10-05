@@ -7,7 +7,6 @@ using YourScheduler.BusinessLogic.Commands.UpdateTeamRole;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Queries.GetAllTeamRolesForTeam;
 using YourScheduler.BusinessLogic.Queries.GetTeamRoleById;
-using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.WebApplication.Controllers
 {

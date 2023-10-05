@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using YourScheduler.Infrastructure.CustomExceptions;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
@@ -32,11 +33,7 @@ namespace YourScheduler.Infrastructure.Repositories
         public async Task<Event> GetEventByIdAsync(int id)
         {
             _logger.LogInformation("User attempt to get event by ID at {DT}", DateTime.Now.ToLongTimeString());
-            var returnedEvent = await _dbContext.Events.FirstOrDefaultAsync(x => x.EventId == id);
-            if (returnedEvent is null)
-            {
-                throw new Exception("Could not find event by provided id");
-            }
+            var returnedEvent = await _dbContext.Events.FirstOrDefaultAsync(x => x.EventId == id) ?? throw new EventNotFoundException();
             return returnedEvent;
         }
 
