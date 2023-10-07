@@ -14,7 +14,7 @@ namespace YourScheduler.BusinessLogic.Commands.AddUser
         public AddUserCommandValidator(IUsersRepository usersRepository)
         {
             RuleFor(c => c.UserDto.Name).NotEmpty().MinimumLength(2).WithMessage("Name should have at least 2 characters")
-             .MinimumLength(20).WithMessage("Name should have maximum of 20 characters");
+             .MaximumLength(20).WithMessage("Name should have maximum of 20 characters");
             RuleFor(c => c.UserDto.Email).EmailAddress(EmailValidationMode.AspNetCoreCompatible).WithMessage("Please enter email");
         }
     }
