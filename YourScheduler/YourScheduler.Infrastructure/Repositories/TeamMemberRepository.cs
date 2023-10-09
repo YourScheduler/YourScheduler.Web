@@ -19,6 +19,13 @@ namespace YourScheduler.Infrastructure.Repositories
         public async Task AddTeamMemberAsync(int userId, int teamRoleId, int teamId)
         {
             _logger.LogInformation("User attempt to add team to user at {DT}", DateTime.Now.ToLongTimeString());
+            //if (user in team){
+            //throw exception
+            //else{
+            //add user
+            //create token
+            //Message emailMessage = new Message(); create message
+
             await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = teamRoleId });
             await _dbContext.SaveChangesAsync();
         }
