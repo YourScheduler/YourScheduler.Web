@@ -22,9 +22,9 @@ namespace YourScheduler.BusinessLogic.Commands.AddTeamMember
             var team = await _teamsRepository.GetTeamByIdAsync(request.TeamId);
             if (team.IsPrivate)
             {
-                var userEmail = _usersRepository.GetUserByIdAsync(request.UserId);
-                var token = 
-                var message = new Message()
+                var user = await _usersRepository.GetUserByIdAsync(request.UserId);
+                var token = "";
+                Message message = new Message(user.Email, $"Zostałeś zaproszony do zespołu {team.Name}", token);
             }
             await _teamMemberRepository.AddTeamMemberAsync(request.UserId, request.TeamId);
         }

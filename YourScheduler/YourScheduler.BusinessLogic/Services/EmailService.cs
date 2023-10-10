@@ -3,15 +3,17 @@ using YourScheduler.BusinessLogic.Services.Interfaces;
 using YourScheduler.BusinessLogic.Services.Settings;
 using YourScheduler.Infrastructure.Entities;
 using MailKit.Security;
+using Microsoft.Extensions.Options;
 
 namespace YourScheduler.BusinessLogic.Services
 {
     public class EmailService : IEmailService
     {
         private readonly MailSettings _mailSettings;
-        public EmailService(MailSettings mailSettings)
+
+        public EmailService(IOptions<MailSettings> mailSettings)
         {
-            _mailSettings = mailSettings;
+            _mailSettings = mailSettings.Value;
         }
 
         public void SendEmail(Message message)

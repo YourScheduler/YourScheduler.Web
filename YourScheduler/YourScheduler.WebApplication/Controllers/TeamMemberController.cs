@@ -22,9 +22,9 @@ namespace YourScheduler.WebApplication.Controllers
         [HttpPost]
         [Authorize]
         [Route("AddTeamMember")]
-        public async Task<IActionResult> AddTeamMember(int userId, int teamRoleId, int teamId)
+        public async Task<IActionResult> AddTeamMember(int userId, int teamId)
         {
-            await _mediator.Send(new AddTeamMemberCommand(userId, teamRoleId, teamId));
+            await _mediator.Send(new AddTeamMemberCommand(userId, teamId));
             return NoContent();
         }
 

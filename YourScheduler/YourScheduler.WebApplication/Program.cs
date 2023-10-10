@@ -1,24 +1,29 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using YourScheduler.BusinessLogic.Initialization;
-using YourScheduler.BusinessLogic.Models;
 using YourScheduler.Infrastructure;
 using YourScheduler.Infrastructure.Initialization;
 using YourScheduler.Infrastructure.Entities;
-using YourScheduler.BusinessLogic.Services.Settings;
-using FluentAssertions.Common;
 using AutoMapper;
 using YourScheduler.WebApplication.Middlewares;
+using YourScheduler.BusinessLogic.Services.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("YourSchedulerDbContextConnection") ?? throw new InvalidOperationException("Connection string 'YourSchedulerDbContextConnection' not found.");
 
+var configuration = new ConfigurationBuilder()
+   .SetBasePath(builder.Environment.ContentRootPath)
+   .AddJsonFile("appsettings.Developement.json", optional: true, reloadOnChange: true)
+   .Build();
+
+builder.Services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+builder.Services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
 builder.Services.AddDbContext<YourSchedulerDbContext>(options =>
  options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
+
 
 builder.Services.AddAuthentication()
     .AddFacebook(options =>
@@ -31,10 +36,8 @@ builder.Services.AddAuthentication()
         options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
     });
-    
 
-var emailConfig = builder.Configuration.GetSection("MailSettings").Get<MailSettings>();
-builder.Services.AddSingleton(emailConfig);
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
