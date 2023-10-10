@@ -2,6 +2,6 @@
 {
     public class JwtSettings
     {
-        public string SecretKey { get; set; } = default!;
+        public string SecretKey { get; } = default!;
     }
 }
