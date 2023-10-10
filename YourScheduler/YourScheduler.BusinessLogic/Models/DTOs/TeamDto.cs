@@ -18,6 +18,8 @@ public class TeamDto
 
     public string? Message { get; set; }
 
+    public bool IsPrivate { get; set; } = default!;
+
     public ICollection<TeamRoleDto> TeamRoles { get; set; } = default!;
 
     public string? PicturePath { get; set; }

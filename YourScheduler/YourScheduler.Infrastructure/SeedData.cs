@@ -260,63 +260,136 @@ namespace YourScheduler.Infrastructure
                 new TeamRole
                 {
                     TeamId = 1,
-                    Name = "Chobok",
+                    Name = "Invitee",
                     TeamRoleId = 1
                 },
                 new TeamRole
                 {
                     TeamId = 2,
-                    Name = "Master Blaster",
+                    Name = "Pending invite",
+                    TeamRoleId = 1
+                },
+                new TeamRole
+                {
+                    TeamId = 3,
+                    Name = "Sent confirmation",
+                    TeamRoleId = 1
+                },
+                new TeamRole
+                {
+                    TeamId = 4,
+                    Name = "Zaproszony",
+                    TeamRoleId = 1
+                },
+                new TeamRole
+                {
+                    TeamId = 5,
+                    Name = "Invitee",
+                    TeamRoleId = 1
+                },
+                new TeamRole
+                {
+                    TeamId = 6,
+                    Name = "Invitee",
+                    TeamRoleId = 1
+                },
+                new TeamRole
+                {
+                    TeamId = 1,
+                    Name = "Admin",
+                    TeamRoleId = 2
+                },
+                new TeamRole
+                {
+                    TeamId = 2,
+                    Name = "Boss",
                     TeamRoleId = 2
                 },
                 new TeamRole
                 {
                     TeamId = 3,
-                    Name = "Perturbator",
+                    Name = "The Absolute",
+                    TeamRoleId = 2
+                },
+                new TeamRole
+                {
+                    TeamId = 4,
+                    Name = "Wielki Guru",
+                    TeamRoleId = 2
+                },
+                new TeamRole
+                {
+                    TeamId = 5,
+                    Name = "Admin",
+                    TeamRoleId = 2
+                },
+                new TeamRole
+                {
+                    TeamId = 6,
+                    Name = "Leader",
+                    TeamRoleId = 2
+                },
+                new TeamRole
+                {
+                    TeamId = 1,
+                    Name = "User",
+                    TeamRoleId = 3
+                },
+                new TeamRole
+                {
+                    TeamId = 2,
+                    Name = "Noob",
+                    TeamRoleId = 3
+                },
+                new TeamRole
+                {
+                    TeamId = 3,
+                    Name = "Nobody",
                     TeamRoleId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 4,
-                    Name = "Ciastek",
-                    TeamRoleId = 4
+                    Name = "Civilian",
+                    TeamRoleId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 5,
-                    Name = "Kaczucha",
-                    TeamRoleId = 5
+                    Name = "Guest",
+                    TeamRoleId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 6,
-                    Name = "Karal",
-                    TeamRoleId = 6
+                    Name = "Infant",
+                    TeamRoleId = 3
                 }
         };
         public static TeamRoleFlags[] teamRoleFlagsSeed = new TeamRoleFlags[]
         {
             new TeamRoleFlags()
             {
-                TeamRoleId= 1,
-                CanAddTeamEvent= true,
-                CanRemoveTeamEvent= true,
-                CanAddTeamMember= true,
-                CanRemoveTeamMember= true,
-                CanAddTeamRole= true,
-                CanEditDescription= true,
-                CanEditRoleFlags= true,
-                CanEditTeamEvent= true,
-                CanEditTeamMessage= true,
-                CanEditTeamName= true,
-                CanEditTeamPhoto= true,
-                CanEditTeamRole= true,
-                CanRemoveTeamRole= true,
-                CanSendEmailToTeam= true
+                TeamRoleId = 1, //invitee
+                CanAddTeamEvent= false,
+                CanRemoveTeamEvent= false,
+                CanAddTeamMember= false,
+                CanRemoveTeamMember= false,
+                CanAddTeamRole= false,
+                CanEditDescription= false,
+                CanEditRoleFlags= false,
+                CanEditTeamEvent= false,
+                CanEditTeamMessage= false,
+                CanEditTeamName= false,
+                CanEditTeamPhoto= false,
+                CanEditTeamRole= false,
+                CanRemoveTeamRole= false,
+                CanSendEmailToTeam= false,
+                CanViewContent = false
             },
             new TeamRoleFlags()
             {
-                TeamRoleId= 2,
+                TeamRoleId= 2, //admin
                 CanAddTeamEvent= true,
                 CanRemoveTeamEvent= true,
                 CanAddTeamMember= true,
@@ -330,79 +403,27 @@ namespace YourScheduler.Infrastructure
                 CanEditTeamPhoto= true,
                 CanEditTeamRole= true,
                 CanRemoveTeamRole= true,
-                CanSendEmailToTeam= true
+                CanSendEmailToTeam= true,
+                CanViewContent= true
             },
             new TeamRoleFlags()
             {
-                TeamRoleId= 3,
-                CanAddTeamEvent= true,
-                CanRemoveTeamEvent= true,
-                CanAddTeamMember= true,
-                CanRemoveTeamMember= true,
-                CanAddTeamRole= true,
-                CanEditDescription= true,
-                CanEditRoleFlags= true,
-                CanEditTeamEvent= true,
-                CanEditTeamMessage= true,
-                CanEditTeamName= true,
-                CanEditTeamPhoto= true,
-                CanEditTeamRole= true,
-                CanRemoveTeamRole= true,
-                CanSendEmailToTeam= true
-            },
-            new TeamRoleFlags()
-            {
-                TeamRoleId= 4,
-                CanAddTeamEvent= true,
-                CanRemoveTeamEvent= true,
-                CanAddTeamMember= true,
-                CanRemoveTeamMember= true,
-                CanAddTeamRole= true,
-                CanEditDescription= true,
-                CanEditRoleFlags= true,
-                CanEditTeamEvent= true,
-                CanEditTeamMessage= true,
-                CanEditTeamName= true,
-                CanEditTeamPhoto= true,
-                CanEditTeamRole= true,
-                CanRemoveTeamRole= true,
-                CanSendEmailToTeam= true
-            },
-            new TeamRoleFlags()
-            {
-                TeamRoleId= 5,
-                CanAddTeamEvent= true,
-                CanRemoveTeamEvent= true,
-                CanAddTeamMember= true,
-                CanRemoveTeamMember= true,
-                CanAddTeamRole= true,
-                CanEditDescription= true,
-                CanEditRoleFlags= true,
-                CanEditTeamEvent= true,
-                CanEditTeamMessage= true,
-                CanEditTeamName= true,
-                CanEditTeamPhoto= true,
-                CanEditTeamRole= true,
-                CanRemoveTeamRole= true,
-                CanSendEmailToTeam= true
-            },
-            new TeamRoleFlags()
-            {
-                TeamRoleId= 6,
-                CanAddTeamEvent= true,
-                CanRemoveTeamEvent= true,
-                CanAddTeamMember= true,
-                CanRemoveTeamMember= true,
-                CanAddTeamRole= true,
-                CanEditDescription= true,
-                CanEditRoleFlags= true,
-                CanEditTeamEvent= true,
-                CanEditTeamMessage= true,
-                CanEditTeamName= true,
-                CanEditTeamPhoto= true,
-                CanEditTeamRole= true,
-                CanRemoveTeamRole= true,
-                CanSendEmailToTeam= true
+                TeamRoleId = 3, //user
+                CanAddTeamEvent = false,
+                CanAddTeamMember = false,
+                CanAddTeamRole = false,
+                CanEditDescription = false,
+                CanEditRoleFlags = false,
+                CanEditTeamEvent = false,
+                CanEditTeamMessage = false,
+                CanRemoveTeamMember = false,
+                CanEditTeamName = false,
+                CanEditTeamPhoto = false,
+                CanEditTeamRole = false,
+                CanRemoveTeamEvent = false,
+                CanRemoveTeamRole = false,
+                CanSendEmailToTeam = false,
+                CanViewContent= true
             }
 
 
@@ -420,16 +441,34 @@ namespace YourScheduler.Infrastructure
         };
         public static ApplicationUserTeams[] applicationUserTeamSeed = new ApplicationUserTeams[]
         {
-            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 1, TeamRoleId = 1},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 1, TeamRoleId = 2},
+            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 1, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 1, TeamRoleId = 1},
+
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 2, TeamRoleId = 3},
             new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 2, TeamRoleId = 2},
-            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 3, TeamRoleId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 4, TeamRoleId = 4},
-            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 4, TeamRoleId = 4},
-            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 4, TeamRoleId = 4},
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 5, TeamRoleId = 5},
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 6, TeamRoleId = 6},
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 5, TeamRoleId = 5},
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 6, TeamRoleId = 6}
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 2, TeamRoleId = 1},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 2, TeamRoleId = 3},
+
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 3, TeamRoleId = 2},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 3, TeamRoleId = 1},
+            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 3, TeamRoleId = 3},
+
+            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 4, TeamRoleId = 2},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 4, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 4, TeamRoleId = 1},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 4, TeamRoleId = 1},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 4, TeamRoleId = 3},
+
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 5, TeamRoleId = 2},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 5, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 5, TeamRoleId = 1},
+
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 6, TeamRoleId = 2},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 6, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 6, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 6, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 6, TeamRoleId = 1}
         };
         public static ApplicationUser[] GetUsersSeed()
         {

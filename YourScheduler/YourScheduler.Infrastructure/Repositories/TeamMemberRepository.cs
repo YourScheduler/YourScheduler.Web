@@ -20,7 +20,7 @@ namespace YourScheduler.Infrastructure.Repositories
         {
             _logger.LogInformation("User attempt to add team to user at {DT}", DateTime.Now.ToLongTimeString());
 
-            await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = 1});
+            await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = 1}); // TeamRoleId 1 is always invitee which cannot see content of the team without accepting invite first
             await _dbContext.SaveChangesAsync();
         }
 

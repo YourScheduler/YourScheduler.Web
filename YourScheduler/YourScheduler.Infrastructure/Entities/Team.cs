@@ -6,6 +6,7 @@ public  class Team
     public string? Description { get; set; }
     public string Creator { get; set; } = default!; 
     public string? Message { get; set; }
+    public bool IsPrivate { get; set; } = default!;
     public ICollection<ApplicationUserTeams>? TeamMembers { get; set; }
     public ICollection<TeamRole> TeamRoles { get; set; } = default!;
     public string? PicturePath { get; set; }

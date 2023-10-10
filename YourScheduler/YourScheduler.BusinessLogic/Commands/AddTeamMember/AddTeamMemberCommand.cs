@@ -8,10 +8,9 @@ namespace YourScheduler.BusinessLogic.Commands.AddTeamMember
         public int TeamRoleId { get;}
         public int TeamId { get;}
 
-        public AddTeamMemberCommand(int userId, int teamRoleId, int teamId)
+        public AddTeamMemberCommand(int userId, int teamId)
         {
             UserId = userId;
-            TeamRoleId = teamRoleId;
             TeamId = teamId;
         }
     }
