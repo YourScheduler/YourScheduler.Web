@@ -20,6 +20,7 @@ namespace YourScheduler.Infrastructure.Entities
         public bool CanEditTeamEvent { get; set; } = false;
         public bool CanRemoveTeamEvent { get; set; } = false;
         public bool CanSendEmailToTeam { get;set; } = false;
+        public bool CanViewContent { get;set; } = false;
     }
    
 }
