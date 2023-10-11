@@ -28,13 +28,13 @@ builder.Services.AddControllers();
 builder.Services.AddAuthentication()
     .AddFacebook(options =>
     {
-        options.ClientId = builder.Configuration["Authentication:Facebook:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"];
+        options.ClientId = builder.Configuration["Authentication:Facebook:ClientId"] ?? throw new Exception("ClientId for Facebook is null");
+        options.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"] ?? throw new Exception("ClientSecret for Facebook is null"); ;
     })
     .AddGoogle(options =>
     {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? throw new Exception("ClientId for Google is null");
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? throw new Exception("ClientSecret for Google is null");
     });
 
 
