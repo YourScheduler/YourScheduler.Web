@@ -261,116 +261,139 @@ namespace YourScheduler.Infrastructure
                 {
                     TeamId = 1,
                     Name = "Invitee",
-                    TeamRoleId = 1
+                    TeamRoleId = 1,
+                    TeamRoleFlagsId = 1
                 },
                 new TeamRole
                 {
                     TeamId = 2,
                     Name = "Pending invite",
-                    TeamRoleId = 1
+                    TeamRoleId = 4,
+                    TeamRoleFlagsId = 1
                 },
                 new TeamRole
                 {
                     TeamId = 3,
                     Name = "Sent confirmation",
-                    TeamRoleId = 1
+                    TeamRoleId = 7,
+                    TeamRoleFlagsId = 1
                 },
                 new TeamRole
                 {
                     TeamId = 4,
                     Name = "Zaproszony",
-                    TeamRoleId = 1
+                    TeamRoleId = 10,
+                    TeamRoleFlagsId = 1
+
                 },
                 new TeamRole
                 {
                     TeamId = 5,
                     Name = "Invitee",
-                    TeamRoleId = 1
+                    TeamRoleId = 13,
+                    TeamRoleFlagsId = 1
                 },
                 new TeamRole
                 {
                     TeamId = 6,
                     Name = "Invitee",
-                    TeamRoleId = 1
+                    TeamRoleId = 16,
+                    TeamRoleFlagsId = 1
                 },
+
+
                 new TeamRole
                 {
                     TeamId = 1,
                     Name = "Admin",
-                    TeamRoleId = 2
+                    TeamRoleId = 2,
+                    TeamRoleFlagsId = 2
                 },
                 new TeamRole
                 {
                     TeamId = 2,
                     Name = "Boss",
-                    TeamRoleId = 2
+                    TeamRoleId = 5,
+                    TeamRoleFlagsId = 2
                 },
                 new TeamRole
                 {
                     TeamId = 3,
                     Name = "The Absolute",
-                    TeamRoleId = 2
+                    TeamRoleId = 8,
+                    TeamRoleFlagsId = 2
                 },
                 new TeamRole
                 {
                     TeamId = 4,
                     Name = "Wielki Guru",
-                    TeamRoleId = 2
+                    TeamRoleId = 11,
+                    TeamRoleFlagsId = 2
                 },
                 new TeamRole
                 {
                     TeamId = 5,
                     Name = "Admin",
-                    TeamRoleId = 2
+                    TeamRoleId = 14,
+                    TeamRoleFlagsId = 2
                 },
                 new TeamRole
                 {
                     TeamId = 6,
                     Name = "Leader",
-                    TeamRoleId = 2
+                    TeamRoleId = 17,
+                    TeamRoleFlagsId = 2
                 },
+
+
                 new TeamRole
                 {
                     TeamId = 1,
                     Name = "User",
-                    TeamRoleId = 3
+                    TeamRoleId = 3,
+                    TeamRoleFlagsId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 2,
                     Name = "Noob",
-                    TeamRoleId = 3
+                    TeamRoleId = 6,
+                    TeamRoleFlagsId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 3,
                     Name = "Nobody",
-                    TeamRoleId = 3
+                    TeamRoleId = 9,
+                    TeamRoleFlagsId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 4,
                     Name = "Civilian",
-                    TeamRoleId = 3
+                    TeamRoleId = 12,
+                    TeamRoleFlagsId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 5,
                     Name = "Guest",
-                    TeamRoleId = 3
+                    TeamRoleId = 15,
+                    TeamRoleFlagsId = 3
                 },
                 new TeamRole
                 {
                     TeamId = 6,
                     Name = "Infant",
-                    TeamRoleId = 3
+                    TeamRoleId = 18,
+                    TeamRoleFlagsId = 3
                 }
         };
         public static TeamRoleFlags[] teamRoleFlagsSeed = new TeamRoleFlags[]
         {
             new TeamRoleFlags()
             {
-                TeamRoleId = 1, //invitee
+                TeamRoleFlagsId = 1, //invitee
                 CanAddTeamEvent= false,
                 CanRemoveTeamEvent= false,
                 CanAddTeamMember= false,
@@ -389,7 +412,7 @@ namespace YourScheduler.Infrastructure
             },
             new TeamRoleFlags()
             {
-                TeamRoleId= 2, //admin
+                TeamRoleFlagsId= 2, //admin
                 CanAddTeamEvent= true,
                 CanRemoveTeamEvent= true,
                 CanAddTeamMember= true,
@@ -408,7 +431,7 @@ namespace YourScheduler.Infrastructure
             },
             new TeamRoleFlags()
             {
-                TeamRoleId = 3, //user
+                TeamRoleFlagsId = 3, //user
                 CanAddTeamEvent = false,
                 CanAddTeamMember = false,
                 CanAddTeamRole = false,
@@ -445,30 +468,30 @@ namespace YourScheduler.Infrastructure
             new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 1, TeamRoleId = 3},
             new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 1, TeamRoleId = 1},
 
-            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 2, TeamRoleId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 2, TeamRoleId = 2},
-            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 2, TeamRoleId = 1},
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 2, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 2, TeamRoleId = 5},
+            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 2, TeamRoleId = 6},
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 2, TeamRoleId = 4},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 2, TeamRoleId = 4},
 
-            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 3, TeamRoleId = 2},
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 3, TeamRoleId = 1},
-            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 3, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 3, TeamRoleId = 8},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 3, TeamRoleId = 7},
+            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 3, TeamRoleId = 9},
 
-            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 4, TeamRoleId = 2},
-            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 4, TeamRoleId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 4, TeamRoleId = 1},
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 4, TeamRoleId = 1},
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 4, TeamRoleId = 3},
+            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 4, TeamRoleId = 11},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 4, TeamRoleId = 12},
+            new ApplicationUserTeams {ApplicationUserId = 3, TeamId = 4, TeamRoleId = 10},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 4, TeamRoleId = 10},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 4, TeamRoleId = 12},
 
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 5, TeamRoleId = 2},
-            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 5, TeamRoleId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 5, TeamRoleId = 1},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 5, TeamRoleId = 14},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 5, TeamRoleId = 15},
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 5, TeamRoleId = 13},
 
-            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 6, TeamRoleId = 2},
-            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 6, TeamRoleId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 6, TeamRoleId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 6, TeamRoleId = 3},
-            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 6, TeamRoleId = 1}
+            new ApplicationUserTeams {ApplicationUserId = 6, TeamId = 6, TeamRoleId = 17},
+            new ApplicationUserTeams {ApplicationUserId = 1, TeamId = 6, TeamRoleId = 18},
+            new ApplicationUserTeams {ApplicationUserId = 2, TeamId = 6, TeamRoleId = 18},
+            new ApplicationUserTeams {ApplicationUserId = 4, TeamId = 6, TeamRoleId = 18},
+            new ApplicationUserTeams {ApplicationUserId = 5, TeamId = 6, TeamRoleId = 16}
         };
         public static ApplicationUser[] GetUsersSeed()
         {

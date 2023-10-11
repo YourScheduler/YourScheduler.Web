@@ -251,10 +251,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "admin",
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "ADTwEDtSBjo6ekG8ldjrg7k77RB/fTza4X61cYmyAdMP9ROgF9kSC9FBgCNtI7NvcA==",
+                            PasswordHash = "AMds+hn0dIXNV56JXcpFBMbvdn3/bYEr4581+58jL7Qw7eecwGMUvcX3EP1E4FnJWw==",
                             PhoneNumber = "111 222 333",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "DML7LKPSWR3XKEVYP2XQRLQ3WYEBTDTQ",
+                            SecurityStamp = "7O2RJ7MGEQI6YTM7FBLXFSUKPUCZGUF6",
                             Surname = "admin",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
@@ -271,10 +271,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Krzysztof",
                             NormalizedEmail = "JARZYNA@GMAIL.COM",
                             NormalizedUserName = "JARZYNA@GMAIL.COM",
-                            PasswordHash = "AC1DcQSl8KHPm6HkSo4CZ0p1SFoG7Ntmupwhiy30scFZxo4dLQLkK/Yt8mN3AsyIkQ==",
+                            PasswordHash = "AP9v1Fc8p6IpUAlPqKRZyCWvxUmGTk642F2VBkJmozkU6uj36ZlM2HN4NpwGqPFolg==",
                             PhoneNumber = "666 598 456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7QJ22FHS3JZZO74ZAIBLOL2L45MWKZ2V",
+                            SecurityStamp = "2VOAH5QVTMNKT4256N4FJXVCNEF5AK4N",
                             Surname = "Jarzyna",
                             TwoFactorEnabled = false,
                             UserName = "jarzyna@gmail.com"
@@ -291,10 +291,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Jane",
                             NormalizedEmail = "JANE_JOHNSON@GMAIL.COM",
                             NormalizedUserName = "JANE_JOHNSON@GMAIL.COM",
-                            PasswordHash = "AE20jKuyQSuiJdH/ieiyvayo07zu3xrFMHlHg3p6c/+lxxCpcL3bpR+LzdSkPkfo2w==",
+                            PasswordHash = "ADwtRaIywLDAnQm92MdR0mqmyim4qVl4N3clYw+8egFnM9Uf5uTB2iocPH137uyPFQ==",
                             PhoneNumber = "666 598 456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "KUZ2K5M5B7DNAKWED27DS3HTLW36ER56",
+                            SecurityStamp = "2PY7ZR64ZM45CWCTHXZYLNXK754MFH6T",
                             Surname = "Johnson",
                             TwoFactorEnabled = false,
                             UserName = "jane_johnson@gmail.com"
@@ -311,10 +311,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Michael",
                             NormalizedEmail = "MICHAELWW@GMAIL.COM",
                             NormalizedUserName = "MICHAELWW@GMAIL.COM",
-                            PasswordHash = "APKYPrxP6vWU6yFjPMSuxU53UGclbDxUIsOKZi5J5x/GqbsePyI4ACiPYhJ9NysT1Q==",
+                            PasswordHash = "AGkF+JJIx7pbxQ9GboxMFP3f4DcGFD8ZapV3syPxiLevKSXeutWi3a4kMMW1M7+NeQ==",
                             PhoneNumber = "987 654 321",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "IZFCRVPDF2IN5SGEO4K6ARMIUQRAAZE3",
+                            SecurityStamp = "7TVRBHMFRRRS44MYPTSMQQV5Y33CPOFR",
                             Surname = "Williams",
                             TwoFactorEnabled = false,
                             UserName = "michaelww@gmail.com"
@@ -331,10 +331,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "William",
                             NormalizedEmail = "JONESWILLIAM@GMAIL.COM",
                             NormalizedUserName = "JONESWILLIAM@GMAIL.COM",
-                            PasswordHash = "AIkcRh32EqLa0O6rVc/i55Z0svYYgbfVitl+NhojlXpWIXpJg3yKHq+zl2oT+HAxqg==",
+                            PasswordHash = "AKZs3q9tqekgCDmI5dZ5OGEE4PKd4HxBfJ7xa7cjgBhluREgc5eVKNOUZeRXHI2wSQ==",
                             PhoneNumber = "123 456 789",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "BVN4YEHE76YVPX5GWFF72OHANOLOPMEE",
+                            SecurityStamp = "KPRORUKLNTN6S3AMKDTPWW4SMN6CRZPW",
                             Surname = "Jones",
                             TwoFactorEnabled = false,
                             UserName = "joneswilliam@gmail.com"
@@ -351,10 +351,10 @@ namespace YourScheduler.Infrastructure.Migrations
                             Name = "Olivia",
                             NormalizedEmail = "OLIVIAB@GMAIL.COM",
                             NormalizedUserName = "OLIVIAB@GMAIL.COM",
-                            PasswordHash = "ACpOFq5PcMukfmbK/4OijYFglXMfWXiSWTbrainmSjPG2Lh88WBnmiutecDew5PS+A==",
+                            PasswordHash = "APhiQeJOt3Sm4WWGIAGKi7XjA8HbYxkKCLBCFUBcPA3DGfpcK27vMqLrUTOeleTPxw==",
                             PhoneNumber = "666 598 456",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "OGPOB4B4TJEIYY3AOEPQGB6RXBSA4RRA",
+                            SecurityStamp = "HTOQUZTHA6X55TQJNFGDESE2MQ7Q5QDC",
                             Surname = "Brown",
                             TwoFactorEnabled = false,
                             UserName = "oliviab@gmail.com"
@@ -440,61 +440,139 @@ namespace YourScheduler.Infrastructure.Migrations
                         {
                             ApplicationUserId = 1,
                             TeamId = 1,
-                            TeamRoleId = 1
-                        },
-                        new
-                        {
-                            ApplicationUserId = 2,
-                            TeamId = 2,
                             TeamRoleId = 2
                         },
                         new
                         {
                             ApplicationUserId = 2,
-                            TeamId = 3,
+                            TeamId = 1,
                             TeamRoleId = 3
                         },
                         new
                         {
+                            ApplicationUserId = 3,
+                            TeamId = 1,
+                            TeamRoleId = 1
+                        },
+                        new
+                        {
+                            ApplicationUserId = 1,
+                            TeamId = 2,
+                            TeamRoleId = 5
+                        },
+                        new
+                        {
                             ApplicationUserId = 2,
-                            TeamId = 4,
+                            TeamId = 2,
+                            TeamRoleId = 6
+                        },
+                        new
+                        {
+                            ApplicationUserId = 3,
+                            TeamId = 2,
+                            TeamRoleId = 4
+                        },
+                        new
+                        {
+                            ApplicationUserId = 5,
+                            TeamId = 2,
                             TeamRoleId = 4
                         },
                         new
                         {
                             ApplicationUserId = 3,
-                            TeamId = 4,
-                            TeamRoleId = 4
+                            TeamId = 3,
+                            TeamRoleId = 8
+                        },
+                        new
+                        {
+                            ApplicationUserId = 6,
+                            TeamId = 3,
+                            TeamRoleId = 7
+                        },
+                        new
+                        {
+                            ApplicationUserId = 4,
+                            TeamId = 3,
+                            TeamRoleId = 9
                         },
                         new
                         {
                             ApplicationUserId = 4,
                             TeamId = 4,
-                            TeamRoleId = 4
+                            TeamRoleId = 11
+                        },
+                        new
+                        {
+                            ApplicationUserId = 1,
+                            TeamId = 4,
+                            TeamRoleId = 12
+                        },
+                        new
+                        {
+                            ApplicationUserId = 3,
+                            TeamId = 4,
+                            TeamRoleId = 10
+                        },
+                        new
+                        {
+                            ApplicationUserId = 5,
+                            TeamId = 4,
+                            TeamRoleId = 10
+                        },
+                        new
+                        {
+                            ApplicationUserId = 6,
+                            TeamId = 4,
+                            TeamRoleId = 12
                         },
                         new
                         {
                             ApplicationUserId = 5,
                             TeamId = 5,
-                            TeamRoleId = 5
+                            TeamRoleId = 14
                         },
                         new
                         {
-                            ApplicationUserId = 5,
-                            TeamId = 6,
-                            TeamRoleId = 6
+                            ApplicationUserId = 1,
+                            TeamId = 5,
+                            TeamRoleId = 15
                         },
                         new
                         {
                             ApplicationUserId = 6,
                             TeamId = 5,
-                            TeamRoleId = 5
+                            TeamRoleId = 13
                         },
                         new
                         {
                             ApplicationUserId = 6,
                             TeamId = 6,
-                            TeamRoleId = 6
+                            TeamRoleId = 17
+                        },
+                        new
+                        {
+                            ApplicationUserId = 1,
+                            TeamId = 6,
+                            TeamRoleId = 18
+                        },
+                        new
+                        {
+                            ApplicationUserId = 2,
+                            TeamId = 6,
+                            TeamRoleId = 18
+                        },
+                        new
+                        {
+                            ApplicationUserId = 4,
+                            TeamId = 6,
+                            TeamRoleId = 18
+                        },
+                        new
+                        {
+                            ApplicationUserId = 5,
+                            TeamId = 6,
+                            TeamRoleId = 16
                         });
                 });
 
@@ -619,6 +697,9 @@ namespace YourScheduler.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Message")
                         .HasColumnType("nvarchar(max)");
 
@@ -639,6 +720,7 @@ namespace YourScheduler.Infrastructure.Migrations
                             TeamId = 1,
                             Creator = "Olivia",
                             Description = "Grupa szkółki pływackiej Argonaut",
+                            IsPrivate = false,
                             Name = "Grupa początkująca basen Chełm",
                             PicturePath = "/Pictures/teamId=1.jpg"
                         },
@@ -647,6 +729,7 @@ namespace YourScheduler.Infrastructure.Migrations
                             TeamId = 2,
                             Creator = "Wasyl",
                             Description = "Grupa zrzeszająca mieszkańców osiedla Lawendowe Wzgórze w Gdańsku",
+                            IsPrivate = false,
                             Name = "Mieszkańcy osiedla Lawendowe Wzgórze",
                             PicturePath = "/Pictures/teamId=2.jpg"
                         },
@@ -655,6 +738,7 @@ namespace YourScheduler.Infrastructure.Migrations
                             TeamId = 3,
                             Creator = "Billy",
                             Description = "Zapraszamy do naszego kreatywnego warsztatu artystycznego, gdzie możesz rozwijać swoje umiejętności w różnych dziedzinach sztuki.",
+                            IsPrivate = false,
                             Name = "Kreatywny Warsztat Artystyczny",
                             PicturePath = "/Pictures/defaultTeam.jpg"
                         },
@@ -663,6 +747,7 @@ namespace YourScheduler.Infrastructure.Migrations
                             TeamId = 4,
                             Creator = "Maks",
                             Description = "Dołącz do naszego klubu fitness i wellness, gdzie możesz ćwiczyć, relaksować się i dbać o swoje zdrowie pod okiem profesjonalnych instruktorów.",
+                            IsPrivate = false,
                             Name = "Klub Fitness i Wellness",
                             PicturePath = "/Pictures/teamId=4.jpg"
                         },
@@ -671,6 +756,7 @@ namespace YourScheduler.Infrastructure.Migrations
                             TeamId = 5,
                             Creator = "Kokodźambo",
                             Description = "Zapraszamy do naszego klubu fotograficznego, gdzie pasjonaci fotografii mogą się spotkać, dzielić się wiedzą i rozwijać swoje umiejętności fotograficzne.",
+                            IsPrivate = false,
                             Name = "Klub Fotograficzny Obiektyw",
                             PicturePath = "/Pictures/defaultTeam.jpg"
                         },
@@ -679,6 +765,7 @@ namespace YourScheduler.Infrastructure.Migrations
                             TeamId = 6,
                             Creator = "PiknaSukna",
                             Description = "Nasze studio tańca Ritmo oferuje różnorodne style taneczne dla osób w każdym wieku, bez względu na poziom zaawansowania.",
+                            IsPrivate = false,
                             Name = "Studio Tańca Ritmo",
                             PicturePath = "/Pictures/defaultTeam.jpg"
                         });
@@ -699,9 +786,14 @@ namespace YourScheduler.Infrastructure.Migrations
                     b.Property<int>("TeamId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TeamRoleFlagsId")
+                        .HasColumnType("int");
+
                     b.HasKey("TeamRoleId");
 
                     b.HasIndex("TeamId");
+
+                    b.HasIndex("TeamRoleFlagsId");
 
                     b.ToTable("TeamRoles");
 
@@ -709,45 +801,138 @@ namespace YourScheduler.Infrastructure.Migrations
                         new
                         {
                             TeamRoleId = 1,
-                            Name = "Chobok",
-                            TeamId = 1
-                        },
-                        new
-                        {
-                            TeamRoleId = 2,
-                            Name = "Master Blaster",
-                            TeamId = 2
-                        },
-                        new
-                        {
-                            TeamRoleId = 3,
-                            Name = "Perturbator",
-                            TeamId = 3
+                            Name = "Invitee",
+                            TeamId = 1,
+                            TeamRoleFlagsId = 1
                         },
                         new
                         {
                             TeamRoleId = 4,
-                            Name = "Ciastek",
-                            TeamId = 4
+                            Name = "Pending invite",
+                            TeamId = 2,
+                            TeamRoleFlagsId = 1
+                        },
+                        new
+                        {
+                            TeamRoleId = 7,
+                            Name = "Sent confirmation",
+                            TeamId = 3,
+                            TeamRoleFlagsId = 1
+                        },
+                        new
+                        {
+                            TeamRoleId = 10,
+                            Name = "Zaproszony",
+                            TeamId = 4,
+                            TeamRoleFlagsId = 1
+                        },
+                        new
+                        {
+                            TeamRoleId = 13,
+                            Name = "Invitee",
+                            TeamId = 5,
+                            TeamRoleFlagsId = 1
+                        },
+                        new
+                        {
+                            TeamRoleId = 16,
+                            Name = "Invitee",
+                            TeamId = 6,
+                            TeamRoleFlagsId = 1
+                        },
+                        new
+                        {
+                            TeamRoleId = 2,
+                            Name = "Admin",
+                            TeamId = 1,
+                            TeamRoleFlagsId = 2
                         },
                         new
                         {
                             TeamRoleId = 5,
-                            Name = "Kaczucha",
-                            TeamId = 5
+                            Name = "Boss",
+                            TeamId = 2,
+                            TeamRoleFlagsId = 2
+                        },
+                        new
+                        {
+                            TeamRoleId = 8,
+                            Name = "The Absolute",
+                            TeamId = 3,
+                            TeamRoleFlagsId = 2
+                        },
+                        new
+                        {
+                            TeamRoleId = 11,
+                            Name = "Wielki Guru",
+                            TeamId = 4,
+                            TeamRoleFlagsId = 2
+                        },
+                        new
+                        {
+                            TeamRoleId = 14,
+                            Name = "Admin",
+                            TeamId = 5,
+                            TeamRoleFlagsId = 2
+                        },
+                        new
+                        {
+                            TeamRoleId = 17,
+                            Name = "Leader",
+                            TeamId = 6,
+                            TeamRoleFlagsId = 2
+                        },
+                        new
+                        {
+                            TeamRoleId = 3,
+                            Name = "User",
+                            TeamId = 1,
+                            TeamRoleFlagsId = 3
                         },
                         new
                         {
                             TeamRoleId = 6,
-                            Name = "Karal",
-                            TeamId = 6
+                            Name = "Noob",
+                            TeamId = 2,
+                            TeamRoleFlagsId = 3
+                        },
+                        new
+                        {
+                            TeamRoleId = 9,
+                            Name = "Nobody",
+                            TeamId = 3,
+                            TeamRoleFlagsId = 3
+                        },
+                        new
+                        {
+                            TeamRoleId = 12,
+                            Name = "Civilian",
+                            TeamId = 4,
+                            TeamRoleFlagsId = 3
+                        },
+                        new
+                        {
+                            TeamRoleId = 15,
+                            Name = "Guest",
+                            TeamId = 5,
+                            TeamRoleFlagsId = 3
+                        },
+                        new
+                        {
+                            TeamRoleId = 18,
+                            Name = "Infant",
+                            TeamId = 6,
+                            TeamRoleFlagsId = 3
                         });
                 });
 
             modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRoleFlags", b =>
                 {
-                    b.Property<int>("TeamRoleId")
+                    b.Property<int>("TeamRoleFlagsId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamRoleFlagsId"));
 
                     b.Property<bool>("CanAddTeamEvent")
                         .HasColumnType("bit");
@@ -791,32 +976,36 @@ namespace YourScheduler.Infrastructure.Migrations
                     b.Property<bool>("CanSendEmailToTeam")
                         .HasColumnType("bit");
 
-                    b.HasKey("TeamRoleId");
+                    b.Property<bool>("CanViewContent")
+                        .HasColumnType("bit");
+
+                    b.HasKey("TeamRoleFlagsId");
 
                     b.ToTable("TeamRolesFlags");
 
                     b.HasData(
                         new
                         {
-                            TeamRoleId = 1,
-                            CanAddTeamEvent = true,
-                            CanAddTeamMember = true,
-                            CanAddTeamRole = true,
-                            CanEditDescription = true,
-                            CanEditRoleFlags = true,
-                            CanEditTeamEvent = true,
-                            CanEditTeamMessage = true,
-                            CanEditTeamName = true,
-                            CanEditTeamPhoto = true,
-                            CanEditTeamRole = true,
-                            CanRemoveTeamEvent = true,
-                            CanRemoveTeamMember = true,
-                            CanRemoveTeamRole = true,
-                            CanSendEmailToTeam = true
+                            TeamRoleFlagsId = 1,
+                            CanAddTeamEvent = false,
+                            CanAddTeamMember = false,
+                            CanAddTeamRole = false,
+                            CanEditDescription = false,
+                            CanEditRoleFlags = false,
+                            CanEditTeamEvent = false,
+                            CanEditTeamMessage = false,
+                            CanEditTeamName = false,
+                            CanEditTeamPhoto = false,
+                            CanEditTeamRole = false,
+                            CanRemoveTeamEvent = false,
+                            CanRemoveTeamMember = false,
+                            CanRemoveTeamRole = false,
+                            CanSendEmailToTeam = false,
+                            CanViewContent = false
                         },
                         new
                         {
-                            TeamRoleId = 2,
+                            TeamRoleFlagsId = 2,
                             CanAddTeamEvent = true,
                             CanAddTeamMember = true,
                             CanAddTeamRole = true,
@@ -830,79 +1019,27 @@ namespace YourScheduler.Infrastructure.Migrations
                             CanRemoveTeamEvent = true,
                             CanRemoveTeamMember = true,
                             CanRemoveTeamRole = true,
-                            CanSendEmailToTeam = true
+                            CanSendEmailToTeam = true,
+                            CanViewContent = true
                         },
                         new
                         {
-                            TeamRoleId = 3,
-                            CanAddTeamEvent = true,
-                            CanAddTeamMember = true,
-                            CanAddTeamRole = true,
-                            CanEditDescription = true,
-                            CanEditRoleFlags = true,
-                            CanEditTeamEvent = true,
-                            CanEditTeamMessage = true,
-                            CanEditTeamName = true,
-                            CanEditTeamPhoto = true,
-                            CanEditTeamRole = true,
-                            CanRemoveTeamEvent = true,
-                            CanRemoveTeamMember = true,
-                            CanRemoveTeamRole = true,
-                            CanSendEmailToTeam = true
-                        },
-                        new
-                        {
-                            TeamRoleId = 4,
-                            CanAddTeamEvent = true,
-                            CanAddTeamMember = true,
-                            CanAddTeamRole = true,
-                            CanEditDescription = true,
-                            CanEditRoleFlags = true,
-                            CanEditTeamEvent = true,
-                            CanEditTeamMessage = true,
-                            CanEditTeamName = true,
-                            CanEditTeamPhoto = true,
-                            CanEditTeamRole = true,
-                            CanRemoveTeamEvent = true,
-                            CanRemoveTeamMember = true,
-                            CanRemoveTeamRole = true,
-                            CanSendEmailToTeam = true
-                        },
-                        new
-                        {
-                            TeamRoleId = 5,
-                            CanAddTeamEvent = true,
-                            CanAddTeamMember = true,
-                            CanAddTeamRole = true,
-                            CanEditDescription = true,
-                            CanEditRoleFlags = true,
-                            CanEditTeamEvent = true,
-                            CanEditTeamMessage = true,
-                            CanEditTeamName = true,
-                            CanEditTeamPhoto = true,
-                            CanEditTeamRole = true,
-                            CanRemoveTeamEvent = true,
-                            CanRemoveTeamMember = true,
-                            CanRemoveTeamRole = true,
-                            CanSendEmailToTeam = true
-                        },
-                        new
-                        {
-                            TeamRoleId = 6,
-                            CanAddTeamEvent = true,
-                            CanAddTeamMember = true,
-                            CanAddTeamRole = true,
-                            CanEditDescription = true,
-                            CanEditRoleFlags = true,
-                            CanEditTeamEvent = true,
-                            CanEditTeamMessage = true,
-                            CanEditTeamName = true,
-                            CanEditTeamPhoto = true,
-                            CanEditTeamRole = true,
-                            CanRemoveTeamEvent = true,
-                            CanRemoveTeamMember = true,
-                            CanRemoveTeamRole = true,
-                            CanSendEmailToTeam = true
+                            TeamRoleFlagsId = 3,
+                            CanAddTeamEvent = false,
+                            CanAddTeamMember = false,
+                            CanAddTeamRole = false,
+                            CanEditDescription = false,
+                            CanEditRoleFlags = false,
+                            CanEditTeamEvent = false,
+                            CanEditTeamMessage = false,
+                            CanEditTeamName = false,
+                            CanEditTeamPhoto = false,
+                            CanEditTeamRole = false,
+                            CanRemoveTeamEvent = false,
+                            CanRemoveTeamMember = false,
+                            CanRemoveTeamRole = false,
+                            CanSendEmailToTeam = false,
+                            CanViewContent = true
                         });
                 });
 
@@ -1010,15 +1147,14 @@ namespace YourScheduler.Infrastructure.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRoleFlags", b =>
-                {
-                    b.HasOne("YourScheduler.Infrastructure.Entities.TeamRole", null)
-                        .WithOne("TeamRoleFlags")
-                        .HasForeignKey("YourScheduler.Infrastructure.Entities.TeamRoleFlags", "TeamRoleId")
+                    b.HasOne("YourScheduler.Infrastructure.Entities.TeamRoleFlags", "TeamRoleFlags")
+                        .WithMany()
+                        .HasForeignKey("TeamRoleFlagsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TeamRoleFlags");
                 });
 
             modelBuilder.Entity("YourScheduler.Infrastructure.Entities.ApplicationUser", b =>
@@ -1038,9 +1174,6 @@ namespace YourScheduler.Infrastructure.Migrations
             modelBuilder.Entity("YourScheduler.Infrastructure.Entities.TeamRole", b =>
                 {
                     b.Navigation("ApplicationUserTeams");
-
-                    b.Navigation("TeamRoleFlags")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

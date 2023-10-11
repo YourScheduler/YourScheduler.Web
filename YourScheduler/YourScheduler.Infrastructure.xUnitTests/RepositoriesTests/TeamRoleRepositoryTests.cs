@@ -16,7 +16,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             Name = "User",
             TeamRoleFlags = new TeamRoleFlags
             {
-                TeamRoleId = 1,
+                TeamRoleFlagsId = 1,
                 CanAddTeamEvent = false,
                 CanAddTeamMember = false,
                 CanAddTeamRole = false,
@@ -41,7 +41,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             Name = "Admin",
             TeamRoleFlags = new TeamRoleFlags
             {
-                TeamRoleId = 2,
+                TeamRoleFlagsId = 2,
                 CanAddTeamEvent = true,
                 CanAddTeamMember = true,
                 CanAddTeamRole = true,
@@ -88,7 +88,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 Name = "Moderator",
                 TeamRoleFlags = new TeamRoleFlags
                 {
-                    TeamRoleId = 3,
+                    TeamRoleFlagsId = 3,
                     CanAddTeamEvent = false,
                     CanAddTeamMember = true,
                     CanAddTeamRole = false,
@@ -133,7 +133,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 Name = "Basic User",
                 TeamRoleFlags = new TeamRoleFlags
                 {
-                    TeamRoleId = 1,
+                    TeamRoleFlagsId = 1,
                     CanAddTeamEvent = false,
                     CanAddTeamMember = false,
                     CanAddTeamRole = false,
