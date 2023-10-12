@@ -3,11 +3,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using YourScheduler.BusinessLogic.Services.Interfaces;
 using YourScheduler.BusinessLogic.Services.Settings;
 
 namespace YourScheduler.BusinessLogic.Services
 {
-    public class JwtTokenGenerator
+    public class JwtTokenGenerator : IJwtTokenGenerator
     {
         private readonly JwtSettings _jwtSettings;
 
