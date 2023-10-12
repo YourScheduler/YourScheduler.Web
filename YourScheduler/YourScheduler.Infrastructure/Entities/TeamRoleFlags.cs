@@ -21,5 +21,48 @@ namespace YourScheduler.Infrastructure.Entities
         public bool CanRemoveTeamEvent { get; set; } = false;
         public bool CanSendEmailToTeam { get; set; } = false;
         public bool CanViewContent { get; set; } = false;
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is TeamRoleFlags other)
+            {
+                return CanRemoveTeamMember == other.CanRemoveTeamMember &&
+                       CanAddTeamMember == other.CanAddTeamMember &&
+                       CanAddTeamRole == other.CanAddTeamRole &&
+                       CanEditTeamRole == other.CanEditTeamRole &&
+                       CanRemoveTeamRole == other.CanRemoveTeamRole &&
+                       CanEditRoleFlags == other.CanEditRoleFlags &&
+                       CanEditTeamPhoto == other.CanEditTeamPhoto &&
+                       CanEditDescription == other.CanEditDescription &&
+                       CanEditTeamMessage == other.CanEditTeamMessage &&
+                       CanEditTeamName == other.CanEditTeamName &&
+                       CanAddTeamEvent == other.CanAddTeamEvent &&
+                       CanEditTeamEvent == other.CanEditTeamEvent &&
+                       CanRemoveTeamEvent == other.CanRemoveTeamEvent &&
+                       CanSendEmailToTeam == other.CanSendEmailToTeam &&
+                       CanViewContent == other.CanViewContent;
+            }
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            HashCode hash = new HashCode();
+            hash.Add(CanRemoveTeamMember);
+            hash.Add(CanAddTeamMember);
+            hash.Add(CanAddTeamRole);
+            hash.Add(CanEditTeamRole);
+            hash.Add(CanRemoveTeamRole);
+            hash.Add(CanEditRoleFlags);
+            hash.Add(CanEditTeamPhoto);
+            hash.Add(CanEditDescription);
+            hash.Add(CanEditTeamMessage);
+            hash.Add(CanEditTeamName);
+            hash.Add(CanAddTeamEvent);
+            hash.Add(CanEditTeamEvent);
+            hash.Add(CanRemoveTeamEvent);
+            hash.Add(CanSendEmailToTeam);
+            hash.Add(CanViewContent);
+            return hash.ToHashCode();
+        }
     }        
 }
