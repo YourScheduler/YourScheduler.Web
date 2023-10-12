@@ -1,13 +1,13 @@
 ﻿using MediatR;
 
-namespace YourScheduler.BusinessLogic.Commands.AddTeamMember
+namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
 {
-    public class AddTeamMemberCommand : IRequest<string>
+    public class RequestTeamInviteCommand : IRequest
     {
         public int UserId { get;}
         public int TeamId { get;}
 
-        public AddTeamMemberCommand(int userId, int teamId)
+        public RequestTeamInviteCommand(int userId, int teamId)
         {
             UserId = userId;
             TeamId = teamId;

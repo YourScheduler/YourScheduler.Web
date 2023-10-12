@@ -1,32 +1,35 @@
 ﻿using MediatR;
-using YourScheduler.Infrastructure.Entities;
+using YourScheduler.BusinessLogic.Commands.RequestTeamInivte;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
 namespace YourScheduler.BusinessLogic.Commands.AddTeamMember
 {
-    public class AddTeamMemberCommandHandler : IRequestHandler<AddTeamMemberCommand>
+    public class AddTeamMemberCommandHandler : IRequestHandler<AddTeamMemberCommand,string>
     {
         private readonly ITeamMemberRepository _teamMemberRepository;
         private readonly ITeamsRepository _teamsRepository;
-        private readonly IUsersRepository _usersRepository;
+        private readonly IMediator _mediator;
 
-        public AddTeamMemberCommandHandler(ITeamMemberRepository teamMemberRepository, ITeamsRepository teamsRepository, IUsersRepository usersRepository)
+        public AddTeamMemberCommandHandler(ITeamMemberRepository teamMemberRepository, ITeamsRepository teamsRepository, IMediator mediator)
         {
-            _teamsRepository = teamsRepository;
             _teamMemberRepository = teamMemberRepository;
-            _usersRepository = usersRepository;
+            _teamsRepository = teamsRepository;
+            _mediator = mediator;
         }
 
-        public async Task Handle(AddTeamMemberCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(AddTeamMemberCommand request, CancellationToken cancellationToken)
         {
             var team = await _teamsRepository.GetTeamByIdAsync(request.TeamId);
             if (team.IsPrivate)
             {
-                var user = await _usersRepository.GetUserByIdAsync(request.UserId);
-                var token = "";
-                Message message = new Message(user.Email, $"Zostałeś zaproszony do zespołu {team.Name}", token);
+                await _mediator.Send(new RequestTeamInviteCommand(request.UserId, request.TeamId));
+                return "Request for invitation has been sent to the Team Administrators";
             }
-            await _teamMemberRepository.AddTeamMemberAsync(request.UserId, request.TeamId);
+            else
+            {
+                await _teamMemberRepository.AddTeamMemberAsUserAsync(request.UserId, request.TeamId);
+                return "User successfully added to the team";
+            }
         }
     }
 }

@@ -16,11 +16,23 @@ namespace YourScheduler.Infrastructure.Repositories
             _logger = logger;
         }
 
-        public async Task AddTeamMemberAsync(int userId, int teamId)
+        public async Task AddTeamMemberAsInvteeAsync(int userId, int teamId)
         {
+            var team = await _dbContext.Teams.FirstAsync(t => t.TeamId == teamId);
+            var sortedTeamRoles = team.TeamRoles.OrderBy(s => s.TeamRoleId);
             _logger.LogInformation("User attempt to add team to user at {DT}", DateTime.Now.ToLongTimeString());
 
-            await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = 1}); // TeamRoleId 1 is always invitee which cannot see content of the team without accepting invite first
+            await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = sortedTeamRoles.ToList()[0].TeamRoleId }); // Lowest TeamRoleId in Team always means it has flagId = 1 and is invitee
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task AddTeamMemberAsUserAsync(int userId, int teamId)
+        {
+            var team = await _dbContext.Teams.FirstAsync(t => t.TeamId == teamId);
+            var sortedTeamRoles = team.TeamRoles.OrderBy(s => s.TeamRoleId);
+            _logger.LogInformation("User attempt to add team to user at {DT}", DateTime.Now.ToLongTimeString());
+
+            await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = sortedTeamRoles.ToList()[2].TeamRoleId }); // 3rd TeamRoleId in Team always means it has flagId = 3 and is user
             await _dbContext.SaveChangesAsync();
         }
 

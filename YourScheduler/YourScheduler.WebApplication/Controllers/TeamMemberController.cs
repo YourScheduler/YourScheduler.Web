@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Owin.Security.Notifications;
 using YourScheduler.BusinessLogic.Commands.AddTeamMember;
 using YourScheduler.BusinessLogic.Commands.RemoveTeamMember;
 using YourScheduler.BusinessLogic.Commands.UpdateTeamMemberRole;
@@ -24,8 +23,8 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("AddTeamMember")]
         public async Task<IActionResult> AddTeamMember(int userId, int teamId)
         {
-            await _mediator.Send(new AddTeamMemberCommand(userId, teamId));
-            return NoContent();
+            var response = await _mediator.Send(new AddTeamMemberCommand(userId, teamId));
+            return Ok(response);
         }
 
         [HttpDelete]
@@ -41,8 +40,7 @@ namespace YourScheduler.WebApplication.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }
-              
+            }      
         }
         [HttpPut]
         [Authorize]

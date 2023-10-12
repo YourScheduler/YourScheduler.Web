@@ -3,7 +3,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using YourScheduler.BusinessLogic.Services.Interfaces;
 using YourScheduler.BusinessLogic.Services.Settings;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
 
@@ -40,7 +39,7 @@ namespace YourScheduler.BusinessLogic.Commands.AcceptTeamInvitation
                 string TeamId = claims.FirstOrDefault(c => c.Type == "TeamIdClaim")?.Value ?? throw new Exception("TeamIdClaim is null!");
 
 
-                await _teamMemberRepository.AddTeamMemberAsync(int.Parse(userId), int.Parse(TeamId));
+                await _teamMemberRepository.AddTeamMemberAsUserAsync(int.Parse(userId), int.Parse(TeamId));
             }
         }
     }

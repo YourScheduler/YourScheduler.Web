@@ -11,13 +11,15 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IEmailService _emailService;
         private readonly ITeamsRepository _teamsRepository;
+        private readonly ITeamMemberRepository _teamMemberRepository;
 
-        public InviteTeamMemberCommandHandler(IUsersRepository usersRepository, IJwtTokenGenerator jwtTokenGenerator, IEmailService emailService, ITeamsRepository teamsRepository, ITeamRoleRepository teamRoleRepository)
+        public InviteTeamMemberCommandHandler(IUsersRepository usersRepository, IJwtTokenGenerator jwtTokenGenerator, IEmailService emailService, ITeamsRepository teamsRepository, ITeamRoleRepository teamRoleRepository, ITeamMemberRepository teamMemberRepository)
         {
             _usersRepository = usersRepository;
             _jwtTokenGenerator = jwtTokenGenerator;
             _emailService = emailService;
             _teamsRepository = teamsRepository;
+            _teamMemberRepository = teamMemberRepository;
 
         }
 
@@ -38,6 +40,8 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
                     throw new Exception("User is already a part of the team");
                 }
             }
+            await _teamMemberRepository.AddTeamMemberAsInvteeAsync(request.UserId, request.TeamId);
+
             var token = _jwtTokenGenerator.GenerateToken(request.UserId, request.TeamId);
             var link = $"endpointlink/api/TeamMember/AcceptInvite?token={token}"; // change when endpoint is created
 
