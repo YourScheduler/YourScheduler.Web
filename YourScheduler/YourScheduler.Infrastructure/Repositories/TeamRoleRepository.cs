@@ -29,6 +29,7 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public async Task<TeamRole> AddTeamRoleAsync(TeamRole teamRole)
         {
+            IfFlagInDbOverrideFlagId(teamRole);
             await _dbContext.TeamRoles.AddAsync(teamRole);
             await _dbContext.SaveChangesAsync();
 
@@ -37,6 +38,7 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public async Task<TeamRole> UpdateTeamRoleAsync(TeamRole teamRoleToUpdate)
         {
+            IfFlagInDbOverrideFlagId(teamRoleToUpdate);
             _dbContext.Update(teamRoleToUpdate);
             await _dbContext.SaveChangesAsync();
 
@@ -51,6 +53,18 @@ namespace YourScheduler.Infrastructure.Repositories
             _dbContext.Remove(teamRoleToRemove);
             await _dbContext.SaveChangesAsync();
 
+        }
+
+        public void IfFlagInDbOverrideFlagId(TeamRole teamRole)
+        {
+            foreach (TeamRoleFlags flag in _dbContext.TeamRolesFlags)
+            {
+                if (teamRole.TeamRoleFlags.Equals(flag))
+                {
+                    teamRole.TeamRoleFlagsId = flag.TeamRoleFlagsId;
+                    break;
+                }
+            }
         }
     }
 }

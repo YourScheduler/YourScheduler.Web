@@ -4,4 +4,4 @@
     {
         string GenerateToken(int userId, int teamId);
     }
-}4
+}

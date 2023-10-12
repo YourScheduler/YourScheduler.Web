@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.Extensions.Logging;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
@@ -48,18 +47,6 @@ namespace YourScheduler.Infrastructure.Repositories
             _dbContext.ApplicationUsersTeams.Update(teamMember);
 
             await _dbContext.SaveChangesAsync();
-        }
-        public async Task InviteTeamMemberAsync(int userId, int teamId)
-        {
-            
-        }
-        public async Task RequestInvitationToTeam(int userId, int teamId)
-        {
-
-        }
-        public async Task TeamMemberAcceptedInvitation(string token)
-        {
-
         }
     }
 }
