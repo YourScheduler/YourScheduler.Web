@@ -37,13 +37,12 @@ namespace YourScheduler.BusinessLogic.Commands.AcceptTeamInvitation
             {
                 throw new NullReferenceException("Token claims were null");
             }
-                string userId = claims.FirstOrDefault(c => c.Type == "UserIdClaim")?.Value ?? throw new Exception("UserIdClaim is null!");
-                string TeamId = claims.FirstOrDefault(c => c.Type == "TeamIdClaim")?.Value ?? throw new Exception("TeamIdClaim is null!");
+            string userId = claims.FirstOrDefault(c => c.Type == "UserIdClaim")?.Value ?? throw new Exception("UserIdClaim is null!");
+            string TeamId = claims.FirstOrDefault(c => c.Type == "TeamIdClaim")?.Value ?? throw new Exception("TeamIdClaim is null!");
 
 
-                await _teamMemberRepository.AddTeamMemberAsUserAsync(int.Parse(userId), int.Parse(TeamId));
-                return "User accepted invite or was approved by the administrator and had his role was changed to user";
-            }
+            await _teamMemberRepository.AddTeamMemberAsUserAsync(int.Parse(userId), int.Parse(TeamId));
+            return "User accepted invite or was approved by the administrator and had his role was changed to user";
         }
     }
-} 
+}
