@@ -26,19 +26,18 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
         public async Task Handle(InviteTeamMemberCommand request, CancellationToken cancellation)
         {
             var team = await _teamsRepository.GetTeamByIdAsync(request.TeamId);
-            var teamWithUser = team.TeamMembers.FirstOrDefault(t => t.ApplicationUserId == request.UserId);
             var user = await _usersRepository.GetUserByIdAsync(request.UserId);
 
-            if (teamWithUser is not null)
+            if (await _teamsRepository.VerifyIsTeamMemberAsync(request.UserId, request.TeamId))
             {
-                if (teamWithUser.TeamRole.TeamRoleFlags.TeamRoleFlagsId == 1)
-                {
-                    throw new Exception("User is already pending invite");
-                }
-                else
-                {
+                //if (teamWithUser.TeamRole.TeamRoleFlags.TeamRoleFlagsId == 1)
+                //{
+                    //throw new Exception("User is already pending invite");
+                //}
+                //else
+                //{
                     throw new Exception("User is already a part of the team");
-                }
+                //}
             }
             await _teamMemberRepository.AddTeamMemberAsInvteeAsync(request.UserId, request.TeamId);
 

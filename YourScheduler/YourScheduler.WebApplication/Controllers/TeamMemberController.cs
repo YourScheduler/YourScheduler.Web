@@ -60,7 +60,7 @@ namespace YourScheduler.WebApplication.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         [Route("InviteTeamMemberToTeam")]
         public async Task<IActionResult> InviteTeamMemberToTeam(int userId, int teamId)
         {
