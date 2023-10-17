@@ -39,7 +39,6 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
                     throw new Exception("User is already a part of the team");
                 //}
             }
-            await _teamMemberRepository.AddTeamMemberAsInvteeAsync(request.UserId, request.TeamId);
 
             var token = _jwtTokenGenerator.GenerateToken(request.UserId, request.TeamId);
             var link = $"endpointlink/api/TeamMember/AcceptInvite?token={token}"; // change when endpoint is created
@@ -50,6 +49,8 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
                 $"<a href={link}>{link}</a>");
 
             _emailService.SendEmail(emailMessage);
+
+            await _teamMemberRepository.AddTeamMemberAsInvteeAsync(request.UserId, request.TeamId);
 
 
         }

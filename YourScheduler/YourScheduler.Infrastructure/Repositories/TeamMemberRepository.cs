@@ -8,18 +8,19 @@ namespace YourScheduler.Infrastructure.Repositories
     public class TeamMemberRepository : ITeamMemberRepository
     {
         private readonly YourSchedulerDbContext _dbContext;
+        private readonly ITeamRoleRepository _teamRoleRepository;
         private readonly ILogger _logger;
 
-        public TeamMemberRepository(YourSchedulerDbContext dbContext, ILogger<TeamMemberRepository> logger)
+        public TeamMemberRepository(YourSchedulerDbContext dbContext, ILogger<TeamMemberRepository> logger, ITeamRoleRepository teamRoleRepository)
         {
             _dbContext = dbContext;
             _logger = logger;
+            _teamRoleRepository = teamRoleRepository;
         }
 
         public async Task AddTeamMemberAsInvteeAsync(int userId, int teamId)
         {
-            var team = await _dbContext.Teams.FirstAsync(t => t.TeamId == teamId);
-            var sortedTeamRoles = team.TeamRoles.OrderBy(s => s.TeamRoleId);
+            var sortedTeamRoles = _teamRoleRepository.GetAllTeamRolesForTeamQueryable(teamId).ToList().OrderBy(s => s.TeamRoleId);
             _logger.LogInformation("User attempt to add team to user at {DT}", DateTime.Now.ToLongTimeString());
 
             await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = sortedTeamRoles.ToList()[0].TeamRoleId }); // Lowest TeamRoleId in Team always means it has flagId = 1 and is invitee

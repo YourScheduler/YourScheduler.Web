@@ -13,8 +13,10 @@ var connectionString = builder.Configuration.GetConnectionString("YourSchedulerD
 
 var configuration = new ConfigurationBuilder()
    .SetBasePath(builder.Environment.ContentRootPath)
-   .AddJsonFile("appsettings.Developement.json", optional: true, reloadOnChange: true)
+   .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
    .Build();
+
+builder.Services.AddOptions();
 
 builder.Services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
 builder.Services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));

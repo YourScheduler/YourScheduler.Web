@@ -29,7 +29,7 @@ namespace YourScheduler.WebApplication.Controllers
         }
 
         [HttpDelete]
-        [Authorize]
+        //[Authorize]
         [Route("RemoveTeamMember")]
         public async Task<IActionResult> RemoveTeamMember(int userId, int teamId)
         {

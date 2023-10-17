@@ -2,10 +2,10 @@
 {
     public class MailSettings
     {
-        public string MailAddress { get; } = null!;
-        public string DisplayName { get; } = null!;
-        public string Password { get; } = null!;
-        public string Host { get; } = null!;
-        public int Port { get; }
+        public string MailAddress { get; set; } = default!;
+        public string DisplayName { get; set; } = default!;
+        public string Password { get; set; } = default!;
+        public string Host { get; set; } = default!;
+        public int Port { get; set; }
     }
 }
