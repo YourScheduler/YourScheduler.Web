@@ -45,8 +45,9 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
             await _teamMemberRepository.AddTeamMemberAsInvteeAsync(request.UserId, request.TeamId);
 
             var token = _jwtTokenGenerator.GenerateToken(request.UserId, request.TeamId);
-            var link = $"endpointlink/api/TeamMember/RequestInviteAccepted?token={token}"; // change when endpoint is created
+            var link = $"endpointlink/api/TeamMember/AcceptInvite?token={token}"; // change when endpoint is created
             var allTeamRoles = _teamRoleRepository.GetAllTeamRolesForTeamQueryable(request.TeamId).ToList();
+
             var allTeamRolesWithInviteFlag = new List<TeamRole>();
             var adminsEmails = new List<string>();
 
@@ -69,7 +70,7 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
                 }
             }
 
-            var emailMessage = new Message(adminsEmails, $"User {user.Displayname} reuqested invite to the {team.Name} on YourScheduler",
+            var emailMessage = new Message(adminsEmails, $"User {user.Displayname} requested invite to the {team.Name} on YourScheduler",
                 "<p>YourScheduler<p>" +
                 "If you wish to accept the request click provided link" +
                 $"<a href={link}>{link}</a>");
