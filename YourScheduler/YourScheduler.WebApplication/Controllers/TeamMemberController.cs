@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YourScheduler.BusinessLogic.Commands.AddTeamMember;
+using YourScheduler.BusinessLogic.Commands.InviteTeamMember;
 using YourScheduler.BusinessLogic.Commands.RemoveTeamMember;
 using YourScheduler.BusinessLogic.Commands.UpdateTeamMemberRole;
 
@@ -56,6 +57,22 @@ namespace YourScheduler.WebApplication.Controllers
             {
                 return BadRequest(ex.Message);
             } 
-        } 
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("InviteTeamMemberToTeam")]
+        public async Task<IActionResult> InviteTeamMemberToTeam(int userId, int teamId)
+        {
+            try
+            {
+                await _mediator.Send(new InviteTeamMemberCommand(userId, teamId));
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
