@@ -2,7 +2,7 @@
 
 namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
 {
-    public class RequestTeamInviteCommand : IRequest
+    public class RequestTeamInviteCommand : IRequest<string>
     {
         public int UserId { get;}
         public int TeamId { get;}

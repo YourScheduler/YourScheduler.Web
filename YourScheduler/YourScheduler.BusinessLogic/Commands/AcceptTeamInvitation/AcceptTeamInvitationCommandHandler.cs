@@ -42,7 +42,7 @@ namespace YourScheduler.BusinessLogic.Commands.AcceptTeamInvitation
 
 
                 await _teamMemberRepository.AddTeamMemberAsUserAsync(int.Parse(userId), int.Parse(TeamId));
-                return "User accepted invite and had his role changed to user";
+                return "User accepted invite and had his role was changed to user";
             }
         }
     }

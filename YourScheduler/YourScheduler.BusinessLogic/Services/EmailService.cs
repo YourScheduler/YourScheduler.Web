@@ -27,7 +27,14 @@ namespace YourScheduler.BusinessLogic.Services
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(MailboxAddress.Parse(_mailSettings.MailAddress));
-            emailMessage.To.Add(MailboxAddress.Parse(message.To));
+            var mailboxAddresses = new List<MailboxAddress>();
+
+            foreach (var email in message.To)
+            {
+                mailboxAddresses.Add(new MailboxAddress("", email));
+            }
+
+            emailMessage.To.AddRange(mailboxAddresses);
             emailMessage.Subject = message.Subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message.MessageContent };
 

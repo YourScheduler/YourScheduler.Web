@@ -29,7 +29,7 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
             var teamWithUser = team.TeamMembers.FirstOrDefault(t => t.ApplicationUserId == request.UserId);
             var user = await _usersRepository.GetUserByIdAsync(request.UserId);
 
-            if (teamWithUser != null)
+            if (teamWithUser is not null)
             {
                 if (teamWithUser.TeamRole.TeamRoleFlags.TeamRoleFlagsId == 1)
                 {
@@ -45,7 +45,7 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
             var token = _jwtTokenGenerator.GenerateToken(request.UserId, request.TeamId);
             var link = $"endpointlink/api/TeamMember/AcceptInvite?token={token}"; // change when endpoint is created
 
-            var emailMessage = new Message(user.Email, $"You have been invited to join {team.Name} team on YourScheduler",
+            var emailMessage = new Message(new List<string>() { user.Email }, $"You have been invited to join {team.Name} team on YourScheduler",
                 "<p>YourScheduler<p>" +
                 "If you wish to accept the invitation click provided link" +
                 $"<a href={link}>{link}</a>");
