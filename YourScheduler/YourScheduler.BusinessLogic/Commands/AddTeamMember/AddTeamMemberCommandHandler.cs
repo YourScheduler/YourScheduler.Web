@@ -28,7 +28,7 @@ namespace YourScheduler.BusinessLogic.Commands.AddTeamMember
             else
             {
                 await _teamMemberRepository.AddTeamMemberAsUserAsync(request.UserId, request.TeamId);
-                return "User successfully added to the team";
+                return "User successfully joined the team";
             }
         }
     }

@@ -2,7 +2,7 @@
 
 namespace YourScheduler.BusinessLogic.Commands.AcceptTeamInvitation
 {
-    public class AcceptTeamInvitationCommand : IRequest
+    public class AcceptTeamInvitationCommand : IRequest<string>
     {
         public string Token { get;}
 
