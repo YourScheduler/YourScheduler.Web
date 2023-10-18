@@ -64,11 +64,25 @@ namespace YourScheduler.Infrastructure.Repositories
             var teamMember = await _dbContext.ApplicationUsersTeams
                 .FirstOrDefaultAsync(tm => tm.ApplicationUserId == userId && tm.TeamId == teamId) 
                 ?? throw new Exception("TeamMember not found!");
+            var updatedTeamMember = new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = teamRoleId };
 
-            teamMember.TeamRoleId = teamRoleId;
-            _dbContext.ApplicationUsersTeams.Update(teamMember);
+            using (var transaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _dbContext.ApplicationUsersTeams.Remove(teamMember);
+                    await _dbContext.SaveChangesAsync();
 
-            await _dbContext.SaveChangesAsync();
+                    _dbContext.ApplicationUsersTeams.Add(updatedTeamMember);
+                    await _dbContext.SaveChangesAsync();
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
     }
 }
