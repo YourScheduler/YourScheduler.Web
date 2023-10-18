@@ -63,7 +63,7 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
 
             var emailMessage = new Message(adminsEmails, $"User {user.Displayname} requested invite to your team on YourScheduler",
                 "<p>YourScheduler<p>" +
-                $"A user {user.Displayname} asked you to join your team: {team.Name}" +
+                $"A user {user.Displayname} asked you to join your team: {team.Name} " +
                 "If you wish to accept the request click I accept otherwise just ignore this message" +
                 "<br>" +
                 $"<a href={link}>I accept</a>");

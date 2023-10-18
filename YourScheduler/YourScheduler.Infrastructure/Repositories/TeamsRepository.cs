@@ -34,7 +34,7 @@ namespace YourScheduler.Infrastructure.Repositories
         public async Task<Team> GetTeamByIdAsync(int id)
         {
             _logger.LogInformation("User attempt to get team by ID at {DT}", DateTime.Now.ToLongTimeString());
-            Team retrievedTeam = await _dbContext.Teams.Include(t => t.TeamMembers).FirstOrDefaultAsync(t => t.TeamId == id) ?? throw new TeamNotFoundException();
+            Team retrievedTeam = await _dbContext.Teams.Include(t => t.TeamMembers).ThenInclude(tx => tx.ApplicationUser).Include(tx => tx.TeamRoles).FirstOrDefaultAsync(t => t.TeamId == id) ?? throw new TeamNotFoundException();
             return retrievedTeam;
         }
         public async Task DeleteTeamByIdAsync(int id)

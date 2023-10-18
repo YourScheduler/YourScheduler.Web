@@ -91,20 +91,20 @@ namespace YourScheduler.WebApplication.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut]
-        //[Authorize]
-        [Route("AcceptTeamInvitation")]
-        public async Task<IActionResult> AcceptTeamInvitation(string token)
-        {
-            try
+            [HttpPut]
+            //[Authorize]
+            [Route("AcceptTeamInvitation")]
+            public async Task<IActionResult> AcceptTeamInvitation(string token)
             {
-                var respone = await _mediator.Send(new AcceptTeamInvitationCommand(token));
-                return Ok(respone);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
+                try
+                {
+                    var respone = await _mediator.Send(new AcceptTeamInvitationCommand(token));
+                    return Ok(respone);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
             }
         }
     }
-}
