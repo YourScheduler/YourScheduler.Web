@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using YourScheduler.Infrastructure.CustomExceptions;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
@@ -19,6 +20,7 @@ namespace YourScheduler.Infrastructure.Repositories
         public IQueryable<TeamRole> GetAllTeamRolesForTeamQueryable(int teamId)
         {
             return _dbContext.TeamRoles
+                .Include(tr => tr.TeamRoleFlags)
                 .Where(tr => tr.TeamId == teamId);
         }
 
