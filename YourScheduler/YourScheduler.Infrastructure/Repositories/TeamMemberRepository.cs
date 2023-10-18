@@ -29,19 +29,19 @@ namespace YourScheduler.Infrastructure.Repositories
 
         public async Task AddTeamMemberAsUserAsync(int userId, int teamId)
         {
-            var team = await _dbContext.Teams.FirstAsync(t => t.TeamId == teamId);
-            var sortedTeamRoles = team.TeamRoles.OrderBy(s => s.TeamRoleId);
-            var teamWithUser = team.TeamMembers.FirstOrDefault(t => t.ApplicationUserId == userId);
+            var sortedTeamRoles = _teamRoleRepository.GetAllTeamRolesForTeamQueryable(teamId).OrderBy(s => s.TeamRoleId).ToList();
+            var teamMember = await _dbContext.ApplicationUsersTeams
+                .FirstOrDefaultAsync(tm => tm.ApplicationUserId == userId && tm.TeamId == teamId);
 
-            if (teamWithUser is not null && teamWithUser.TeamRoleId == sortedTeamRoles.ToList()[0].TeamRoleId)
+            if (teamMember is not null && teamMember.TeamRoleId == sortedTeamRoles[0].TeamRoleId)
             {
                 _logger.LogInformation("User accepted invite or was approved to join by the administrator at {DT}", DateTime.Now.ToLongTimeString());
-                await UpdateTeamMemberRoleAsync(userId, sortedTeamRoles.ToList()[2].TeamRoleId, teamId);
+                await UpdateTeamMemberRoleAsync(userId, sortedTeamRoles[2].TeamRoleId, teamId);
             }
             else
             {
-                _logger.LogInformation("User attempted to join team to as user at {DT}", DateTime.Now.ToLongTimeString());
-                await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = sortedTeamRoles.ToList()[2].TeamRoleId }); // 3rd TeamRoleId in Team always means it has flagId = 3 and is user
+                _logger.LogInformation("User attempted to join team as user at {DT}", DateTime.Now.ToLongTimeString());
+                await _dbContext.ApplicationUsersTeams.AddAsync(new ApplicationUserTeams { ApplicationUserId = userId, TeamId = teamId, TeamRoleId = sortedTeamRoles[2].TeamRoleId }); // 3rd TeamRoleId in Team always means it has flagId = 3 and is user
                 await _dbContext.SaveChangesAsync();
             }  
         }

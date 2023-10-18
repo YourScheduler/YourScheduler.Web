@@ -30,23 +30,18 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
 
             if (await _teamsRepository.VerifyIsTeamMemberAsync(request.UserId, request.TeamId))
             {
-                //if (teamWithUser.TeamRole.TeamRoleFlags.TeamRoleFlagsId == 1)
-                //{
-                    //throw new Exception("User is already pending invite");
-                //}
-                //else
-                //{
-                    throw new Exception("User is already a part of the team");
-                //}
+                throw new Exception("User is already a part of the team or is pending invite");
             }
 
             var token = _jwtTokenGenerator.GenerateToken(request.UserId, request.TeamId);
-            var link = $"endpointlink/api/TeamMember/AcceptInvite?token={token}"; // change when endpoint is created
+            var link = $"https://localhost:7217/api/TeamMember/AcceptTeamInvitation?token={token}"; // change when endpoint is created
 
-            var emailMessage = new Message(new List<string>() { user.Email }, $"You have been invited to join {team.Name} team on YourScheduler",
+            var emailMessage = new Message(new List<string>() { user.Email }, $"You have been invited to join a team on YourScheduler",
                 "<p>YourScheduler<p>" +
-                "If you wish to accept the invitation click provided link" +
-                $"<a href={link}>{link}</a>");
+                $"You have received an invitation to join {team.Name}" +
+                "If you wish to accept the invitation click I accept" +
+                "<br>" +
+                $"<a href={link}>I accept</a>");
 
             _emailService.SendEmail(emailMessage);
 

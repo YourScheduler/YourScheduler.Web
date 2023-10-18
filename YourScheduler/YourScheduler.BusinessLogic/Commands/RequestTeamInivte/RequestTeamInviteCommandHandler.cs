@@ -28,7 +28,7 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
         public async Task<string> Handle(RequestTeamInviteCommand request, CancellationToken cancellationToken)
         {
             var team = await _teamsRepository.GetTeamByIdAsync(request.TeamId);
-            var teamWithUser = team.TeamMembers.FirstOrDefault(t => t.ApplicationUserId == request.UserId);
+            var teamWithUser = team.TeamMembers.FirstOrDefault(t => t.ApplicationUserId == request.UserId && t.TeamId == request.TeamId);
             var user = await _usersRepository.GetUserByIdAsync(request.UserId);
 
             if (teamWithUser is not null)
@@ -42,10 +42,9 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
                     throw new Exception("You are already a part of the team!");
                 }
             }
-            await _teamMemberRepository.AddTeamMemberAsInvteeAsync(request.UserId, request.TeamId);
-
+            
             var token = _jwtTokenGenerator.GenerateToken(request.UserId, request.TeamId);
-            var link = $"endpointlink/api/TeamMember/AcceptInvite?token={token}"; // change when endpoint is created
+            var link = $"https://localhost:7217/api/TeamMember/AcceptTeamInvitation?token={token}"; // change when endpoint is created
             var allTeamRoles = _teamRoleRepository.GetAllTeamRolesForTeamQueryable(request.TeamId).ToList();
 
             var allTeamRolesWithInviteFlag = new List<TeamRole>();
@@ -70,12 +69,15 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
                 }
             }
 
-            var emailMessage = new Message(adminsEmails, $"User {user.Displayname} requested invite to the {team.Name} on YourScheduler",
+            var emailMessage = new Message(adminsEmails, $"User {user.Displayname} requested invite to your team on YourScheduler",
                 "<p>YourScheduler<p>" +
-                "If you wish to accept the request click provided link" +
-                $"<a href={link}>{link}</a>");
+                $"A user {user.Displayname} asked you to join your team: {team.Name}" +
+                "If you wish to accept the request click I accept otherwise just ignore this message" +
+                "<br>" +
+                $"<a href={link}>I accept</a>");
 
             _emailService.SendEmail(emailMessage);
+            await _teamMemberRepository.AddTeamMemberAsInvteeAsync(request.UserId, request.TeamId);
 
             return "User requested administrators to accept his invitation to the team";
         }
