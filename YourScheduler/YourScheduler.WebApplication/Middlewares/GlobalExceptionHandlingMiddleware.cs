@@ -40,7 +40,7 @@ namespace YourScheduler.WebApplication.Middlewares
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             var stackTrace = new StackTrace(customException).GetFrame(0);
-            customException.ProblemDetails.Instance = $"Declaring Method: {stackTrace.GetMethod().DeclaringType.Name}";
+            customException.ProblemDetails.Instance = $"Declaring Method: {stackTrace?.GetMethod()?.DeclaringType?.Name}" ?? $"Declaring Method could not be found";
 
             string json = JsonSerializer.Serialize(customException.ProblemDetails);
 

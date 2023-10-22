@@ -14,6 +14,8 @@ namespace YourScheduler.Infrastructure.Entities
 
         public string Name { get; set; } = default!;
 
+        public int TeamRoleFlagsId { get; set; }
+
         public TeamRoleFlags TeamRoleFlags { get; set; } = default!;
 
         public ICollection<ApplicationUserTeams>? ApplicationUserTeams { get; set; }

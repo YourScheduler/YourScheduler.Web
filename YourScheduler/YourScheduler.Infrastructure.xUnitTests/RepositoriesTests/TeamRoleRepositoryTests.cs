@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
-using Xunit.Sdk;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories;
 
@@ -17,7 +16,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             Name = "User",
             TeamRoleFlags = new TeamRoleFlags
             {
-                TeamRoleId = 1,
+                TeamRoleFlagsId = 1,
                 CanAddTeamEvent = false,
                 CanAddTeamMember = false,
                 CanAddTeamRole = false,
@@ -31,7 +30,8 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 CanEditTeamRole = false,
                 CanRemoveTeamEvent = false,
                 CanRemoveTeamRole = false,
-                CanSendEmailToTeam = false
+                CanSendEmailToTeam = false,
+                CanViewContent = true
             }
         };
         private readonly TeamRole adminTeamRole = new()
@@ -41,7 +41,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
             Name = "Admin",
             TeamRoleFlags = new TeamRoleFlags
             {
-                TeamRoleId = 2,
+                TeamRoleFlagsId = 2,
                 CanAddTeamEvent = true,
                 CanAddTeamMember = true,
                 CanAddTeamRole = true,
@@ -55,7 +55,8 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 CanEditTeamRole = true,
                 CanRemoveTeamEvent = true,
                 CanRemoveTeamRole = true,
-                CanSendEmailToTeam = true
+                CanSendEmailToTeam = true,
+                CanViewContent = true
             }
         };
 
@@ -87,7 +88,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 Name = "Moderator",
                 TeamRoleFlags = new TeamRoleFlags
                 {
-                    TeamRoleId = 3,
+                    TeamRoleFlagsId = 3,
                     CanAddTeamEvent = false,
                     CanAddTeamMember = true,
                     CanAddTeamRole = false,
@@ -132,7 +133,7 @@ namespace YourScheduler.Infrastructure.xUnitTests.RepositoriesTests
                 Name = "Basic User",
                 TeamRoleFlags = new TeamRoleFlags
                 {
-                    TeamRoleId = 1,
+                    TeamRoleFlagsId = 1,
                     CanAddTeamEvent = false,
                     CanAddTeamMember = false,
                     CanAddTeamRole = false,

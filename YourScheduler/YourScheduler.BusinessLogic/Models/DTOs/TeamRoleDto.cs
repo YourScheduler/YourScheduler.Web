@@ -10,6 +10,8 @@ namespace YourScheduler.BusinessLogic.Models.DTOs
 
         public string Name { get; set; } = default!;
 
+        public int TeamRoleFlagsId { get; set; }
+
         public TeamRoleFlags TeamRoleFlags { get; set; } = default!;
     }
 }

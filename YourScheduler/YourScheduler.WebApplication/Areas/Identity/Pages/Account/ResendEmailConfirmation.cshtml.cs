@@ -78,8 +78,8 @@ namespace YourScheduler.WebApplication.Areas.Identity.Pages.Account
                 pageHandler: null,
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
-                _emailSender.SendEmail(new Message(
-                Input.Email,
+                _emailSender.SendEmail(new Message( new List<string>()
+                { Input.Email },
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."));
 

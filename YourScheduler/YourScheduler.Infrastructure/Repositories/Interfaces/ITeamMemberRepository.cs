@@ -2,7 +2,8 @@
 {
     public interface ITeamMemberRepository
     {
-        Task AddTeamMemberAsync(int userId, int teamRoleId, int teamId);
+        Task AddTeamMemberAsInvteeAsync(int userId, int teamId);
+        Task AddTeamMemberAsUserAsync(int userId, int teamId);
         Task RemoveTeamMemberAsync(int userId, int teamId);
         Task UpdateTeamMemberRoleAsync(int userId, int teamRoleId, int teamId);
     }

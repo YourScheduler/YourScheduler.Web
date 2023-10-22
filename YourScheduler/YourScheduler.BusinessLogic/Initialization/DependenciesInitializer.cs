@@ -12,7 +12,8 @@ namespace YourScheduler.BusinessLogic.Initialization
         public static void AddBusinessLogicDependencies(this IServiceCollection serviceCollection)
         {
             serviceCollection.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateTeamCommand).Assembly));
-            serviceCollection.AddSingleton<IEmailService, EmailService>();         
+            serviceCollection.AddSingleton<IEmailService, EmailService>();
+            serviceCollection.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
         }
     }
 }
