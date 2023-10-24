@@ -6,6 +6,8 @@ using YourScheduler.Infrastructure.Entities;
 using AutoMapper;
 using YourScheduler.WebApplication.Middlewares;
 using YourScheduler.BusinessLogic.Services.Settings;
+using Microsoft.OpenApi.Models;
+using NuGet.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +56,37 @@ builder.Services.AddAuthorization();
 builder.Services.AddBusinessLogicDependencies();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement() {
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "oauth2"
+                },
+                Scheme = "oauth2",
+                Name = "oauth2",
+                In = ParameterLocation.Header
+            },
+            new List <string> ()
+        }
+    });
+    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Type = SecuritySchemeType.OAuth2,
+        Flows = new OpenApiOAuthFlows
+        {
+            Implicit = new OpenApiOAuthFlow()
+            {
+                AuthorizationUrl = new Uri("https://login.microsoftonline.com/common/oauth2/v2.0/authorize"),
+                TokenUrl = new Uri("https://login.microsoftonline.com/common/common/v2.0/token"),
+            }
+        }
+    });
+});
+
 
 var app = builder.Build();
 
