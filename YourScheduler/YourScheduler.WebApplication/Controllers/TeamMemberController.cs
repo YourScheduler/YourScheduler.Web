@@ -35,30 +35,19 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("RemoveTeamMember")]
         public async Task<IActionResult> RemoveTeamMember(int userId, int teamId)
         {
-            try
-            {
-                await _mediator.Send(new RemoveTeamMemberCommand(userId, teamId));
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            await _mediator.Send(new RemoveTeamMemberCommand(userId, teamId));
+            return Ok();
         }
         [HttpPut]
         //[Authorize]
         [Route("UpdateTeamMemberRole")]
         public async Task<IActionResult> UpdateTeamMemberRole(int userId, int teamRoleId, int teamId)
         {
-            try
-            {
-                await _mediator.Send(new UpdateTeamMemberRoleCommand(userId, teamRoleId, teamId));
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            await _mediator.Send(new UpdateTeamMemberRoleCommand(userId, teamRoleId, teamId));
+            return NoContent();
+
         }
 
         [HttpPost]
@@ -66,45 +55,29 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("InviteTeamMemberToTeam")]
         public async Task<IActionResult> InviteTeamMemberToTeam(int userId, int teamId)
         {
-            try
-            {
-                await _mediator.Send(new InviteTeamMemberCommand(userId, teamId));
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            await _mediator.Send(new InviteTeamMemberCommand(userId, teamId));
+            return Ok();
         }
         [HttpPost]
         //[Authorize]
         [Route("RequestInviteToTeam")]
         public async Task<IActionResult> RequestInviteToTeam(int userId, int teamId)
         {
-            try
-            {
-                var response = await _mediator.Send(new RequestTeamInviteCommand(userId, teamId));
-                return Ok(response);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+            var response = await _mediator.Send(new RequestTeamInviteCommand(userId, teamId));
+            return Ok(response);
+
         }
-            [HttpPut]
-            //[Authorize]
-            [Route("AcceptTeamInvitation")]
-            public async Task<IActionResult> AcceptTeamInvitation(string token)
-            {
-                try
-                {
-                    var respone = await _mediator.Send(new AcceptTeamInvitationCommand(token));
-                    return Ok(respone);
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            }
+        [HttpPut]
+        //[Authorize]
+        [Route("AcceptTeamInvitation")]
+        public async Task<IActionResult> AcceptTeamInvitation(string token)
+        {
+
+            var respone = await _mediator.Send(new AcceptTeamInvitationCommand(token));
+            return Ok(respone);
+
         }
     }
+}

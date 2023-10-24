@@ -23,7 +23,7 @@ namespace YourScheduler.UI.Controllers
         [HttpPost]
         [Authorize]
         [Route("AddUser")]
-        public async Task<IActionResult> AddUserAsync([FromBody]ApplicationUserDto applicationUserDto)
+        public async Task<IActionResult> AddUserAsync([FromBody] ApplicationUserDto applicationUserDto)
         {
             var returnedUser = await _mediator.Send(new AddUserCommand(applicationUserDto));
             return new ObjectResult(returnedUser) { StatusCode = StatusCodes.Status201Created };
@@ -43,16 +43,8 @@ namespace YourScheduler.UI.Controllers
         [Route("GetUserById/{userId}")]
         public async Task<IActionResult> GetUserById(int userId)
         {
-            try
-            {
-                var returnedUser = await _mediator.Send(new GetUserByIdQuery(userId));
-                return Ok(returnedUser);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            
+            var returnedUser = await _mediator.Send(new GetUserByIdQuery(userId));
+            return Ok(returnedUser);
         }
 
         [HttpGet]
@@ -60,17 +52,8 @@ namespace YourScheduler.UI.Controllers
         [Route("GetUserByEmail/{userEmail}")]
         public async Task<IActionResult> GetUserByEmail(string userEmail)
         {
-            try
-            {
-                var returnedUser = await _mediator.Send(new GetUserByEmailQuery(userEmail));
-                return Ok(returnedUser);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            
+            var returnedUser = await _mediator.Send(new GetUserByEmailQuery(userEmail));
+            return Ok(returnedUser);
         }
-
     }
 }
