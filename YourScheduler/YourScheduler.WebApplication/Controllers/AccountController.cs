@@ -22,7 +22,7 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpPost]
         [Route("signIn")]
-        public async Task<IActionResult> SignIn([FromBody] AuthorizationModel model)
+        public async Task<IActionResult> SignIn([FromBody] AuthorizationRequest model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
 
