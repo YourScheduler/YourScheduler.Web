@@ -1,18 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using YourScheduler.BusinessLogic.Initialization;
-using YourScheduler.Infrastructure;
-using YourScheduler.Infrastructure.Initialization;
-using YourScheduler.Infrastructure.Entities;
 using AutoMapper;
-using YourScheduler.WebApplication.Middlewares;
-using YourScheduler.BusinessLogic.Services.Settings;
-using Microsoft.OpenApi.Models;
-using NuGet.Configuration;
-using Microsoft.AspNetCore.Identity;
-using FluentAssertions.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
+using YourScheduler.BusinessLogic.Initialization;
+using YourScheduler.BusinessLogic.Services.Settings;
+using YourScheduler.Infrastructure;
+using YourScheduler.Infrastructure.Entities;
+using YourScheduler.Infrastructure.Initialization;
+using YourScheduler.WebApplication.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,14 +33,14 @@ builder.Services.AddControllers();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => 
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
 {
     options.Password.RequiredLength = 8;
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
     options.Password.RequireNonAlphanumeric = false;
-    options.SignIn.RequireConfirmedAccount = false; 
+    options.SignIn.RequireConfirmedAccount = false;
 })
  .AddEntityFrameworkStores<YourSchedulerDbContext>()
  .AddRoles<IdentityRole>()
@@ -83,32 +81,32 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement() {
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
         {
-            new OpenApiSecurityScheme {
-                Reference = new OpenApiReference {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "oauth2"
+                     Id = "Bearer"
                 },
                 Scheme = "oauth2",
-                Name = "oauth2",
-                In = ParameterLocation.Header
-            },
-            new List <string> ()
-        }
-    });
-    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-    {
-        Type = SecuritySchemeType.OAuth2,
-        Flows = new OpenApiOAuthFlows
-        {
-            Implicit = new OpenApiOAuthFlow()
-            {
-                AuthorizationUrl = new Uri("https://login.microsoftonline.com/common/oauth2/v2.0/authorize"),
-                TokenUrl = new Uri("https://login.microsoftonline.com/common/common/v2.0/token"),
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+                },
+                new List<string>()
             }
-        }
-    });
+   });
 });
 
 
@@ -129,8 +127,8 @@ app.UseCors(options =>
     //options.AllowAnyOrigin();
     options.AllowAnyHeader();
     options.AllowAnyMethod();
-    options.AllowCredentials();  
-        });
+    options.AllowCredentials();
+});
 
 app.UseHttpsRedirection();
 
