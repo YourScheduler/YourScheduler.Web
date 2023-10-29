@@ -8,6 +8,8 @@ using YourScheduler.WebApplication.Middlewares;
 using YourScheduler.BusinessLogic.Services.Settings;
 using Microsoft.OpenApi.Models;
 using NuGet.Configuration;
+using Microsoft.AspNetCore.Identity;
+using FluentAssertions.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,14 +41,28 @@ builder.Services.AddAuthentication()
     {
         options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? throw new Exception("ClientId for Google is null");
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? throw new Exception("ClientSecret for Google is null");
-    });
+    })
+    .AddIdentityCookies(cookies => });
 
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
- .AddEntityFrameworkStores<YourSchedulerDbContext>();
+builder.Services.AddIdentityCore<ApplicationUser>(options => 
+{
+    options.Password.RequiredLength = 8;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.SignIn.RequireConfirmedAccount = false; 
+})
+ .AddEntityFrameworkStores<YourSchedulerDbContext>()
+ .AddRoles<IdentityRole>()
+ .AddRoleManager<RoleManager<IdentityRole>>()
+ .AddSignInManager<ApplicationUser>()
+ .AddUserManager<ApplicationUser>()
+ .AddDefaultTokenProviders();
 
 builder.Services.AddInfrastructureDependencies(builder.Configuration);
 
@@ -88,6 +104,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+
 var app = builder.Build();
 
 
@@ -98,6 +115,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 }
+app.UseCors(options =>
+{
+    options.SetIsOriginAllowed(origin => true);
+    //options.AllowAnyOrigin();
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.AllowCredentials();  
+        });
 
 app.UseHttpsRedirection();
 
@@ -107,14 +132,17 @@ app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseRouting();
 
-app.UseAuthentication();;
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
+
+
 var mapper = app.Services.GetRequiredService<IMapper>();
 mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
 
 app.Run();
 

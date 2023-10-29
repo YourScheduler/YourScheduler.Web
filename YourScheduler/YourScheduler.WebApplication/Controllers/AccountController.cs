@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using YourScheduler.BusinessLogic.Models;
 using YourScheduler.Infrastructure;
@@ -10,13 +11,13 @@ namespace YourScheduler.WebApplication.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly YourSchedulerDbContext _context;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(YourSchedulerDbContext context, SignInManager<ApplicationUser> signInManager)
+        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
-            _context = context;
             _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpPost]
@@ -24,7 +25,30 @@ namespace YourScheduler.WebApplication.Controllers
         public async Task<IActionResult> SignIn([FromBody] AuthorizationModel model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
-            return Ok(result);
+
+            if(result.Succeeded)
+                return Ok(result);
+
+            return BadRequest("Invalid Email or Password");
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("loadUser")]
+        public async Task<IActionResult> LoadUser()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            return Ok();
         }
     }
 }
