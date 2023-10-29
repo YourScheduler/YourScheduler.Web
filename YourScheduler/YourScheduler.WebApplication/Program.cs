@@ -10,6 +10,9 @@ using Microsoft.OpenApi.Models;
 using NuGet.Configuration;
 using Microsoft.AspNetCore.Identity;
 using FluentAssertions.Common;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,22 +33,6 @@ builder.Services.AddDbContext<YourSchedulerDbContext>(options =>
 
 builder.Services.AddControllers();
 
-
-builder.Services.AddAuthentication()
-    .AddFacebook(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Facebook:ClientId"] ?? throw new Exception("ClientId for Facebook is null");
-        options.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"] ?? throw new Exception("ClientSecret for Facebook is null"); ;
-    })
-    .AddGoogle(options =>
-    {
-        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? throw new Exception("ClientId for Google is null");
-        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? throw new Exception("ClientSecret for Google is null");
-    })
-    .AddIdentityCookies(cookies => });
-
-
-
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => 
@@ -63,6 +50,27 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
  .AddSignInManager<ApplicationUser>()
  .AddUserManager<ApplicationUser>()
  .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddFacebook(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Facebook:ClientId"] ?? throw new Exception("ClientId for Facebook is null");
+        options.ClientSecret = builder.Configuration["Authentication:Facebook:ClientSecret"] ?? throw new Exception("ClientSecret for Facebook is null"); ;
+    })
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? throw new Exception("ClientId for Google is null");
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? throw new Exception("ClientSecret for Google is null");
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecurityKey"])),
+            ValidateAudience = false
+        };
+    });
 
 builder.Services.AddInfrastructureDependencies(builder.Configuration);
 

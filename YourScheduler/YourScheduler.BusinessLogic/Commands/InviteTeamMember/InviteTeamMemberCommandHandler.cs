@@ -26,6 +26,7 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
 
         public async Task Handle(InviteTeamMemberCommand request, CancellationToken cancellation)
         {
+            int tokenExpiresInDays = 7;
             var team = await _teamsRepository.GetTeamByIdAsync(request.TeamId);
             var user = await _usersRepository.GetUserByIdAsync(request.UserId);
 
@@ -37,7 +38,7 @@ namespace YourScheduler.BusinessLogic.Commands.InviteTeamMember
             var token = _jwtTokenGenerator.GenerateToken(new List<Claim> { 
                 new Claim("UserId", request.UserId.ToString()),
                 new Claim("TeamId", request.TeamId.ToString())
-            });
+            }, tokenExpiresInDays);
             var link = $"https://localhost:7217/api/TeamMember/AcceptTeamInvitation?token={token}"; // change when endpoint is created
 
             var emailMessage = new Message(new List<string>() { user.Email }, $"You have been invited to join a team on YourScheduler",
