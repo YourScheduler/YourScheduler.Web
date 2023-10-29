@@ -27,7 +27,8 @@ namespace YourScheduler.BusinessLogic.Services
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(expiresInDays),
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _jwtSettings.Issuer,
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);

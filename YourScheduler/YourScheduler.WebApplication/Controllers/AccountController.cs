@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using YourScheduler.BusinessLogic.Commands.AuthorizeUser;
 using YourScheduler.BusinessLogic.Models;
 using YourScheduler.Infrastructure;
 using YourScheduler.Infrastructure.Entities;
@@ -11,25 +13,25 @@ namespace YourScheduler.WebApplication.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AccountController(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        private readonly IMediator _mediator;
+
+        public AccountController(IMediator mediator)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+
+            _mediator = mediator;
         }
 
         [HttpPost]
         [Route("signIn")]
         public async Task<IActionResult> SignIn([FromBody] AuthorizationRequest model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, false);
+            if(model is null)
+                return BadRequest("Invalid Email or Password");
 
-            if(result.Succeeded)
-                return Ok(result);
+            var response = await _mediator.Send(new AuthorizeUserCommand(model));
 
-            return BadRequest("Invalid Email or Password");
+            return Ok(response);
         }
 
         [Authorize]
@@ -37,7 +39,7 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            //await _signInManager.SignOutAsync();
 
             return Ok();
         }
@@ -47,7 +49,7 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("loadUser")]
         public async Task<IActionResult> LoadUser()
         {
-            var user = await _userManager.GetUserAsync(User);
+           // var user = await _userManager.GetUserAsync(User);
             return Ok();
         }
     }
