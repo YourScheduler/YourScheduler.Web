@@ -43,10 +43,10 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
     options.SignIn.RequireConfirmedAccount = false;
 })
  .AddEntityFrameworkStores<YourSchedulerDbContext>()
- .AddRoles<IdentityRole>()
- .AddRoleManager<RoleManager<IdentityRole>>()
- .AddSignInManager<ApplicationUser>()
- .AddUserManager<ApplicationUser>()
+ //.AddRoles<IdentityRole>()
+ //.AddRoleManager<RoleManager<IdentityRole>>()
+ .AddSignInManager<SignInManager<ApplicationUser>>()
+ .AddUserManager<UserManager<ApplicationUser>>()
  .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
