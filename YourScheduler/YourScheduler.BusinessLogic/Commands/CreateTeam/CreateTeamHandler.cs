@@ -23,26 +23,18 @@ namespace YourScheduler.BusinessLogic.Commands.CreateTeam
             var team = _mapper.Map<Team>(request.TeamDto);
             var addedTeam = await _teamRepository.AddTeamAsync(team);
             var addedTeamDto = _mapper.Map<TeamDto>(addedTeam);
-            TeamRoleDto teamRoleDto = new TeamRoleDto();
-            teamRoleDto.TeamRoleFlags = new TeamRoleFlags();
-            teamRoleDto.TeamRoleFlags.CanSendEmailToTeam = true;
-            teamRoleDto.TeamRoleFlags.CanEditTeamName = true;
-            teamRoleDto.TeamRoleFlags.CanAddTeamEvent = true;
-            teamRoleDto.TeamRoleFlags.CanEditTeamPhoto = true;
-            teamRoleDto.TeamRoleFlags.CanRemoveTeamMember = true;
-            teamRoleDto.TeamRoleFlags.CanEditDescription = true;
-            teamRoleDto.TeamRoleFlags.CanRemoveTeamRole = true;
-            teamRoleDto.TeamRoleFlags.CanEditTeamRole = true;
-            teamRoleDto.TeamRoleFlags.CanAddTeamRole = true;
-            teamRoleDto.TeamRoleFlags.CanAddTeamEvent = true;
-            teamRoleDto.TeamRoleFlags.CanAddTeamMember = true;
-            teamRoleDto.TeamRoleFlags.CanRemoveTeamEvent = true;
-            teamRoleDto.TeamRoleFlags.CanEditRoleFlags = true;
-            teamRoleDto.TeamRoleFlags.CanEditTeamMessage = true;
-            teamRoleDto.Name =addedTeamDto.Name+"adminrole";
-            teamRoleDto.TeamId =addedTeamDto.TeamId;   
-            var teamRole = _mapper.Map<TeamRole>(teamRoleDto);
-            await _roleRepository.AddTeamRoleAsync(teamRole);
+
+            for (int i = 0; i < 2; i++)
+            {
+                var numberAddedRows = _roleRepository.GetNumberOfRows();
+                var addedRole = await _roleRepository.GetTeamRoleByIdAsync(i+1);
+                var addedRoleDto = _mapper.Map<TeamRoleDto>(addedRole);
+                addedRoleDto.TeamId = addedTeamDto.TeamId;
+                addedRoleDto.TeamRoleId=numberAddedRows+1;
+                var roleToAdd = _mapper.Map<TeamRole>(addedRoleDto);
+                await _roleRepository.AddTeamRoleAsync(roleToAdd);
+            }           
+
             return addedTeamDto;
         }
     }
