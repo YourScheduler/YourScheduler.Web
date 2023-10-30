@@ -34,6 +34,19 @@ namespace YourScheduler.WebApplication.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> SignIn([FromBody] RegisterUserDTO model)
+        {
+            if (model is null)
+                return BadRequest("Invalid Email or Password");
+
+            var response = await _mediator.Send(new AuthorizeUserCommand(model));
+
+            return Ok(response);
+        }
+
+
         [Authorize]
         [HttpGet]
         [Route("logout")]
