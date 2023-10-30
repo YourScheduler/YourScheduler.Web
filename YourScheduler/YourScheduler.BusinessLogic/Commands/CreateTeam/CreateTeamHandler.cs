@@ -23,18 +23,37 @@ namespace YourScheduler.BusinessLogic.Commands.CreateTeam
             var team = _mapper.Map<Team>(request.TeamDto);
             var addedTeam = await _teamRepository.AddTeamAsync(team);
             var addedTeamDto = _mapper.Map<TeamDto>(addedTeam);
+            List<TeamRoleDto> teamRoleDtos = new List<TeamRoleDto>();
 
-            for (int i = 0; i < 2; i++)
+            var teamRoleDto1 = new TeamRoleDto
             {
-                var numberAddedRows = _roleRepository.GetNumberOfRows();
-                var addedRole = await _roleRepository.GetTeamRoleByIdAsync(i+1);
-                var addedRoleDto = _mapper.Map<TeamRoleDto>(addedRole);
-                addedRoleDto.TeamId = addedTeamDto.TeamId;
-                addedRoleDto.TeamRoleId=numberAddedRows+1;
-                var roleToAdd = _mapper.Map<TeamRole>(addedRoleDto);
-                await _roleRepository.AddTeamRoleAsync(roleToAdd);
-            }           
+                TeamId = addedTeam.TeamId,
+                Name = "Invitee",
+                TeamRoleFlagsId = 1,
+            };
+            teamRoleDtos.Add(teamRoleDto1);
 
+            var teamRoleDto2 = new TeamRoleDto
+            {
+                TeamId = addedTeam.TeamId,
+                Name = "Admin",
+                TeamRoleFlagsId = 2
+            };
+            teamRoleDtos.Add(teamRoleDto2);
+
+            var teamRoleDto3 = new TeamRoleDto
+            {
+                TeamId = addedTeam.TeamId,
+                Name = "User",
+                TeamRoleFlagsId = 3
+            };
+            teamRoleDtos.Add(teamRoleDto3);
+
+            foreach (var teamRoleDto in teamRoleDtos)
+            {
+                var teamRole = _mapper.Map<TeamRole>(teamRoleDto);
+                await _roleRepository.AddTeamRoleAsync(teamRole);
+            }
             return addedTeamDto;
         }
     }
