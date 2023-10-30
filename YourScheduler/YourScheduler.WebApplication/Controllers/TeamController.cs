@@ -92,7 +92,7 @@ namespace YourScheduler.WebApplication.Controllers
             {
                 teamDto.PicturePath = "/Pictures/" + "defaultTeam.jpg";
             }
-            teamDto.Creator =User.Identity.GetUserName();
+            teamDto.Creator = User.Identity.GetUserName();
 
             var addedTeam = await _mediator.Send(new CreateTeamCommand(teamDto));
             //TODO - move out of controller

@@ -20,40 +20,35 @@ namespace YourScheduler.BusinessLogic.Commands.CreateTeam
 
         public async Task<TeamDto> Handle(CreateTeamCommand request, CancellationToken cancellationToken)
         {
-            var team = _mapper.Map<Team>(request.TeamDto);
-            var addedTeam = await _teamRepository.AddTeamAsync(team);
-            var addedTeamDto = _mapper.Map<TeamDto>(addedTeam);
+           
             List<TeamRoleDto> teamRoleDtos = new List<TeamRoleDto>();
-
+            
             var teamRoleDto1 = new TeamRoleDto
-            {
-                TeamId = addedTeam.TeamId,
+            {              
                 Name = "Invitee",
                 TeamRoleFlagsId = 1,
             };
             teamRoleDtos.Add(teamRoleDto1);
 
             var teamRoleDto2 = new TeamRoleDto
-            {
-                TeamId = addedTeam.TeamId,
+            {               
                 Name = "Admin",
                 TeamRoleFlagsId = 2
             };
             teamRoleDtos.Add(teamRoleDto2);
 
             var teamRoleDto3 = new TeamRoleDto
-            {
-                TeamId = addedTeam.TeamId,
+            {              
                 Name = "User",
                 TeamRoleFlagsId = 3
             };
             teamRoleDtos.Add(teamRoleDto3);
 
-            foreach (var teamRoleDto in teamRoleDtos)
-            {
-                var teamRole = _mapper.Map<TeamRole>(teamRoleDto);
-                await _roleRepository.AddTeamRoleAsync(teamRole);
-            }
+            request.TeamDto.TeamRoles = teamRoleDtos;
+            var team = _mapper.Map<Team>(request.TeamDto);
+            var addedTeam = await _teamRepository.AddTeamAsync(team);
+            var addedTeamDto = _mapper.Map<TeamDto>(addedTeam);
+
             return addedTeamDto;
         }
     }
