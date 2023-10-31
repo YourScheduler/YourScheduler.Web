@@ -2,9 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using YourScheduler.BusinessLogic.Commands.AuthorizeUser;
+using YourScheduler.BusinessLogic.Commands.RegisterUser;
 using YourScheduler.BusinessLogic.Models;
+using YourScheduler.BusinessLogic.Models.DTOs;
+using YourScheduler.BusinessLogic.Queries.RefreshUser;
 using YourScheduler.Infrastructure;
+using YourScheduler.Infrastructure.CustomExceptions;
 using YourScheduler.Infrastructure.Entities;
 
 namespace YourScheduler.WebApplication.Controllers
@@ -27,7 +32,7 @@ namespace YourScheduler.WebApplication.Controllers
         public async Task<IActionResult> SignIn([FromBody] AuthorizationRequest model)
         {
             if(model is null)
-                return BadRequest("Invalid Email or Password");
+                throw new AuthorizationException("Invalid Email or Password");
 
             var response = await _mediator.Send(new AuthorizeUserCommand(model));
 
@@ -36,25 +41,14 @@ namespace YourScheduler.WebApplication.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> SignIn([FromBody] RegisterUserDTO model)
+        public async Task<IActionResult> SignIn([FromBody] RegisterUserDTO form)
         {
-            if (model is null)
-                return BadRequest("Invalid Email or Password");
+            if (form is null)
+                return BadRequest("Invalid Register form model.");
 
-            var response = await _mediator.Send(new AuthorizeUserCommand(model));
+            var response = await _mediator.Send(new RegisterUserCommand(form));
 
             return Ok(response);
-        }
-
-
-        [Authorize]
-        [HttpGet]
-        [Route("logout")]
-        public async Task<IActionResult> Logout()
-        {
-            //await _signInManager.SignOutAsync();
-
-            return Ok();
         }
 
         [Authorize]
@@ -62,8 +56,8 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("loadUser")]
         public async Task<IActionResult> LoadUser()
         {
-           // var user = await _userManager.GetUserAsync(User);
-            return Ok();
+           var response = await _mediator.Send(new RefreshUserQuery(User.FindFirst(ClaimTypes.Email).Value));
+            return Ok(response);
         }
     }
 }

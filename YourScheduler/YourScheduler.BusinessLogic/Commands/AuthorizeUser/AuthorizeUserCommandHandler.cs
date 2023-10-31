@@ -5,6 +5,7 @@ using System.Security.Claims;
 using YourScheduler.BusinessLogic.Models;
 using YourScheduler.BusinessLogic.Models.DTOs;
 using YourScheduler.BusinessLogic.Services.Interfaces;
+using YourScheduler.Infrastructure.CustomExceptions;
 using YourScheduler.Infrastructure.Entities;
 
 
@@ -30,13 +31,13 @@ namespace YourScheduler.BusinessLogic.Commands.AuthorizeUser
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.AuthorizationRequest.Password, false);
 
             if(!result.Succeeded)
-                throw new Exception("Invalid Email or Password");
+                throw new AuthorizationException("Invalid Email or Password");
 
             
             var token = _jwtGenerator.GenerateToken(new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email ?? throw new Exception("Wrong Email to generate Token")),
+                new Claim(ClaimTypes.Email, user.Email ?? throw new AuthorizationException("Wrong Email to generate Token")),
                 new Claim(ClaimTypes.GivenName, user.Displayname)
             }, tokenExpiresInDays);
 
