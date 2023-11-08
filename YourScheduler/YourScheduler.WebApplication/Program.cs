@@ -1,11 +1,16 @@
-using Microsoft.EntityFrameworkCore;
-using YourScheduler.BusinessLogic.Initialization;
-using YourScheduler.Infrastructure;
-using YourScheduler.Infrastructure.Initialization;
-using YourScheduler.Infrastructure.Entities;
 using AutoMapper;
-using YourScheduler.WebApplication.Middlewares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
+using YourScheduler.BusinessLogic.Initialization;
 using YourScheduler.BusinessLogic.Services.Settings;
+using YourScheduler.Infrastructure;
+using YourScheduler.Infrastructure.Entities;
+using YourScheduler.Infrastructure.Initialization;
+using YourScheduler.WebApplication.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,8 +31,25 @@ builder.Services.AddDbContext<YourSchedulerDbContext>(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddAuthentication()
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
+{
+    options.Password.RequiredLength = 8;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.SignIn.RequireConfirmedAccount = false;
+})
+ .AddEntityFrameworkStores<YourSchedulerDbContext>()
+ //.AddRoles<IdentityRole>()
+ //.AddRoleManager<RoleManager<IdentityRole>>()
+ .AddSignInManager<SignInManager<ApplicationUser>>()
+ .AddUserManager<UserManager<ApplicationUser>>()
+ .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddFacebook(options =>
     {
         options.ClientId = builder.Configuration["Authentication:Facebook:ClientId"] ?? throw new Exception("ClientId for Facebook is null");
@@ -37,14 +59,18 @@ builder.Services.AddAuthentication()
     {
         options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? throw new Exception("ClientId for Google is null");
         options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? throw new Exception("ClientSecret for Google is null");
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"])),
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+            ValidateAudience = false
+        };
     });
-
-
-
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
- .AddEntityFrameworkStores<YourSchedulerDbContext>();
 
 builder.Services.AddInfrastructureDependencies(builder.Configuration);
 
@@ -54,7 +80,38 @@ builder.Services.AddAuthorization();
 builder.Services.AddBusinessLogicDependencies();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                     Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+                },
+                new List<string>()
+            }
+   });
+});
+
+
 
 var app = builder.Build();
 
@@ -66,6 +123,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 }
+app.UseCors(options =>
+{
+    options.SetIsOriginAllowed(origin => true);
+    //options.AllowAnyOrigin();
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.AllowCredentials();
+});
 
 app.UseHttpsRedirection();
 
@@ -75,7 +140,7 @@ app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
 
 app.UseRouting();
 
-app.UseAuthentication();;
+app.UseAuthentication();
 
 app.UseAuthorization();
 
@@ -83,6 +148,7 @@ app.MapControllers();
 
 var mapper = app.Services.GetRequiredService<IMapper>();
 mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
 
 app.Run();
 

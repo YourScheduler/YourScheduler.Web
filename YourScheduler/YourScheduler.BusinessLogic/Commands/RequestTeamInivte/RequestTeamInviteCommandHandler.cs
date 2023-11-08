@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System.Security.Claims;
 using YourScheduler.BusinessLogic.Services.Interfaces;
 using YourScheduler.Infrastructure.Entities;
 using YourScheduler.Infrastructure.Repositories.Interfaces;
@@ -27,6 +28,7 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
 
         public async Task<string> Handle(RequestTeamInviteCommand request, CancellationToken cancellationToken)
         {
+            int tokenExpiresInDays = 7;
             var team = await _teamsRepository.GetTeamByIdAsync(request.TeamId);
             var user = await _usersRepository.GetUserByIdAsync(request.UserId);
 
@@ -35,7 +37,10 @@ namespace YourScheduler.BusinessLogic.Commands.RequestTeamInivte
                 throw new Exception("You have recently requested an invite or you are already a team member"); // do zmiany
             }
             
-            var token = _jwtTokenGenerator.GenerateToken(request.UserId, request.TeamId);
+            var token = _jwtTokenGenerator.GenerateToken(new List<Claim> {
+                new Claim("UserId", request.UserId.ToString()),
+                new Claim("TeamId", request.TeamId.ToString())
+            }, tokenExpiresInDays);
             var link = $"https://localhost:7217/api/TeamMember/AcceptTeamInvitation?token={token}"; // change when endpoint is created
             var allTeamRoles = _teamRoleRepository.GetAllTeamRolesForTeamQueryable(request.TeamId).ToList();
 

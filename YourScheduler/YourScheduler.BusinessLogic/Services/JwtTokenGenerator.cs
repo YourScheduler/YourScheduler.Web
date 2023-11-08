@@ -17,7 +17,7 @@ namespace YourScheduler.BusinessLogic.Services
             _jwtSettings = jwtSettings.Value;
         }
 
-        public string GenerateToken(int userId, int teamId)
+        public string GenerateToken(List<Claim> claims, int expiresInDays)
         {
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -25,13 +25,10 @@ namespace YourScheduler.BusinessLogic.Services
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim("UserIdClaim", userId.ToString()),
-                    new Claim("TeamIdClaim", teamId.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature)
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(expiresInDays),
+                SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature),
+                Issuer = _jwtSettings.Issuer,
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
