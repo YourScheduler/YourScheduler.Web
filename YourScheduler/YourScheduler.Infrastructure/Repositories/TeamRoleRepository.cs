@@ -68,5 +68,11 @@ namespace YourScheduler.Infrastructure.Repositories
                 }
             }
         }
+
+
+        public int GetNumberOfRows()
+        {
+            return _dbContext.TeamRoles.Count();
+        }
     }
 }

@@ -387,7 +387,10 @@ namespace YourScheduler.Infrastructure
                     Name = "Infant",
                     TeamRoleId = 18,
                     TeamRoleFlagsId = 3
-                }
+                },
+
+               
+
         };
         public static TeamRoleFlags[] teamRoleFlagsSeed = new TeamRoleFlags[]
         {
