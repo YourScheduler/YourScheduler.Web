@@ -1,84 +1,76 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using YourScheduler.BusinessLogic.Commands.AddUser;
 using YourScheduler.BusinessLogic.Models.DTOs;
-using YourScheduler.BusinessLogic.Services.Interfaces;
+using YourScheduler.BusinessLogic.Queries.GetAllUsers;
+using YourScheduler.BusinessLogic.Queries.GetUserByEmail;
+using YourScheduler.BusinessLogic.Queries.GetUserById;
 
 namespace YourScheduler.UI.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : ControllerBase
     {
+        private readonly IMediator _mediator;
 
-       // private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _signInManager;
-        public UserController()
+        public UserController(IMediator mediator)
         {
-                   
+            _mediator = mediator;
         }
-       // GET: UserController
 
-       //[Authorize]
-       // public ActionResult Index()
-       // {
-       //     var userId = int.Parse(HttpContext.User.Identity.GetUserId());
+        [HttpPost]
+        [Authorize]
+        [Route("AddUser")]
+        public async Task<IActionResult> AddUserAsync([FromBody]ApplicationUserDto applicationUserDto)
+        {
+            var returnedUser = await _mediator.Send(new AddUserCommand(applicationUserDto));
+            return new ObjectResult(returnedUser) { StatusCode = StatusCodes.Status201Created };
+        }
 
+        [HttpGet]
+        [Authorize]
+        [Route("GetUsers")]
+        public async Task<IActionResult> GetUsersAsync()
+        {
+            var returnedUsers = await _mediator.Send(new GetAllUsersQuery());
+            return Ok(returnedUsers);
+        }
 
-       //     var model = _userService.GetUserById(userId);
-       //     return View(model);
-       // }
+        [HttpGet]
+        [Authorize]
+        [Route("GetUserById/{userId}")]
+        public async Task<IActionResult> GetUserById(int userId)
+        {
+            try
+            {
+                var returnedUser = await _mediator.Send(new GetUserByIdQuery(userId));
+                return Ok(returnedUser);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
 
-       // GET: UserController/Details/5
-       // [Route("details/{id:int}")]
-       // public ActionResult Details()
-       // {
-       //     return RedirectToAction("Create", "Event");
-       // }
-
-       // GET: UserController/Create
-       // public ActionResult Create()
-       // {
-       //     return RedirectToAction("Create", "Team");
-       // }
-
-       // POST: UserController/Create
-       //[HttpPost]
-       //[ValidateAntiForgeryToken]
-       // public ActionResult Create(IFormCollection collection)
-       // {
-       //     try
-       //     {
-       //         return RedirectToAction(nameof(Index));
-       //     }
-       //     catch
-       //     {
-       //         return View();
-       //     }
-       // }
-
-       // GET: UserController/Edit/5
-       // [Route("edit/{id:int}")]
-       // public ActionResult Edit(int id)
-       // {
-       //     var model = _userService.GetUserById(id);
-       //     return View(model);
-       // }
-
-       // POST: UserController/Edit/5
-       // [HttpPost]
-       // [ValidateAntiForgeryToken]
-
-       // [Route("edit/{id:int}")]
-       // public ActionResult Edit(int id, ApplicationUserDto userDto)
-       // {
-       //     try
-       //     {
-       //         _userService.UpdateUser(userDto);
-       //         return RedirectToAction(nameof(Index));
-       //     }
-       //     catch
-       //     {
-       //         return View("Error of editing user");
-       //     }
-       // }
+        [HttpGet]
+        [Authorize]
+        [Route("GetUserByEmail/{userEmail}")]
+        public async Task<IActionResult> GetUserByEmail(string userEmail)
+        {
+            try
+            {
+                var returnedUser = await _mediator.Send(new GetUserByEmailQuery(userEmail));
+                return Ok(returnedUser);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+        }
 
     }
 }

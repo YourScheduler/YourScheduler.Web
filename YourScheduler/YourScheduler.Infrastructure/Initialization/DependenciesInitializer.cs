@@ -14,6 +14,8 @@ namespace YourScheduler.Infrastructure.Initialization
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IEventsRepository, EventsRepository>();
             services.AddScoped<ITeamsRepository, TeamsRepository>();
+            services.AddScoped<ITeamRoleRepository, TeamRoleRepository>();
+            services.AddScoped<ITeamMemberRepository, TeamMemberRepository>();
         }
     }
 }

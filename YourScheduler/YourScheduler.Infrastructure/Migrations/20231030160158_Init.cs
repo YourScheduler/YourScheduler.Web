@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YourScheduler.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class YS_TR : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -76,6 +76,33 @@ namespace YourScheduler.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TeamRolesFlags",
+                columns: table => new
+                {
+                    TeamRoleFlagsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CanRemoveTeamMember = table.Column<bool>(type: "bit", nullable: false),
+                    CanAddTeamMember = table.Column<bool>(type: "bit", nullable: false),
+                    CanAddTeamRole = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamRole = table.Column<bool>(type: "bit", nullable: false),
+                    CanRemoveTeamRole = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditRoleFlags = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamPhoto = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditDescription = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamMessage = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamName = table.Column<bool>(type: "bit", nullable: false),
+                    CanAddTeamEvent = table.Column<bool>(type: "bit", nullable: false),
+                    CanEditTeamEvent = table.Column<bool>(type: "bit", nullable: false),
+                    CanRemoveTeamEvent = table.Column<bool>(type: "bit", nullable: false),
+                    CanSendEmailToTeam = table.Column<bool>(type: "bit", nullable: false),
+                    CanViewContent = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamRolesFlags", x => x.TeamRoleFlagsId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
@@ -85,6 +112,7 @@ namespace YourScheduler.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Creator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPrivate = table.Column<bool>(type: "bit", nullable: false),
                     PicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -229,11 +257,18 @@ namespace YourScheduler.Infrastructure.Migrations
                     TeamRoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TeamId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TeamRoleFlagsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TeamRoles", x => x.TeamRoleId);
+                    table.ForeignKey(
+                        name: "FK_TeamRoles_TeamRolesFlags_TeamRoleFlagsId",
+                        column: x => x.TeamRoleFlagsId,
+                        principalTable: "TeamRolesFlags",
+                        principalColumn: "TeamRoleFlagsId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TeamRoles_Teams_TeamId",
                         column: x => x.TeamId,
@@ -273,48 +308,17 @@ namespace YourScheduler.Infrastructure.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "TeamRolesFlags",
-                columns: table => new
-                {
-                    TeamRoleId = table.Column<int>(type: "int", nullable: false),
-                    CanRemoveTeamMember = table.Column<bool>(type: "bit", nullable: false),
-                    CanAddTeamMember = table.Column<bool>(type: "bit", nullable: false),
-                    CanAddTeamRole = table.Column<bool>(type: "bit", nullable: false),
-                    CanEditTeamRole = table.Column<bool>(type: "bit", nullable: false),
-                    CanRemoveTeamRole = table.Column<bool>(type: "bit", nullable: false),
-                    CanEditRoleFlags = table.Column<bool>(type: "bit", nullable: false),
-                    CanEditTeamPhoto = table.Column<bool>(type: "bit", nullable: false),
-                    CanEditDescription = table.Column<bool>(type: "bit", nullable: false),
-                    CanEditTeamMessage = table.Column<bool>(type: "bit", nullable: false),
-                    CanEditTeamName = table.Column<bool>(type: "bit", nullable: false),
-                    CanAddTeamEvent = table.Column<bool>(type: "bit", nullable: false),
-                    CanEditTeamEvent = table.Column<bool>(type: "bit", nullable: false),
-                    CanRemoveTeamEvent = table.Column<bool>(type: "bit", nullable: false),
-                    CanSendEmailToTeam = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeamRolesFlags", x => x.TeamRoleId);
-                    table.ForeignKey(
-                        name: "FK_TeamRolesFlags_TeamRoles_TeamRoleId",
-                        column: x => x.TeamRoleId,
-                        principalTable: "TeamRoles",
-                        principalColumn: "TeamRoleId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Displayname", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { 1, 0, "", "admin", "admin@gmail.com", false, true, null, "admin", "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "APwf8BMOgLKRP0seikdwExHQPNx++6H5XIabOitTaKtCIzcO+qORSlTve96/QvoO0Q==", "111 222 333", false, "D6PMR5MAMAOZHVK67CCSINDDHLHCTNCZ", "admin", false, "admin@gmail.com" },
-                    { 2, 0, "", "kjarzyna", "jarzyna@gmail.com", false, true, null, "Krzysztof", "JARZYNA@GMAIL.COM", "JARZYNA@GMAIL.COM", "AGwcsSu7MqQGaQi4ZPo0h2bbOa11WhRIIUTGJdmqu1P0ExmfY5C9Tl23MSgGchzV2A==", "666 598 456", false, "HJ25DQ7NCSZGCUD6WWSCDRJDU2AHSIT4", "Jarzyna", false, "jarzyna@gmail.com" },
-                    { 3, 0, "", "Jane", "jane_johnson@gmail.com", false, true, null, "Jane", "JANE_JOHNSON@GMAIL.COM", "JANE_JOHNSON@GMAIL.COM", "AGCn+Kd1R2r3CEqnsxkhxhvqM660XXcqPmEJu2uT/uDlYFVeCMtObFVBJV2HBD7d6Q==", "666 598 456", false, "ZVHGK6SAKDV3Y3MEPIDSK5NMOUEHVMXZ", "Johnson", false, "jane_johnson@gmail.com" },
-                    { 4, 0, "", "willmich", "michaelww@gmail.com", false, true, null, "Michael", "MICHAELWW@GMAIL.COM", "MICHAELWW@GMAIL.COM", "ADXiYSXc2jDBaP2pbRpBcM3YAb52kvKASm7vNdtXYox79tkzB7PZ+rMDki2wigRWwg==", "987 654 321", false, "7NR3EVVGCCK5KQJK3LUPU765PDSWXYR3", "Williams", false, "michaelww@gmail.com" },
-                    { 5, 0, "", "william", "joneswilliam@gmail.com", false, true, null, "William", "JONESWILLIAM@GMAIL.COM", "JONESWILLIAM@GMAIL.COM", "AOuVax2TjxtDtDNWt0mJLYVzxksTD9GZHYoqMb6/vZe3sY8NuSp/dCOliqbSxFXV/w==", "123 456 789", false, "6LMEJF3UK3ZWL6JQD3OKFMO7WAJJGDDF", "Jones", false, "joneswilliam@gmail.com" },
-                    { 6, 0, "", "brownie", "oliviab@gmail.com", false, true, null, "Olivia", "OLIVIAB@GMAIL.COM", "OLIVIAB@GMAIL.COM", "AMqTg/5C4uPrLZmGTIvxG7WBeLJrj2bGS0CX9PJpvZDV12cZtPsKDJJAFCw+eLyidg==", "666 598 456", false, "5Q5CIT55BF5SFZKNHETXGUWYEGBN6HLM", "Brown", false, "oliviab@gmail.com" }
+                    { 1, 0, "", "admin", "admin@gmail.com", false, true, null, "admin", "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AA/v9KEji40VQDurgdO+Pn/NR12QGvy5uPHM8f8yt4Htr5VuXjmp6zEvDX8FjG2qRQ==", "111 222 333", false, "OEQF54WKOBXT3PYECABDTKGVCHH6QH45", "admin", false, "admin@gmail.com" },
+                    { 2, 0, "", "kjarzyna", "jarzyna@gmail.com", false, true, null, "Krzysztof", "JARZYNA@GMAIL.COM", "JARZYNA@GMAIL.COM", "ACZ/UvRkaH/GdIyhHWZwn4oRmSlcAFrVtGN8WSWiL0sOwOUSYjFy+J/oAapNbh6afA==", "666 598 456", false, "MOSGZ6MJL3VQ6OXG4NPCTCBELEY7272B", "Jarzyna", false, "jarzyna@gmail.com" },
+                    { 3, 0, "", "Jane", "jane_johnson@gmail.com", false, true, null, "Jane", "JANE_JOHNSON@GMAIL.COM", "JANE_JOHNSON@GMAIL.COM", "AOn3yLW8OkevdA1C9wIR2ttICOyFiUvuSOZ36cBXwk+RTn7fojiYNu39Qm6xT5npyw==", "666 598 456", false, "GXWKCUTQPA76BFZ7TABXMVTKCO4ORCNY", "Johnson", false, "jane_johnson@gmail.com" },
+                    { 4, 0, "", "willmich", "michaelww@gmail.com", false, true, null, "Michael", "MICHAELWW@GMAIL.COM", "MICHAELWW@GMAIL.COM", "AOb4oPS/uQf2XUINDPVz918FX/BPeBHumAFtA3jooujDce+Ux1ZEZ6sWsDkCOVAQ+w==", "987 654 321", false, "XJTQRVJQAEQE3SZXMYCRUVMDIKV2MQ4E", "Williams", false, "michaelww@gmail.com" },
+                    { 5, 0, "", "william", "joneswilliam@gmail.com", false, true, null, "William", "JONESWILLIAM@GMAIL.COM", "JONESWILLIAM@GMAIL.COM", "AH3EJuQOmXz6lJbbaRM05tppDXvUQsVFm/vTmF2FHFt1hf7ceWw/6RJv0/z6ULUy8Q==", "123 456 789", false, "U4N4URGHMGXG64BOWZPPPTX7RB4QEMVA", "Jones", false, "joneswilliam@gmail.com" },
+                    { 6, 0, "", "brownie", "oliviab@gmail.com", false, true, null, "Olivia", "OLIVIAB@GMAIL.COM", "OLIVIAB@GMAIL.COM", "ABq3V2+AjF3unvmloBjP5oqAfBGSs08w9n3v4LMU9rVFqUptLzojAtABb3vvdi1T6Q==", "666 598 456", false, "B7UISGWMP7SVMYXNP334XGNP2RR6BBIG", "Brown", false, "oliviab@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -332,16 +336,26 @@ namespace YourScheduler.Infrastructure.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Teams",
-                columns: new[] { "TeamId", "Creator", "Description", "Message", "Name", "PicturePath" },
+                table: "TeamRolesFlags",
+                columns: new[] { "TeamRoleFlagsId", "CanAddTeamEvent", "CanAddTeamMember", "CanAddTeamRole", "CanEditDescription", "CanEditRoleFlags", "CanEditTeamEvent", "CanEditTeamMessage", "CanEditTeamName", "CanEditTeamPhoto", "CanEditTeamRole", "CanRemoveTeamEvent", "CanRemoveTeamMember", "CanRemoveTeamRole", "CanSendEmailToTeam", "CanViewContent" },
                 values: new object[,]
                 {
-                    { 1, "Olivia", "Grupa szkółki pływackiej Argonaut", null, "Grupa początkująca basen Chełm", "/Pictures/teamId=1.jpg" },
-                    { 2, "Wasyl", "Grupa zrzeszająca mieszkańców osiedla Lawendowe Wzgórze w Gdańsku", null, "Mieszkańcy osiedla Lawendowe Wzgórze", "/Pictures/teamId=2.jpg" },
-                    { 3, "Billy", "Zapraszamy do naszego kreatywnego warsztatu artystycznego, gdzie możesz rozwijać swoje umiejętności w różnych dziedzinach sztuki.", null, "Kreatywny Warsztat Artystyczny", "/Pictures/defaultTeam.jpg" },
-                    { 4, "Maks", "Dołącz do naszego klubu fitness i wellness, gdzie możesz ćwiczyć, relaksować się i dbać o swoje zdrowie pod okiem profesjonalnych instruktorów.", null, "Klub Fitness i Wellness", "/Pictures/teamId=4.jpg" },
-                    { 5, "Kokodźambo", "Zapraszamy do naszego klubu fotograficznego, gdzie pasjonaci fotografii mogą się spotkać, dzielić się wiedzą i rozwijać swoje umiejętności fotograficzne.", null, "Klub Fotograficzny Obiektyw", "/Pictures/defaultTeam.jpg" },
-                    { 6, "PiknaSukna", "Nasze studio tańca Ritmo oferuje różnorodne style taneczne dla osób w każdym wieku, bez względu na poziom zaawansowania.", null, "Studio Tańca Ritmo", "/Pictures/defaultTeam.jpg" }
+                    { 1, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false },
+                    { 2, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
+                    { 3, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Teams",
+                columns: new[] { "TeamId", "Creator", "Description", "IsPrivate", "Message", "Name", "PicturePath" },
+                values: new object[,]
+                {
+                    { 1, "Olivia", "Grupa szkółki pływackiej Argonaut", false, null, "Grupa początkująca basen Chełm", "/Pictures/teamId=1.jpg" },
+                    { 2, "Wasyl", "Grupa zrzeszająca mieszkańców osiedla Lawendowe Wzgórze w Gdańsku", false, null, "Mieszkańcy osiedla Lawendowe Wzgórze", "/Pictures/teamId=2.jpg" },
+                    { 3, "Billy", "Zapraszamy do naszego kreatywnego warsztatu artystycznego, gdzie możesz rozwijać swoje umiejętności w różnych dziedzinach sztuki.", false, null, "Kreatywny Warsztat Artystyczny", "/Pictures/defaultTeam.jpg" },
+                    { 4, "Maks", "Dołącz do naszego klubu fitness i wellness, gdzie możesz ćwiczyć, relaksować się i dbać o swoje zdrowie pod okiem profesjonalnych instruktorów.", false, null, "Klub Fitness i Wellness", "/Pictures/teamId=4.jpg" },
+                    { 5, "Kokodźambo", "Zapraszamy do naszego klubu fotograficznego, gdzie pasjonaci fotografii mogą się spotkać, dzielić się wiedzą i rozwijać swoje umiejętności fotograficzne.", false, null, "Klub Fotograficzny Obiektyw", "/Pictures/defaultTeam.jpg" },
+                    { 6, "PiknaSukna", "Nasze studio tańca Ritmo oferuje różnorodne style taneczne dla osób w każdym wieku, bez względu na poziom zaawansowania.", false, null, "Studio Tańca Ritmo", "/Pictures/defaultTeam.jpg" }
                 });
 
             migrationBuilder.InsertData(
@@ -361,15 +375,27 @@ namespace YourScheduler.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "TeamRoles",
-                columns: new[] { "TeamRoleId", "Name", "TeamId" },
+                columns: new[] { "TeamRoleId", "Name", "TeamId", "TeamRoleFlagsId" },
                 values: new object[,]
                 {
-                    { 1, "Chobok", 1 },
-                    { 2, "Master Blaster", 2 },
-                    { 3, "Perturbator", 3 },
-                    { 4, "Ciastek", 4 },
-                    { 5, "Kaczucha", 5 },
-                    { 6, "Karal", 6 }
+                    { 1, "Invitee", 1, 1 },
+                    { 2, "Admin", 1, 2 },
+                    { 3, "User", 1, 3 },
+                    { 4, "Pending invite", 2, 1 },
+                    { 5, "Boss", 2, 2 },
+                    { 6, "Noob", 2, 3 },
+                    { 7, "Sent confirmation", 3, 1 },
+                    { 8, "The Absolute", 3, 2 },
+                    { 9, "Nobody", 3, 3 },
+                    { 10, "Zaproszony", 4, 1 },
+                    { 11, "Wielki Guru", 4, 2 },
+                    { 12, "Civilian", 4, 3 },
+                    { 13, "Invitee", 5, 1 },
+                    { 14, "Admin", 5, 2 },
+                    { 15, "Guest", 5, 3 },
+                    { 16, "Invitee", 6, 1 },
+                    { 17, "Leader", 6, 2 },
+                    { 18, "Infant", 6, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -377,29 +403,29 @@ namespace YourScheduler.Infrastructure.Migrations
                 columns: new[] { "ApplicationUserId", "TeamId", "TeamRoleId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1 },
-                    { 2, 2, 2 },
-                    { 2, 3, 3 },
-                    { 2, 4, 4 },
-                    { 3, 4, 4 },
-                    { 4, 4, 4 },
-                    { 5, 5, 5 },
-                    { 5, 6, 6 },
-                    { 6, 5, 5 },
-                    { 6, 6, 6 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "TeamRolesFlags",
-                columns: new[] { "TeamRoleId", "CanAddTeamEvent", "CanAddTeamMember", "CanAddTeamRole", "CanEditDescription", "CanEditRoleFlags", "CanEditTeamEvent", "CanEditTeamMessage", "CanEditTeamName", "CanEditTeamPhoto", "CanEditTeamRole", "CanRemoveTeamEvent", "CanRemoveTeamMember", "CanRemoveTeamRole", "CanSendEmailToTeam" },
-                values: new object[,]
-                {
-                    { 1, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                    { 2, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                    { 3, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                    { 4, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                    { 5, true, true, true, true, true, true, true, true, true, true, true, true, true, true },
-                    { 6, true, true, true, true, true, true, true, true, true, true, true, true, true, true }
+                    { 1, 1, 2 },
+                    { 1, 2, 5 },
+                    { 1, 4, 12 },
+                    { 1, 5, 15 },
+                    { 1, 6, 18 },
+                    { 2, 1, 3 },
+                    { 2, 2, 6 },
+                    { 2, 6, 18 },
+                    { 3, 1, 1 },
+                    { 3, 2, 4 },
+                    { 3, 3, 8 },
+                    { 3, 4, 10 },
+                    { 4, 3, 9 },
+                    { 4, 4, 11 },
+                    { 4, 6, 18 },
+                    { 5, 2, 4 },
+                    { 5, 4, 10 },
+                    { 5, 5, 14 },
+                    { 5, 6, 16 },
+                    { 6, 3, 7 },
+                    { 6, 4, 12 },
+                    { 6, 5, 13 },
+                    { 6, 6, 17 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -455,6 +481,11 @@ namespace YourScheduler.Infrastructure.Migrations
                 name: "IX_TeamRoles_TeamId",
                 table: "TeamRoles",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamRoles_TeamRoleFlagsId",
+                table: "TeamRoles",
+                column: "TeamRoleFlagsId");
         }
 
         /// <inheritdoc />
@@ -482,10 +513,10 @@ namespace YourScheduler.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "TeamRolesFlags");
+                name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Events");
+                name: "TeamRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -494,7 +525,7 @@ namespace YourScheduler.Infrastructure.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "TeamRoles");
+                name: "TeamRolesFlags");
 
             migrationBuilder.DropTable(
                 name: "Teams");

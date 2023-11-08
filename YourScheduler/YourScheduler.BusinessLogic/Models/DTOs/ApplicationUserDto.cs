@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿namespace YourScheduler.BusinessLogic.Models.DTOs;
 
-namespace YourScheduler.BusinessLogic.Models.DTOs;
-
-public class ApplicationUserDto : IdentityUser<int>
+public class ApplicationUserDto
 {
 
     public string Name { get; set; } = null!;
@@ -10,5 +8,7 @@ public class ApplicationUserDto : IdentityUser<int>
     public string Surname { get; set; } = null!;
 
     public string Displayname { get; set; } = null!;
+
+    public string Email { get; set; } = null!;
 
 }

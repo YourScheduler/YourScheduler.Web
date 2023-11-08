@@ -3,15 +3,17 @@ using YourScheduler.BusinessLogic.Services.Interfaces;
 using YourScheduler.BusinessLogic.Services.Settings;
 using YourScheduler.Infrastructure.Entities;
 using MailKit.Security;
+using Microsoft.Extensions.Options;
 
 namespace YourScheduler.BusinessLogic.Services
 {
     public class EmailService : IEmailService
     {
         private readonly MailSettings _mailSettings;
-        public EmailService(MailSettings mailSettings)
+
+        public EmailService(IOptions<MailSettings> mailSettings)
         {
-            _mailSettings = mailSettings;
+            _mailSettings = mailSettings.Value;
         }
 
         public void SendEmail(Message message)
@@ -25,7 +27,14 @@ namespace YourScheduler.BusinessLogic.Services
         {
             var emailMessage = new MimeMessage();
             emailMessage.From.Add(MailboxAddress.Parse(_mailSettings.MailAddress));
-            emailMessage.To.Add(MailboxAddress.Parse(message.To));
+            var mailboxAddresses = new List<MailboxAddress>();
+
+            foreach (var email in message.To)
+            {
+                mailboxAddresses.Add(new MailboxAddress("", email));
+            }
+
+            emailMessage.To.AddRange(mailboxAddresses);
             emailMessage.Subject = message.Subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = message.MessageContent };
 
