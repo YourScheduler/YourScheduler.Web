@@ -38,6 +38,7 @@ namespace YourScheduler.WebApplication.Middlewares
         public async Task HandleCustomExceptionAsync(HttpContext context, CustomException customException)
         {
             context.Response.ContentType = "application/json";
+
             context.Response.StatusCode = (int)customException.ProblemDetails.Status;
             var stackTrace = new StackTrace(customException).GetFrame(0);
             customException.ProblemDetails.Instance = $"Declaring Method: {stackTrace?.GetMethod()?.DeclaringType?.Name}" ?? $"Declaring Method could not be found";
