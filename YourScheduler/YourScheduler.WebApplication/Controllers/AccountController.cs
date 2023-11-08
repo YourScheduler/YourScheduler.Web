@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Owin.Security.Provider;
 using System.Security.Claims;
 using YourScheduler.BusinessLogic.Commands.AuthorizeUser;
 using YourScheduler.BusinessLogic.Commands.RegisterUser;
@@ -56,8 +57,12 @@ namespace YourScheduler.WebApplication.Controllers
         [Route("loadUser")]
         public async Task<IActionResult> LoadUser()
         {
-           var response = await _mediator.Send(new RefreshUserQuery(User.FindFirst(ClaimTypes.Email).Value));
-            return Ok(response);
+            var userEmailClaim = User.FindFirst(ClaimTypes.Email);
+            if (userEmailClaim is null)
+                return BadRequest("Email not found in token");
+
+           var response = await _mediator.Send(new RefreshUserQuery(userEmailClaim.Value));
+           return Ok(response);
         }
     }
 }

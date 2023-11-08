@@ -27,7 +27,7 @@ namespace YourScheduler.BusinessLogic.Commands.AuthorizeUser
         public async Task<AuthorizationResponse> Handle(AuthorizeUserCommand request, CancellationToken cancellationToken)
         {
             int tokenExpiresInDays = 2;
-            var user = await _userManager.FindByNameAsync(request.AuthorizationRequest.Email) ?? throw new Exception("User has been successfully sign in but couldn't be found. Identity mistake");
+            var user = await _userManager.FindByNameAsync(request.AuthorizationRequest.Email) ?? throw new AuthorizationException("User couldn't be found.");
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.AuthorizationRequest.Password, false);
 
             if(!result.Succeeded)

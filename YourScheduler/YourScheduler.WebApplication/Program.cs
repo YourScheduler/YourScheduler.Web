@@ -146,8 +146,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
-
 var mapper = app.Services.GetRequiredService<IMapper>();
 mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
